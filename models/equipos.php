@@ -49,7 +49,7 @@ class Equipo extends Database
 
 
 	public function ListadoEquipos(){
-		$query = $this->pdo->query('SELECT * from equipos');
+		$query = $this->pdo->query('SELECT * from equipos where status_ = 1');
 		return $query->fetchAll();	
 	}
 

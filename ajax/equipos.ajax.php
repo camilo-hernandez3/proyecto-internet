@@ -18,7 +18,7 @@ if(isset($_POST["list_dispositivos"])){
 
 if(isset($_POST["id_eliminar"])){
 
-	$user = new Usuario();
+	$user = new Equipo();
 	$id_eliminar= $_POST["id_eliminar"];
     
 	echo json_encode($user -> destroy($id_eliminar));

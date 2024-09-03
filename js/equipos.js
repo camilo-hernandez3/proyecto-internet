@@ -106,7 +106,7 @@ function eliminarUsuario(id_usuario) {
     let datos = new FormData();
     datos.append("id_eliminar", id_usuario);
     Swal.fire({
-        title: `¿Quieres borrar el usuario?`,
+        title: `¿Quieres borrar el equipo?`,
 
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -114,14 +114,14 @@ function eliminarUsuario(id_usuario) {
 
         if (result.isConfirmed) {
             $.ajax({
-                url: "ajax/usuarios.ajax.php",
+                url: "ajax/equipos.ajax.php",
                 method: "POST",
                 data: datos,
                 cache: false,
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    users = users.filter(p => p.id_usuario !== id_usuario)
+                    users = users.filter(p => p.id_equipo !== id_usuario)
                     renderTable();
                 }
             });
