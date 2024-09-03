@@ -115,7 +115,7 @@ function eliminarUsuario(dispositivos) {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    users = users.filter(p => p.id_equipo !== id_equipo)
+                    users = users.filter(p => p.id_equipo !== dispositivos)
                     renderTable();
                 }
             });
