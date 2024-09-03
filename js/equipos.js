@@ -150,6 +150,9 @@ function renderTable(data) {
         const pisoDiv = document.createElement('div');
         pisoDiv.className = 'piso';
 
+
+
+
         // Crear y agregar el encabezado del piso
         const pisoHeader = document.createElement('div');
         pisoHeader.className = 'piso-header';
@@ -157,6 +160,7 @@ function renderTable(data) {
         pisoTitle.textContent = piso.nombre;
         pisoHeader.appendChild(pisoTitle);
         pisoDiv.appendChild(pisoHeader);
+
 
         // Crear un contenedor para los equipos
         const equiposContainer = document.createElement('div');
@@ -167,7 +171,7 @@ function renderTable(data) {
             const equipoDiv = document.createElement('div');
             equipoDiv.className = 'equipo';
 
-            
+
 
             // Agregar el nombre del equipo
             const equipoTitle = document.createElement('h3');
@@ -177,6 +181,33 @@ function renderTable(data) {
             // Agregar los usuarios asociados al equipo
             const usuariosList = document.createElement('ul');
             usuariosList.className = 'usuario-lista';
+
+
+            equipoDiv.addEventListener('click', function () {
+
+                console.log(equipo);
+                
+                let modalContentBody = document.getElementById('modal_content_body');
+
+                modalContentBody.innerHTML = '';
+
+                modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Piso:', piso.nombre, false));
+                modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Descripción:', equipo.nombre_equipo, false));
+                modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Memoria ram:', '4GB', false));
+                modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Procesador:', 'Intel core I5 10°', false));
+
+                if (equipo.usuario_equipos) {
+                    modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Estado:', 'En uso', true));
+                } else {
+
+                    modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Estado:', 'Disponible', true));
+                }
+
+                $('#modal-form-equipos').modal('show');
+
+            });
+
+
 
             if (equipo.usuario_equipos) {
                 equipo.usuario_equipos.forEach(usuario => {
@@ -211,6 +242,32 @@ function renderTable(data) {
         container.appendChild(pisoDiv);
     });
 
+}
+
+
+function crearElemento(divClass, spanText1, spanText2, isButton = false) {
+    const div = document.createElement('div');
+    div.className = divClass;
+
+    const span1 = document.createElement('span');
+    span1.className = 'fw-bold text-primary-emphasis';
+    span1.textContent = spanText1;
+
+    if (isButton) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'btn btn-success';
+        button.textContent = spanText2;
+        div.appendChild(span1);
+        div.appendChild(button);
+    } else {
+        const span2 = document.createElement('span');
+        span2.textContent = spanText2;
+        div.appendChild(span1);
+        div.appendChild(span2);
+    }
+
+    return div;
 }
 
 

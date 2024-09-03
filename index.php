@@ -47,7 +47,7 @@ if (isset($_POST['btningresar'])) {
 		<div class="login-content">
 			<form method="POST">
 				<div class="title-container">
-					<img src="./img/logo.png" alt="Icono" class="icon">
+					<!-- <img src="./img/logo.png" alt="Icono" class="icon"> -->
 					<h2 class="title">BIENVENIDO</h2>
 				</div>
 				<div class="input-div one">

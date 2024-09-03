@@ -64,41 +64,52 @@ $eqs = $equipos->index();
     <style>
         .piso {
             margin-bottom: 20px;
+            cursor: pointer;
         }
+
         .piso-header {
             margin-bottom: 10px;
         }
+
         .equipos-container {
             display: flex;
-            overflow-x: auto; /* Permite desplazamiento horizontal si hay muchos equipos */
+            overflow-x: auto;
+            /* Permite desplazamiento horizontal si hay muchos equipos */
             padding: 10px 0;
-            gap: 20px; /* Espacio entre los equipos */
+            gap: 20px;
+            /* Espacio entre los equipos */
         }
+
         .equipo {
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
             background-color: #f9f9f9;
-            min-width: 150px; /* Ajusta el tamaño mínimo de cada equipo */
+            min-width: 150px;
+            /* Ajusta el tamaño mínimo de cada equipo */
             box-sizing: border-box;
-           
+
         }
 
-        .equipo_green{
+        .equipo_green {
             background-color: green;
         }
+
         .equipo h3 {
             margin: 0;
             font-size: 16px;
         }
+
         .usuario-lista {
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
+
         .usuario-lista li {
             font-size: 14px;
         }
+
         .status-verde {
             background-color: green;
             color: white;
@@ -221,6 +232,32 @@ $eqs = $equipos->index();
 
         <!--secondary content -->
     </main>
+
+    <div class="modal fade" id="modal-form-equipos" tabindex="999999" style="z-index: 9999999" role="dialog"
+        aria-labelledby="modal-form" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-uppercase font-weight-bold">Detalle equipo
+                    </h4>
+                    <button type="button" class="btn bg-gradient-danger" data-bs-dismiss="modal">X</button>
+
+                </div>
+                <div class="modal-body p-0">
+                    <div class="card card-plain">
+                        <div class="card-body text-start">
+                            <form role="form text-left">
+                                <div class="form-group" id="modal_content_body">
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- config interface -->
     <div class="fixed-plugin">
         <div class="card shadow-lg">
