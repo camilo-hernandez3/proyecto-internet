@@ -193,10 +193,12 @@ function renderTable(data) {
 
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Piso:', piso.nombre, false));
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Descripción:', equipo.nombre_equipo, false));
-                modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Memoria ram:', '4GB', false));
-                modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Procesador:', 'Intel core I5 10°', false));
+                modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Memoria ram:',  equipo.ram,  false));
+                modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Procesador:', equipo.procesador, false));
+                modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Almacenamiento:', equipo.almacenamiento, false));
 
                 if (equipo.usuario_equipos) {
+                    modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Usuario:',equipo.usuario_equipos[0].nombre_user, false));
                     modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Estado:', 'En uso', true));
                 } else {
 

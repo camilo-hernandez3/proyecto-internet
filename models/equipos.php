@@ -15,6 +15,9 @@ class Equipo extends Database
             JSON_OBJECT(
                 "id_equipo", e.id_equipo,
                 "nombre_equipo", e.descripcion,
+                "ram", e.ram,
+                "procesador", e.procesador,
+                "almacenamiento", e.almacenamiento,
                 "usuario_equipos", (
                     SELECT JSON_ARRAYAGG(
                         JSON_OBJECT(
