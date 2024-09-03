@@ -48,6 +48,12 @@ class Equipo extends Database
 	}
 
 
+	public function ListadoEquipos(){
+		$query = $this->pdo->query('SELECT * from equipos');
+		return $query->fetchAll();	
+	}
+
+
 	public function show($id_equipo)
 	{
 		$query = $this->pdo->query('SELECT * FROM equipo where id_equipo =' . $id_equipo);

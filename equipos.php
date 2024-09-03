@@ -1,9 +1,11 @@
 <?php
 include_once("conexion.php");
 include_once("Consultas.php");
-
+require('./models/venta.php');
+require('./models/articulo.php');
+require('./models/categoria.php');
+require('./models/gastos.php');
 require('./models/usuario.php');
-require('./models/equipos.php');
 
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: index.php");
@@ -13,9 +15,9 @@ if (!isset($_SESSION['id_usuario'])) {
 
 $rol = intval($_SESSION['rol']);
 
-$equipos = new Equipo();
+$usuarios = new Usuario();
 
-$eqs = $equipos->index();
+$roles = $usuarios->allroles();
 
 ?>
 <!DOCTYPE html>
@@ -60,61 +62,6 @@ $eqs = $equipos->index();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         integrity="sha512-dy5PEnU+g4HRQnD6uPXU5d8VU9V9WvSj+G8xRQNgi9l4ebwnzmtv+pW2faa5zjrI9qMGl5VpBaDKk9G1t0Bi9zg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <style>
-        .piso {
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
-
-        .piso-header {
-            margin-bottom: 10px;
-        }
-
-        .equipos-container {
-            display: flex;
-            overflow-x: auto;
-            /* Permite desplazamiento horizontal si hay muchos equipos */
-            padding: 10px 0;
-            gap: 20px;
-            /* Espacio entre los equipos */
-        }
-
-        .equipo {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            min-width: 150px;
-            /* Ajusta el tamaño mínimo de cada equipo */
-            box-sizing: border-box;
-
-        }
-
-        .equipo_green {
-            background-color: green;
-        }
-
-        .equipo h3 {
-            margin: 0;
-            font-size: 16px;
-        }
-
-        .usuario-lista {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .usuario-lista li {
-            font-size: 14px;
-        }
-
-        .status-verde {
-            background-color: green;
-            color: white;
-        }
-    </style>
 
 </head>
 
@@ -226,11 +173,122 @@ $eqs = $equipos->index();
                                 <div class="col-xl-4 d-flex align-items-center text-uppercase">
                                     <h4 class="font-weight-bolder">Equipos</h4>
                                 </div>
+                                <div class="col-xl-8 text-end">
+                                    <div class="d-flex justify-content-end mb-2">
+                                        <div>
+                                            <!--  <button type="button" onclick="printProductsPDF('data_table_products_export')"
+                                                class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
+                                                    class="fas fa-file-pdf"></i> EXPORTAR A PDF</button> -->
+                                            <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
+                                                style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
+                                                <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear equipo</button>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="modal-form-users" tabindex="999999" style="z-index: 9999999"
+                                        role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title text-uppercase font-weight-bold">Crear usuario
+                                                    </h4>
+                                                    <button type="button" class="btn bg-gradient-danger"
+                                                        data-bs-dismiss="modal">X</button>
 
+                                                </div>
+                                                <div class="modal-body p-0">
+                                                    <div class="card card-plain">
+                                                        <div class="card-body text-start">
+                                                            <form role="form text-left">
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                                class="col-form-label text-uppercase">Nombres</label>
+                                                                            <input id="user_name" type="text"
+                                                                                placeholder="Nombres"
+                                                                                class="form-control" />
+                                                                        </div>
+
+
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                                class="col-form-label text-uppercase">Correo</label>
+                                                                            <input class="form-control" type="text"
+                                                                                id="email" placeholder="Correo">
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                                class="col-form-label text-uppercase">Password</label>
+                                                                            <input class="form-control" type="text"
+                                                                                id="password" placeholder="Password">
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                                class="col-form-label text-uppercase">Rol</label>
+                                                                            <select class="form-control"
+                                                                                name="choices-button" id="rol_selected"
+                                                                                placeholder="Departure">
+                                                                                <?php foreach ($roles as $r) { ?>
+                                                                                    <option value="<?php echo $r->id_rol ?>">
+                                                                                        <?php echo $r->nombre ?>
+                                                                                    </option>
+                                                                                <?php } ?>
+                                                                            </select>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button type="button" id="confirmButton"
+                                                                        onclick="saveUser()"
+                                                                        class="btn btn-round btn-lg w-100 mt-4 mb-0 text-uppercase"
+                                                                        style="background: #5e72e4; color:white">guardar
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="pb-2 p-3" id="container_equipos">
+                        <div id="data_table_users_export" class="table-responsive">
+                            <table class="table align-items-center mb-0" id="data_table_dispositivos">
+                                <thead>
+                                    <tr>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Descripción</th>
 
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Dirección Ip</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Dirección Mac</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Piso</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Memoria ram</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Procesador</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Almacenamiento</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -239,33 +297,8 @@ $eqs = $equipos->index();
         </div>
         </div>
 
+        <!--secondary content -->
     </main>
-
-    <div class="modal fade" id="modal-form-equipos" tabindex="999999" style="z-index: 9999999" role="dialog"
-        aria-labelledby="modal-form" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title text-uppercase font-weight-bold">Detalle equipo
-                    </h4>
-                    <button type="button" class="btn bg-gradient-danger" data-bs-dismiss="modal">X</button>
-
-                </div>
-                <div class="modal-body p-0">
-                    <div class="card card-plain">
-                        <div class="card-body text-start">
-                            <form role="form text-left">
-                                <div class="form-group" id="modal_content_body">
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- config interface -->
     <div class="fixed-plugin">
         <div class="card shadow-lg">
@@ -289,7 +322,7 @@ $eqs = $equipos->index();
 
 
     <script src="js/login.js"></script>
-    <script src="js/equipos.js"></script>
+    <script src="js/dispositivos.js"></script>
 
 
     <script src="assets/js/core/popper.min.js"></script>

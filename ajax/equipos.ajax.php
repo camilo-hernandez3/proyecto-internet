@@ -9,6 +9,13 @@ if(isset($_POST["all"])){
 
 }
 
+if(isset($_POST["list_dispositivos"])){
+
+	$equipo = new Equipo();
+	echo json_encode($equipo -> ListadoEquipos());
+
+}
+
 if(isset($_POST["id_eliminar"])){
 
 	$user = new Usuario();
