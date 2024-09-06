@@ -123,6 +123,8 @@ $eqs = $equipos->index();
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;">></div>
+
+   
     <!-- sidebar -->
     <aside
         class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
@@ -264,6 +266,7 @@ $eqs = $equipos->index();
                 </div>
             </div>
         </div>
+        <div id="table-container"></div>
     </div>
 
     <!-- config interface -->
@@ -286,6 +289,7 @@ $eqs = $equipos->index();
             </div>
         </div>
     </div>
+
 
 
     <script src="js/login.js"></script>

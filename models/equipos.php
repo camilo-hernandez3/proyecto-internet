@@ -59,6 +59,11 @@ class Equipo extends Database
 		$query = $this->pdo->query('SELECT * FROM equipo where id_equipo =' . $id_equipo);
 		return $query->fetch();
 	}
+	public function historial($id_equipo)
+	{
+		$query = $this->pdo->query('SELECT * FROM usuario_equipo where equipos_id_equipo =' . $id_equipo);
+		return $query->fetchAll();
+	}
 
 	public function store($usuario)
 	{

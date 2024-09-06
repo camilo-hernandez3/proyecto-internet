@@ -1,7 +1,7 @@
 selectedUser = null;
 users
 
- = [];
+    = [];
 
 
 getUsers();
@@ -48,7 +48,7 @@ function guardarUsuario(nombres, email, password, selected_rol) {
 
     let selectedText = rol.options[rol.selectedIndex].text;
     console.log(newUser);
-    
+
 
     $.ajax({
         url: "ajax/usuarios.ajax.php",
@@ -66,8 +66,8 @@ function guardarUsuario(nombres, email, password, selected_rol) {
             });
             let newUser = JSON.parse(response);
             users
-            
-            .push({ ...newUser, rol_id_rol: selectedText })
+
+                .push({ ...newUser, rol_id_rol: selectedText })
 
             renderTable();
             $('#modal-form-users').modal('hide');
@@ -133,51 +133,57 @@ function renderTable() {
     for (var i = filas.length - 1; i > 0; i--) {
         tabla.deleteRow(i);
     }
-    users
+
+    console.log(users);
     
-    .forEach(pr => {
-        let nuevaFila = document.createElement("tr");
-        nuevaFila.classList.add('text-center', 'text-uppercase', 'text-black', 'text-xs', 'font-weight-bolder');
-        var precioVentaFormateado = parseFloat(pr.precio_venta).toLocaleString('es-CO');
-        // Define el contenido de cada celda
-        let contenidoCeldas = [
-            pr.nombre,
-            pr.email,
-            ` <a data-bs-toggle="tooltip" title="Borrar" class="text-danger font-weight-bold text-xs"   onclick="eliminarUsuario(${pr.id_usuario})"><i class="fas fa-trash" style='font-size:24px'></i></a>`
-        ];
-        // Itera sobre el contenido de las celdas y crea celdas <td>
-        contenidoCeldas.forEach(function (contenido) {
-            var celda = document.createElement("td");
-            var parrafo = document.createElement("p");
-            parrafo.innerHTML = contenido;
-            celda.appendChild(parrafo);
-            nuevaFila.appendChild(celda);
+    users
+
+        .forEach(pr => {
+            let nuevaFila = document.createElement("tr");
+            nuevaFila.classList.add('text-center', 'text-uppercase', 'text-black', 'text-xs', 'font-weight-bolder');
+            var precioVentaFormateado = parseFloat(pr.precio_venta).toLocaleString('es-CO');
+
+
+            let contenidoCeldas = [
+                pr.nombre,
+                pr.email,
+                ` <a data-bs-toggle="tooltip" title="Borrar" class="text-danger font-weight-bold text-xs"   onclick="eliminarUsuario(${pr.id_usuario})"><i class="fas fa-trash" style='font-size:24px'></i></a>`
+            ];
+
+
+            contenidoCeldas.forEach(function (contenido) {
+                var celda = document.createElement("td");
+                var parrafo = document.createElement("p");
+                parrafo.innerHTML = contenido;
+                celda.appendChild(parrafo);
+                nuevaFila.appendChild(celda);
+            });
+
+
+            tabla.querySelector("tbody").appendChild(nuevaFila);
         });
-        // Agrega la nueva fila a la tabla
-        tabla.querySelector("tbody").appendChild(nuevaFila);
-    });
 }
 
 function renderUsers(data) {
     users
-    
-     = JSON.parse(data);
+
+        = JSON.parse(data);
     renderTable();
 
 }
 
 function saveUser() {
     let nombres = document.getElementById('user_name').value;
-    
+
     let password = document.getElementById('password').value;
     let email = document.getElementById('email').value;
 
     let selected_rol = document.getElementById('rol_selected').value;
 
-   /*  if (selectedUser) {
-        saveEditProduct(nombre, cantidad, precio, stockMaximo, selectCategoria);
-        return;
-    } */
+    /*  if (selectedUser) {
+         saveEditProduct(nombre, cantidad, precio, stockMaximo, selectCategoria);
+         return;
+     } */
     guardarUsuario(nombres,
         email,
         password,
@@ -218,24 +224,24 @@ function saveEditProduct(nombre, cantidad, precio, stockMaximo, selectCategoria)
             });
 
             users
-            
-             = users
-            
-            .map(ar => {
-                if (ar.id_articulo === selectedUser.id_articulo) {
-                    return {
-                        ...ar,
-                        nombre: nombre,
-                        precio_venta: precio,
-                        stock: cantidad,
-                        categoria_id_categoria: selectCategoria,
-                        stock_deseado: stockMaximo,
-                        categoria: selectedText
-                    }
 
-                }
-                return ar
-            })
+                = users
+
+                    .map(ar => {
+                        if (ar.id_articulo === selectedUser.id_articulo) {
+                            return {
+                                ...ar,
+                                nombre: nombre,
+                                precio_venta: precio,
+                                stock: cantidad,
+                                categoria_id_categoria: selectCategoria,
+                                stock_deseado: stockMaximo,
+                                categoria: selectedText
+                            }
+
+                        }
+                        return ar
+                    })
 
             renderTable();
             selectedUser = null;

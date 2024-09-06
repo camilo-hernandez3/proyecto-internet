@@ -186,24 +186,49 @@ function renderTable(data) {
             equipoDiv.addEventListener('click', function () {
 
                 console.log(equipo);
-                
+
                 let modalContentBody = document.getElementById('modal_content_body');
 
                 modalContentBody.innerHTML = '';
 
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Piso:', piso.nombre, false));
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Descripción:', equipo.nombre_equipo, false));
-                modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Memoria ram:',  equipo.ram,  false));
+                modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Memoria ram:', equipo.ram, false));
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Procesador:', equipo.procesador, false));
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Almacenamiento:', equipo.almacenamiento, false));
 
                 if (equipo.usuario_equipos) {
-                    modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Usuario:',equipo.usuario_equipos[0].nombre_user, false));
+                    modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Usuario:', equipo.usuario_equipos[0].nombre_user, false));
                     modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Estado:', 'En uso', true));
                 } else {
 
                     modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Estado:', 'Disponible', true));
+
                 }
+
+
+                const div2 = document.createElement('div');
+                div2.className = 'd-flex justify-content-between mb-2';
+
+                const span1 = document.createElement('span');
+                span1.className = 'fw-bold text-primary-emphasis';
+                span1.textContent = 'Historial';
+
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'btn btn-danger';
+                button.textContent = 'Historial';
+
+                button.addEventListener('click', function () {
+                    generatePDF(equipo)
+                });
+
+                div2.appendChild(span1);
+                div2.appendChild(button);
+                modalContentBody.appendChild(div2)
+
+
 
                 $('#modal-form-equipos').modal('show');
 
@@ -243,6 +268,144 @@ function renderTable(data) {
         pisoDiv.appendChild(equiposContainer);
         container.appendChild(pisoDiv);
     });
+
+}
+
+function generatePDF(data) {
+
+    let datos = new FormData();
+
+    datos.append('historial', 'historial');
+    datos.append('id_equipo', data.id_equipo);
+
+    $.ajax({
+        url: "ajax/equipos.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+            renderDataPDF(response)
+
+        }
+    });
+
+
+
+}
+
+function renderDataPDF(response) {
+    let data = JSON.parse(response);
+
+
+
+    const table = document.createElement('table');
+    table.id = 'miTabla';
+
+    // Crear el encabezado de la tabla
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    const headers = ['Usuario', 'Equipo', 'fecha Ingreso'];
+    headers.forEach(headerText => {
+        const th = document.createElement('th');
+        th.textContent = headerText;
+        headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // Crear el cuerpo de la tabla
+    const tbody = document.createElement('tbody');
+    data.forEach(dato => {
+        const tr = document.createElement('tr');
+
+        const tdNombre = document.createElement('td');
+        tdNombre.textContent = dato.id_usuario_equipo;
+        tr.appendChild(tdNombre);
+
+        const tdEdad = document.createElement('td');
+        tdEdad.textContent = dato.equipos_id_equipo;
+        tr.appendChild(tdEdad);
+
+        const tdCiudad = document.createElement('td');
+        tdCiudad.textContent = dato.fecha_inicio;
+        tr.appendChild(tdCiudad);
+
+        tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+
+
+
+    console.log(table);
+
+
+
+    let printContents;
+    let popupWin;
+    printContents = document.getElementById('table-container');
+    console.log(printContents);
+
+
+    if (printContents) {
+        printContents.innerHTML(table);
+
+    }
+
+
+    console.log(printContents);
+
+
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html lang="es">
+        <head>
+          <link id="theme-link" rel="stylesheet" type="text/css" href="styles.css">
+          <style>
+          @media print {
+            ::ng-deep {
+              .p-sidebar-header
+                display: none
+            }
+
+            .table-container{
+              margin: 1rem 0;
+              padding: 0 1rem;
+              height: auto !important;
+            }
+
+            tr, th {
+              border-color: var(--surface-300);
+              border-bottom: 1px solid black;
+              border-top: 1px solid black;
+              border-collapse: collapse;
+              padding: .5rem;
+            }
+
+            td {
+              padding: .5rem;
+            }
+
+            .table-container, .p-sidebar-content, .order-summary-container {
+              overflow: unset
+            }
+
+            .btn-pdf {
+              display: none
+            }
+          }
+          </style>
+        </head>
+        <body onload="window.print();window.close()">${printContents}</body>
+      </html>`);
+    popupWin.document.close();
+
+
+
+
 
 }
 

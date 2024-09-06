@@ -32,3 +32,11 @@ if(isset($_POST["new_user"])){
 	echo json_encode($user -> store($newUser));
 
 }
+
+if(isset($_POST["historial"])){
+
+	$equipo = new Equipo();
+	$id_equipo= $_POST["id_equipo"];
+	echo json_encode($equipo -> historial($id_equipo));
+
+}
