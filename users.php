@@ -176,9 +176,9 @@ $roles = $usuarios->allroles();
                                 <div class="col-xl-8 text-end">
                                     <div class="d-flex justify-content-end mb-2">
                                         <div>
-                                            <!--  <button type="button" onclick="printProductsPDF('data_table_products_export')"
+                                              <button type="button" onclick="printUsuariosPDF('data_table_users_export')"
                                                 class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
-                                                    class="fas fa-file-pdf"></i> EXPORTAR A PDF</button> -->
+                                                    class="fas fa-file-pdf"></i> EXPORTAR A PDF</button> 
                                             <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
                                                 style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
                                                 <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear usuario</button>
