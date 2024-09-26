@@ -23,7 +23,8 @@ class Equipo extends Database
                         JSON_OBJECT(
                             "id_usuario", ue.usuarios_id_usuario,
                             "status", ue.status_,
-							"nombre_user", u.nombre
+							"nombre_user", u.nombre,
+							"fecha_inicio", ue.fecha_inicio
                         )
                     )
                     FROM usuario_equipo ue

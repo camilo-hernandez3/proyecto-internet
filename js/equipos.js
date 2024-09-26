@@ -248,6 +248,24 @@ function renderTable(data) {
                         equipoTitle.classList.add('status-verde');
                     }
 
+                    const duration = document.createElement('li');
+
+                    const fechaInicio = new Date(usuario.fecha_inicio);
+                    const ahora = new Date();
+
+                    const diferencia = ahora - fechaInicio;
+
+
+                    const segundos = Math.floor((diferencia / 1000) % 60);
+                    const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
+                    const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+                    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+
+
+                    duration.textContent = `Duración: ${horas} : ${minutos} : ${segundos}`;
+
+
+                    usuariosList.appendChild(duration);
                     usuariosList.appendChild(usuarioItem);
 
                     const imagen = document.createElement('img');
@@ -299,6 +317,8 @@ function generatePDF(data) {
 function renderDataPDF(response) {
     let data = JSON.parse(response);
 
+    console.log(response);
+
 
 
     const table = document.createElement('table');
@@ -307,7 +327,7 @@ function renderDataPDF(response) {
     // Crear el encabezado de la tabla
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
-    const headers = ['Usuario', 'Equipo', 'fecha Ingreso'];
+    const headers = ['Usuario', 'Equipo', 'fecha Ingreso', 'fecha Salida', 'Duración'];
     headers.forEach(headerText => {
         const th = document.createElement('th');
         th.textContent = headerText;
@@ -333,29 +353,48 @@ function renderDataPDF(response) {
         tdCiudad.textContent = dato.fecha_inicio;
         tr.appendChild(tdCiudad);
 
+        const tdSalida = document.createElement('td');
+        tdSalida.textContent = dato.fecha_final;
+        tr.appendChild(tdSalida);
+
+
+
+        const fechaInicio = new Date(dato.fecha_inicio);
+        const ahora = new Date(dato.fecha_final);
+
+        const diferencia = ahora - fechaInicio;
+
+
+        const segundos = Math.floor((diferencia / 1000) % 60);
+        const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
+        const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+
+
+
+        const duration = document.createElement('td');
+        duration.textContent = `${horas} : ${minutos} : ${segundos}`;
+        tr.appendChild(duration);
+
         tbody.appendChild(tr);
     });
     table.appendChild(tbody);
 
+    let divCont = document.createElement('div');
+    divCont.id = 'div-cont'
+    divCont.appendChild(table);
+    document.body.appendChild(divCont);
 
 
-    console.log(table);
 
 
 
-    let printContents;
+    let printContents = document.getElementById('div-cont').innerHTML;;
     let popupWin;
-    printContents = document.getElementById('table-container');
-    console.log(printContents);
 
 
-    if (printContents) {
-        printContents.innerHTML(table);
+    console.log(divCont);
 
-    }
-
-
-    console.log(printContents);
 
 
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
