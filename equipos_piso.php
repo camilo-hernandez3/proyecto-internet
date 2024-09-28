@@ -243,7 +243,6 @@ $eqs = $equipos->index();
 
     </main>
 
-    <div id="table-container"></div>
 
     <div class="modal fade" id="modal-form-equipos" tabindex="999999" style="z-index: 9999999" role="dialog"
         aria-labelledby="modal-form" aria-hidden="true">
