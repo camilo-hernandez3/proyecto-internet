@@ -137,13 +137,18 @@ function renderTable(data) {
     let container = document.getElementById("container_equipos");
     container.innerHTML = '';
 
-    data = data.map(el => {
+    console.log(data);
+    
+
+    data = data.data.map(el => {
         return {
             ...el,
             equipos: JSON.parse(el.equipos)
         }
-    }).filter(pi => pi.equipos[0].id_equipo !== null);
+    }).filter(pi => pi.equipos[0].id_equipo !== null && pi.supervisa > 0);
 
+    console.log(data);
+    
 
     data.forEach(piso => {
         // Crear un contenedor para el piso
@@ -196,6 +201,8 @@ function renderTable(data) {
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Memoria ram:', equipo.ram, false));
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Procesador:', equipo.procesador, false));
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Almacenamiento:', equipo.almacenamiento, false));
+                console.log(equipo);
+                
 
                 if (equipo.usuario_equipos) {
                     modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Usuario:', equipo.usuario_equipos[0].nombre_user, false));

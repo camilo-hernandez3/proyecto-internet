@@ -6,9 +6,61 @@ class Equipo extends Database
 {
 
 
-	public function index()
+	public function index($usuario)
 	{
-		$query = $this->pdo->query('SELECT 
+
+		$rol = $_SESSION['rol'];
+		$query = "";
+
+		$query = $this->pdo->prepare('SELECT 
+        p.id_piso,
+        p.nombre,
+        JSON_ARRAYAGG(
+            JSON_OBJECT(
+                "id_equipo", e.id_equipo,
+                "nombre_equipo", e.descripcion,
+                "ram", e.ram,
+                "procesador", e.procesador,
+                "almacenamiento", e.almacenamiento,
+                "usuario_equipos", (
+                    SELECT JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                            "id_usuario", ue.usuarios_id_usuario,
+                            "status", ue.status_,
+                            "nombre_user", u.nombre,
+                            "fecha_inicio", ue.fecha_inicio
+                        )
+                    )
+                    FROM usuario_equipo ue
+                    JOIN usuarios u ON ue.usuarios_id_usuario = u.id_usuario
+                    WHERE ue.equipos_id_equipo = e.id_equipo AND ue.status_ = 1 AND ue.fecha_final IS NULL
+                )
+            )
+        ) AS equipos,
+        (SELECT COUNT(*) > 0 
+         FROM usuarios_has_piso uh
+         WHERE uh.piso_id_piso = p.id_piso AND uh.usuarios_id_usuario = :usuario_id) AS supervisa
+    FROM 
+        piso p
+    LEFT JOIN 
+        equipos e ON p.id_piso = e.piso_id_piso
+    GROUP BY 
+        p.id_piso');
+
+			// Asignar el valor del parámetro
+			$query->bindParam(':usuario_id',$usuario, PDO::PARAM_INT);
+
+			// Ejecutar la consulta
+			$query->execute();
+
+			// Obtener los resultados
+			return $query->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+		/* if ($rol === 1) {
+
+			$query = $this->pdo->query('SELECT 
         p.id_piso,
         p.nombre,
         JSON_ARRAYAGG(
@@ -29,17 +81,69 @@ class Equipo extends Database
                     )
                     FROM usuario_equipo ue
 					JOIN usuarios u ON ue.usuarios_id_usuario = u.id_usuario
-                    WHERE ue.equipos_id_equipo = e.id_equipo AND ue.status_ = 1
+                    WHERE ue.equipos_id_equipo = e.id_equipo AND ue.status_ = 1 AND ue.fecha_final <> NULL
                 )
             )
-        ) AS equipos
+			) AS equipos
+		FROM 
+			piso p
+		LEFT JOIN 
+			equipos e ON p.id_piso = e.piso_id_piso
+		GROUP BY 
+			p.id_piso');
+
+		} else {
+
+			$query = $this->pdo->prepare('SELECT 
+        p.id_piso,
+        p.nombre,
+        JSON_ARRAYAGG(
+            JSON_OBJECT(
+                "id_equipo", e.id_equipo,
+                "nombre_equipo", e.descripcion,
+                "ram", e.ram,
+                "procesador", e.procesador,
+                "almacenamiento", e.almacenamiento,
+                "usuario_equipos", (
+                    SELECT JSON_ARRAYAGG(
+                        JSON_OBJECT(
+                            "id_usuario", ue.usuarios_id_usuario,
+                            "status", ue.status_,
+                            "nombre_user", u.nombre,
+                            "fecha_inicio", ue.fecha_inicio
+                        )
+                    )
+                    FROM usuario_equipo ue
+                    JOIN usuarios u ON ue.usuarios_id_usuario = u.id_usuario
+                    WHERE ue.equipos_id_equipo = e.id_equipo AND ue.status_ = 1 AND ue.fecha_final <> NULL
+                )
+            )
+        ) AS equipos,
+        (SELECT COUNT(*) > 0 
+         FROM usuarios_has_piso uh
+         WHERE uh.piso_id_piso = p.id_piso AND uh.usuarios_id_usuario = :usuario_id) AS supervisa
     FROM 
         piso p
     LEFT JOIN 
         equipos e ON p.id_piso = e.piso_id_piso
     GROUP BY 
         p.id_piso');
-		return $query->fetchAll();
+
+
+			$query->bindParam(':usuario_id', $usuario, PDO::PARAM_INT);
+
+
+			$query->execute();
+
+
+			return $query->fetchAll(PDO::FETCH_ASSOC);
+
+		}
+
+
+
+
+		return $query->fetchAll(); */
 	}
 
 	public function destroy($id)
@@ -49,9 +153,10 @@ class Equipo extends Database
 	}
 
 
-	public function ListadoEquipos(){
+	public function ListadoEquipos()
+	{
 		$query = $this->pdo->query('SELECT * from equipos where status_ = 1');
-		return $query->fetchAll();	
+		return $query->fetchAll();
 	}
 
 

@@ -2,10 +2,20 @@
 require_once "../models/equipos.php";
 
 
+session_start();
+$var_session = $_SESSION['id_usuario'];
+$rol = $_SESSION['rol'];
+
+
 if(isset($_POST["all"])){
 
 	$equipo = new Equipo();
-	echo json_encode($equipo -> index());
+	$response = [
+		'rol' => $rol,
+		'data' => $equipo -> index($var_session)
+	];
+
+	echo json_encode($response);
 
 }
 

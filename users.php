@@ -87,38 +87,38 @@ $roles = $usuarios->allroles();
             <ul class="navbar-nav">
 
 
-                <?php if ($rol === 1) { ?>
-                    <li class="nav-item mt-3">
-                        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="users.php">
-                            <div
-                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fa fa-user text-primary text-sm opacity-10"></i>
-                            </div>
-                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="equipos_piso.php">
-                            <div
-                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fa fa-building text-primary text-sm opacity-10"></i>
-                            </div>
-                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="equipos.php">
-                            <div
-                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
-                            </div>
-                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
-                        </a>
-                    </li>
-                <?php } ?>
+
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="users.php">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-user text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="equipos_piso.php">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-building text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="equipos.php">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
+                    </a>
+                </li>
+
 
 
 
@@ -164,88 +164,87 @@ $roles = $usuarios->allroles();
         </nav>
 
         <div class="container-fluid py-4">
-            <?php if ($rol === 1) { ?>
-                <div class="col-xl-12 mt-2 mb-2">
-                    <div class="card">
-                        <div class="card-header pb-4">
 
-                            <div class="row pb-2 p-3">
-                                <div class="col-xl-4 d-flex align-items-center text-uppercase">
-                                    <h4 class="font-weight-bolder">Usuarios</h4>
-                                </div>
-                                <div class="col-xl-8 text-end">
-                                    <div class="d-flex justify-content-end mb-2">
-                                        <div>
-                                              <button type="button" onclick="printUsuariosPDF('data_table_users_export')"
-                                                class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
-                                                    class="fas fa-file-pdf"></i> EXPORTAR A PDF</button> 
-                                            <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
-                                                style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
-                                                <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear usuario</button>
-                                        </div>
+            <div class="col-xl-12 mt-2 mb-2">
+                <div class="card">
+                    <div class="card-header pb-4">
+
+                        <div class="row pb-2 p-3">
+                            <div class="col-xl-4 d-flex align-items-center text-uppercase">
+                                <h4 class="font-weight-bolder">Usuarios</h4>
+                            </div>
+                            <div class="col-xl-8 text-end">
+                                <div class="d-flex justify-content-end mb-2">
+                                    <div>
+                                        <button type="button" onclick="printUsuariosPDF('data_table_users_export')"
+                                            class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
+                                                class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
+                                        <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
+                                            style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
+                                            <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear usuario</button>
                                     </div>
-                                    <div class="modal fade" id="modal-form-users" tabindex="999999" style="z-index: 9999999"
-                                        role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title text-uppercase font-weight-bold">Crear usuario
-                                                    </h4>
-                                                    <button type="button" class="btn bg-gradient-danger"
-                                                        data-bs-dismiss="modal">X</button>
+                                </div>
+                                <div class="modal fade" id="modal-form-users" tabindex="999999" style="z-index: 9999999"
+                                    role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title text-uppercase font-weight-bold">Crear usuario
+                                                </h4>
+                                                <button type="button" class="btn bg-gradient-danger"
+                                                    data-bs-dismiss="modal">X</button>
 
-                                                </div>
-                                                <div class="modal-body p-0">
-                                                    <div class="card card-plain">
-                                                        <div class="card-body text-start">
-                                                            <form role="form text-left">
-                                                                <div class="form-group">
-                                                                    <div class="row">
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Nombres</label>
-                                                                            <input id="user_name" type="text"
-                                                                                placeholder="Nombres"
-                                                                                class="form-control" />
-                                                                        </div>
-
-
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Correo</label>
-                                                                            <input class="form-control" type="text"
-                                                                                id="email" placeholder="Correo">
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Password</label>
-                                                                            <input class="form-control" type="text"
-                                                                                id="password" placeholder="Password">
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Rol</label>
-                                                                            <select class="form-control"
-                                                                                name="choices-button" id="rol_selected"
-                                                                                placeholder="Departure">
-                                                                                <?php foreach ($roles as $r) { ?>
-                                                                                    <option value="<?php echo $r->id_rol ?>">
-                                                                                        <?php echo $r->nombre ?>
-                                                                                    </option>
-                                                                                <?php } ?>
-                                                                            </select>
-
-                                                                        </div>
+                                            </div>
+                                            <div class="modal-body p-0">
+                                                <div class="card card-plain">
+                                                    <div class="card-body text-start">
+                                                        <form role="form text-left">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Nombres</label>
+                                                                        <input id="user_name" type="text"
+                                                                            placeholder="Nombres"
+                                                                            class="form-control" />
                                                                     </div>
 
-                                                                    <button type="button" id="confirmButton"
-                                                                        onclick="saveUser()"
-                                                                        class="btn btn-round btn-lg w-100 mt-4 mb-0 text-uppercase"
-                                                                        style="background: #5e72e4; color:white">guardar
-                                                                    </button>
+
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Correo</label>
+                                                                        <input class="form-control" type="text"
+                                                                            id="email" placeholder="Correo">
+                                                                    </div>
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Password</label>
+                                                                        <input class="form-control" type="text"
+                                                                            id="password" placeholder="Password">
+                                                                    </div>
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Rol</label>
+                                                                        <select class="form-control"
+                                                                            name="choices-button" id="rol_selected"
+                                                                            placeholder="Departure">
+                                                                            <?php foreach ($roles as $r) { ?>
+                                                                                <option value="<?php echo $r->id_rol ?>">
+                                                                                    <?php echo $r->nombre ?>
+                                                                                </option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                    </div>
                                                                 </div>
-                                                            </form>
-                                                        </div>
+
+                                                                <button type="button" id="confirmButton"
+                                                                    onclick="saveUser()"
+                                                                    class="btn btn-round btn-lg w-100 mt-4 mb-0 text-uppercase"
+                                                                    style="background: #5e72e4; color:white">guardar
+                                                                </button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -254,30 +253,31 @@ $roles = $usuarios->allroles();
                                 </div>
                             </div>
                         </div>
-                        <div id="data_table_users_export" class="table-responsive">
-                            <table class="table align-items-center mb-0" id="data_table_users">
-                                <thead>
-                                    <tr>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Nombres</th>
+                    </div>
+                    <div id="data_table_users_export" class="table-responsive">
+                        <table class="table align-items-center mb-0" id="data_table_users">
+                            <thead>
+                                <tr>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        Nombres</th>
 
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Email</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        Email</th>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            <?php } ?>
+            </div>
+
 
         </div>
         </div>

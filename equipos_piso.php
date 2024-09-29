@@ -15,7 +15,6 @@ $rol = intval($_SESSION['rol']);
 
 $equipos = new Equipo();
 
-$eqs = $equipos->index();
 
 ?>
 <!DOCTYPE html>
@@ -124,7 +123,7 @@ $eqs = $equipos->index();
   background-position: center !important;
   background-repeat: no-repeat !important;">></div>
 
-   
+
     <!-- sidebar -->
     <aside
         class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
@@ -142,38 +141,38 @@ $eqs = $equipos->index();
             <ul class="navbar-nav">
 
 
-                <?php if ($rol === 1) { ?>
-                    <li class="nav-item mt-3">
-                        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="users.php">
-                            <div
-                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fa fa-user text-primary text-sm opacity-10"></i>
-                            </div>
-                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="equipos_piso.php">
-                            <div
-                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fa fa-building text-primary text-sm opacity-10"></i>
-                            </div>
-                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="equipos.php">
-                            <div
-                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
-                            </div>
-                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
-                        </a>
-                    </li>
-                <?php } ?>
+
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="users.php">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-user text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="equipos_piso.php">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-building text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="equipos.php">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
+                    </a>
+                </li>
+
 
 
 
@@ -219,24 +218,24 @@ $eqs = $equipos->index();
         </nav>
 
         <div class="container-fluid py-4">
-            <?php if ($rol === 1) { ?>
-                <div class="col-xl-12 mt-2 mb-2">
-                    <div class="card">
-                        <div class="card-header pb-4">
 
-                            <div class="row pb-2 p-3">
-                                <div class="col-xl-4 d-flex align-items-center text-uppercase">
-                                    <h4 class="font-weight-bolder">Equipos</h4>
-                                </div>
+            <div class="col-xl-12 mt-2 mb-2">
+                <div class="card">
+                    <div class="card-header pb-4">
 
+                        <div class="row pb-2 p-3">
+                            <div class="col-xl-4 d-flex align-items-center text-uppercase">
+                                <h4 class="font-weight-bolder">Equipos</h4>
                             </div>
-                        </div>
-                        <div class="pb-2 p-3" id="container_equipos">
 
                         </div>
                     </div>
+                    <div class="pb-2 p-3" id="container_equipos">
+
+                    </div>
                 </div>
-            <?php } ?>
+            </div>
+
 
         </div>
         </div>
