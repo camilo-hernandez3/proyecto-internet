@@ -31,13 +31,14 @@ function getUsers() {
 
 
 
-function guardarUsuario(nombres, email, password, selected_rol) {
+function guardarUsuario(nombres, email, password, selected_rol, piso_selected) {
 
     let newUser = {
         nombres,
         email,
         password,
-        selected_rol
+        selected_rol,
+        piso_selected
     }
 
     let datos = new FormData();
@@ -48,6 +49,8 @@ function guardarUsuario(nombres, email, password, selected_rol) {
 
     let selectedText = rol.options[rol.selectedIndex].text;
     console.log(newUser);
+
+    let piso = document.getElementById('piso_selected');
 
 
     $.ajax({
@@ -76,21 +79,23 @@ function guardarUsuario(nombres, email, password, selected_rol) {
 }
 
 
-function editProduct(id) {
+function editUser(id) {
     let datos = new FormData();
 
-    datos.append("id_articulo", id);
+    datos.append("id_usuario", id);
 
     $.ajax({
-        url: "ajax/productos.ajax.php",
+        url: "ajax/usuarios.ajax.php",
         method: "POST",
         data: datos,
         cache: false,
         contentType: false,
         processData: false,
         success: function (response) {
+            console.log(response);
+
             renderData(response)
-            $('.modal-title').text('Editar producto');
+            $('.modal-title').text('Editar Usuario');
         }
     });
 }
@@ -135,7 +140,7 @@ function renderTable() {
     }
 
     console.log(users);
-    
+
     users
 
         .forEach(pr => {
@@ -147,7 +152,9 @@ function renderTable() {
             let contenidoCeldas = [
                 pr.nombre,
                 pr.email,
-                ` <a data-bs-toggle="tooltip" title="Borrar" class="text-danger font-weight-bold text-xs"   onclick="eliminarUsuario(${pr.id_usuario})"><i class="fas fa-trash" style='font-size:24px'></i></a>`
+                ` <a data-bs-toggle="tooltip" title="Borrar" class="text-danger font-weight-bold text-xs"   onclick="eliminarUsuario(${pr.id_usuario})"><i class="fas fa-trash" style='font-size:24px'></i></a>`,
+                ` <a data-bs-toggle="tooltip" title="Borrar" class="text-info font-weight-bold text-xs"   onclick="editUser(${pr.id_usuario})"><i class="fa fa-pencil" style='font-size:24px'></i></a>`
+
             ];
 
 
@@ -179,37 +186,54 @@ function saveUser() {
     let email = document.getElementById('email').value;
 
     let selected_rol = document.getElementById('rol_selected').value;
+    let piso_selected = document.getElementById('piso_selected');
 
-    /*  if (selectedUser) {
-         saveEditProduct(nombre, cantidad, precio, stockMaximo, selectCategoria);
-         return;
-     } */
+    const selectedOptions = Array.from(piso_selected.selectedOptions);
+
+    // Extraer los valores de las opciones seleccionadas
+    const selectedValues = selectedOptions.map(option => +option.value);
+
+    console.log(selectedValues);
+
+    if (selectedUser) {
+        saveEditProduct(
+            nombres,
+            email,
+            password,
+            selected_rol,
+            selectedValues
+        );
+        return;
+    }
     guardarUsuario(nombres,
         email,
         password,
-        selected_rol);
+        selected_rol,
+        selectedValues);
 }
 
-function saveEditProduct(nombre, cantidad, precio, stockMaximo, selectCategoria) {
+function saveEditProduct(nombres,
+    email,
+    password,
+    selected_rol,
+    selectedValues) {
 
-    let category = document.getElementById('categories_select');
 
-    var selectedText = category.options[category.selectedIndex].text;
 
     let datos = new FormData();
 
-    let product_edit = {
-        nombre,
-        cantidad,
-        precio,
-        stockMaximo,
-        selectCategoria,
-        id_articulo: selectedUser.id_articulo
+    let user_edit = {
+        nombres,
+        email,
+        password,
+        selected_rol,
+        piso_selected:selectedValues,
+        id_usuario: selectedUser[0].id_usuario
     }
 
-    datos.append("product_edit", JSON.stringify(product_edit));
+    datos.append("user_edit", JSON.stringify(user_edit));
     $.ajax({
-        url: "ajax/productos.ajax.php",
+        url: "ajax/usuarios.ajax.php",
         method: "POST",
         data: datos,
         cache: false,
@@ -217,26 +241,27 @@ function saveEditProduct(nombre, cantidad, precio, stockMaximo, selectCategoria)
         processData: false,
         success: function (response) {
             Swal.fire({
-                title: "Productos",
-                text: "El producto fue editado de forma exitosa",
+                title: "Usuarios",
+                text: "El usuario fue editado de forma exitosa",
                 icon: "success",
                 timer: 1500
             });
+
+            //! TODO end
 
             users
 
                 = users
 
                     .map(ar => {
-                        if (ar.id_articulo === selectedUser.id_articulo) {
+                        if (ar.id_usuario === selectedUser[0].id_usuario) {
                             return {
                                 ...ar,
-                                nombre: nombre,
-                                precio_venta: precio,
-                                stock: cantidad,
-                                categoria_id_categoria: selectCategoria,
-                                stock_deseado: stockMaximo,
-                                categoria: selectedText
+                                nombre: nombres,
+                                email: email,
+                                user_password: password,
+                                rol_id_rol: selected_rol,
+
                             }
 
                         }
@@ -246,7 +271,7 @@ function saveEditProduct(nombre, cantidad, precio, stockMaximo, selectCategoria)
             renderTable();
             selectedUser = null;
 
-            $('#modal-form-product').modal('hide');
+            $('#modal-form-users').modal('hide');
         }
     });
 }
@@ -254,25 +279,38 @@ function saveEditProduct(nombre, cantidad, precio, stockMaximo, selectCategoria)
 function renderData(data) {
     selectedUser = JSON.parse(data);
 
-    let nombre = document.getElementById('product_name');
-    let cantidad = document.getElementById('product_stock');
-    let precio = document.getElementById('product_price');
-    let stockMaximo = document.getElementById('stock_maximo');
-    let selectCategoria = document.getElementById('categories_select');
-
-    nombre.value = selectedUser.nombre;
-    cantidad.value = selectedUser.stock;
-    precio.value = selectedUser.precio_venta;
-    stockMaximo.value = selectedUser.stock_deseado;
-    selectCategoria.value = selectedUser.categoria_id_categoria;
+    let nombre = document.getElementById('user_name');
+    let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    let rol = document.getElementById('rol_selected');
 
 
-    $('#modal-form-product').modal('show');
+    nombre.value = selectedUser[0].nombre;
+    email.value = selectedUser[0].email;
+    password.value = selectedUser[0].user_password;
+    rol.value = selectedUser[0].rol_id_rol;
+
+    const selectElement = document.getElementById('piso_selected');
+
+    selectElement.selectedIndex = -1;
+
+    let pisosSeleccionados = selectedUser.map(u => u.piso_id_piso)
+
+    for (const pisoId of pisosSeleccionados) {
+        const option = Array.from(selectElement.options).find(opt => opt.value == pisoId);
+        if (option) {
+            option.selected = true; // Selecciona la opción
+        }
+    }
+
+
+
+    $('#modal-form-users').modal('show');
 
 }
 
 
-function printUsuariosPDF(divName){
+function printUsuariosPDF(divName) {
 
     let printContents;
     let popupWin;

@@ -18,6 +18,7 @@ $rol = intval($_SESSION['rol']);
 $usuarios = new Usuario();
 
 $roles = $usuarios->allroles();
+$pisos = $usuarios->allPisos();
 
 ?>
 <!DOCTYPE html>
@@ -236,6 +237,20 @@ $roles = $usuarios->allroles();
                                                                         </select>
 
                                                                     </div>
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Pisos</label>
+                                                                        <select class="form-control"
+                                                                            name="choices-button[]" id="piso_selected"
+                                                                            placeholder="Departure" multiple>
+                                                                            <?php foreach ($pisos as $r) { ?>
+                                                                                <option value="<?php echo $r->id_piso ?>">
+                                                                                    <?php echo $r->nombre ?>
+                                                                                </option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                    </div>
                                                                 </div>
 
                                                                 <button type="button" id="confirmButton"
@@ -265,6 +280,9 @@ $roles = $usuarios->allroles();
                                     <th align="center"
                                         class="text-center text-uppercase text-black text-sm font-weight-bolder">
                                         Email</th>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                    </th>
                                     <th align="center"
                                         class="text-center text-uppercase text-black text-sm font-weight-bolder">
                                     </th>

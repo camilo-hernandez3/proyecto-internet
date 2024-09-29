@@ -12,13 +12,24 @@ class Usuario extends Database
 		return $query->fetchAll();
 	}
 
-	public function destroy($id){
+	public function destroy($id)
+	{
 		$query = $this->pdo->prepare('UPDATE usuarios set status_ = 0 where id_usuario =' . $id);
 		$query->execute();
+
+		$query2 = $this->pdo->prepare('DELETE from usuarios_has_piso WHERE usuarios_id_usuario =' . $id);
+		$query2->execute();
 	}
 
-	public function allroles(){
+	public function allroles()
+	{
 		$query = $this->pdo->query('SELECT * FROM rol');
+		return $query->fetchAll();
+	}
+
+	public function allPisos()
+	{
+		$query = $this->pdo->query('SELECT * FROM piso');
 		return $query->fetchAll();
 	}
 
@@ -28,26 +39,94 @@ class Usuario extends Database
 		return $query->fetch();
 	}
 
+	public function userById($id_usuario)
+	{
+		$query = $this->pdo->query('SELECT * FROM usuarios AS u  JOIN usuarios_has_piso AS up ON u.id_usuario = up.usuarios_id_usuario WHERE u.id_usuario =' . $id_usuario);
+		return $query->fetchAll();
+	}
+
 	public function store($usuario)
 	{
 
 		$usuario = json_decode($usuario);
 
 		$query = $this->pdo->prepare('INSERT INTO usuarios (nombre, email,user_password,rol_id_rol) VALUES (:nombre, :email, :user_password, :rol_id_rol)');
-		
+
 
 		$query->bindParam(':nombre', $usuario->nombres);
-		
+
 		$query->bindParam(':email', $usuario->email);
 		$query->bindParam(':user_password', $usuario->password);
 		$query->bindParam(':rol_id_rol', $usuario->selected_rol);
-		
+
 		$query->execute();
 		$lastInsertId = $this->pdo->lastInsertId();
+
+		if (isset($usuario->piso_selected) && $usuario->piso_selected && count($usuario->piso_selected) > 0) {
+			
+
+			foreach ($usuario->piso_selected as $piso_id) {
+
+				$quer2 = $this->pdo->prepare('INSERT INTO usuarios_has_piso (usuarios_id_usuario,piso_id_piso) VALUES (:usuarios_id_usuario, :piso_id_piso)');
+
+				$quer2->bindParam(':usuarios_id_usuario', $lastInsertId);
+
+				$quer2->bindParam(':piso_id_piso', $piso_id);
+
+				$quer2->execute();
+			}
+
+
+		}
+
+
 		return $this->show($lastInsertId);
 	}
 
-	public function logout(){
+
+	public function editUser($userEdit)
+	{
+		$editProduct = json_decode($userEdit);
+		$updateQuery = $this->pdo->prepare('UPDATE usuarios SET nombre = :nombre, email = :email, rol_id_rol = :rol_id_rol, user_password = :user_password WHERE id_usuario = :id');
+
+	
+		$updateQuery->bindParam(':nombre', $editProduct->nombres);
+		$updateQuery->bindParam(':email', $editProduct->email);
+		$updateQuery->bindParam(':rol_id_rol', $editProduct->selected_rol);
+		$updateQuery->bindParam(':user_password', $editProduct->password);
+		
+
+		$updateQuery->bindParam(':id', $editProduct->id_usuario);
+
+		
+		$updateQuery->execute();
+
+
+		if (isset($editProduct->piso_selected) && $editProduct->piso_selected && count($editProduct->piso_selected) > 0) {
+
+
+			$query2 = $this->pdo->prepare('DELETE from usuarios_has_piso WHERE usuarios_id_usuario =' . $editProduct->id_usuario);
+			$query2->execute();
+
+			foreach ($editProduct->piso_selected as $piso_id) {
+
+				$quer2 = $this->pdo->prepare('INSERT INTO usuarios_has_piso (usuarios_id_usuario,piso_id_piso) VALUES (:usuarios_id_usuario, :piso_id_piso)');
+
+				$quer2->bindParam(':usuarios_id_usuario', $editProduct->id_usuario);
+
+				$quer2->bindParam(':piso_id_piso', $piso_id);
+
+				$quer2->execute();
+			}
+
+
+		}
+
+
+	}
+
+	public function logout()
+	{
 		session_start();
 		session_destroy();
 	}
@@ -56,7 +135,7 @@ class Usuario extends Database
 	{
 		$credentials = json_decode($credentials);
 
-		if ($credentials->user === null || $credentials->user === '' || $credentials->password === null ||  $credentials->password === '') {
+		if ($credentials->user === null || $credentials->user === '' || $credentials->password === null || $credentials->password === '') {
 			return 0;
 		}
 
@@ -69,12 +148,12 @@ class Usuario extends Database
 
 			$query->execute();
 			if ($query->rowCount() > 0) {
-	
+
 				$user = $query->fetch(PDO::FETCH_ASSOC);
-	
+
 				// Start or resume the session
 				session_start();
-	
+
 				// Store user information in the session
 				$_SESSION['nombredelusuario'] = $credentials->user;
 				$_SESSION['id_usuario'] = $user['id_usuario'];
