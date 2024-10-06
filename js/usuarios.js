@@ -279,6 +279,8 @@ function saveEditProduct(nombres,
 function renderData(data) {
     selectedUser = JSON.parse(data);
 
+    $('#modal-form-users').modal('show');
+
     let nombre = document.getElementById('user_name');
     let email = document.getElementById('email');
     let password = document.getElementById('password');
@@ -305,7 +307,7 @@ function renderData(data) {
 
 
 
-    $('#modal-form-users').modal('show');
+   
 
 }
 
