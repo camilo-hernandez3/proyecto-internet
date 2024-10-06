@@ -314,13 +314,16 @@ function printUsuariosPDF(divName) {
 
     let printContents;
     let popupWin;
+    let title = "<h1>Reporte de usuarios</h1>";
+
     printContents = document.getElementById(divName).innerHTML;
+    printContents = title  +  printContents;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
     popupWin.document.open();
     popupWin.document.write(`
       <html lang="es">
         <head>
-          <title>Tienda del Soldado</title>
+          <title></title>
           <link id="theme-link" rel="stylesheet" type="text/css" href="styles.css">
           <style>
           @media print {

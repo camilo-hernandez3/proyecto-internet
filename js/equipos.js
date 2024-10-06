@@ -399,7 +399,9 @@ function renderDataPDF(response) {
 
 
 
-    let printContents = document.getElementById('div-cont').innerHTML;;
+    let printContents = document.getElementById('div-cont').innerHTML;
+    let title = "<h1>Reporte de Equipos</h1>";
+    printContents = title + printContents;
     let popupWin;
 
 
