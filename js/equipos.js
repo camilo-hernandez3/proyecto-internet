@@ -250,9 +250,9 @@ function renderTable(data) {
 
                     // Aplicar el color verde si el status es 1
                     if (usuario.status === 1) {
-                        usuarioItem.classList.add('status-verde');
-                        equipoDiv.classList.add('status-verde');
-                        equipoTitle.classList.add('status-verde');
+                        usuarioItem.classList.add('status-red');
+                        equipoDiv.classList.add('status-red');
+                        equipoTitle.classList.add('status-red');
                     }
 
                     const duration = document.createElement('li');
@@ -284,6 +284,9 @@ function renderTable(data) {
 
                     usuarioItem.appendChild(imagen);
                 });
+            }else   {
+                equipoDiv.classList.add('status-verde');
+                equipoTitle.classList.add('status-verde');
             }
 
             equipoDiv.appendChild(usuariosList);

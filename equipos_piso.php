@@ -15,6 +15,9 @@ $rol = intval($_SESSION['rol']);
 
 $equipos = new Equipo();
 
+$masUsado = $equipos->masUsed();
+$menosUsado = $equipos->sinUso();
+
 
 ?>
 <!DOCTYPE html>
@@ -113,6 +116,11 @@ $equipos = new Equipo();
             background-color: green;
             color: white;
         }
+
+        .status-red {
+            background-color: red;
+            color: white;
+        }
     </style>
 
 </head>
@@ -132,7 +140,7 @@ $equipos = new Equipo();
             <i class="fas fa-times p-3 cursor-pointer text-black opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0 mr-4">
-                <img src="./img/logo2.png" class="navbar-brand-img h-100 mr-5" alt="main_logo">
+                <!-- <img src="./img/logo2.png" class="navbar-brand-img h-100 mr-5" alt="main_logo"> -->
 
             </a>
         </div>
@@ -216,6 +224,40 @@ $equipos = new Equipo();
                 </div>
             </div>
         </nav>
+
+        <div class="container-fluid py-4 row">
+            <div class="col-xl-4  mb-2">
+                <div class="card">
+                    <div class="card-header pb-2">
+                        <h4 class="font-weight-bolder">Equipo mas usado</h4>
+                    </div>
+                    <div class="card-body pb-4">
+                        <h4 class="font-weight-bolder"><?php echo $masUsado->descripcion?></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4  mb-2">
+                <div class="card">
+                    <div class="card-header pb-2">
+                        <h4 class="font-weight-bolder">Duración</h4>
+                    </div>
+                    <div class="card-body pb-4">
+                        <h4 class="font-weight-bolder"><?php echo $masUsado->tiempo_usado ?> Minutos</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4  mb-2">
+                <div class="card">
+                    <div class="card-header pb-2">
+                        <h4 class="font-weight-bolder">Equipo sin uso</h4>
+                    </div>
+                    <div class="card-body pb-4">
+                        <h4 class="font-weight-bolder"><?php echo $menosUsado->equipos_sin_uso ?></h4>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
 
         <div class="container-fluid py-4">
 
