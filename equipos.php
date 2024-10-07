@@ -6,6 +6,7 @@ require('./models/articulo.php');
 require('./models/categoria.php');
 require('./models/gastos.php');
 require('./models/usuario.php');
+require('./models/equipos.php');
 
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: index.php");
@@ -17,7 +18,11 @@ $rol = intval($_SESSION['rol']);
 
 $usuarios = new Usuario();
 
-$roles = $usuarios->allroles();
+$equipo = new Equipo();
+
+
+
+$pisos = $equipo->pisos();
 
 ?>
 <!DOCTYPE html>
@@ -191,7 +196,7 @@ $roles = $usuarios->allroles();
                                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title text-uppercase font-weight-bold">Crear usuario
+                                                    <h4 class="modal-title text-uppercase font-weight-bold">Crear equipo
                                                     </h4>
                                                     <button type="button" class="btn bg-gradient-danger"
                                                         data-bs-dismiss="modal">X</button>
@@ -205,33 +210,53 @@ $roles = $usuarios->allroles();
                                                                     <div class="row">
                                                                         <div class="col-xl-6">
                                                                             <label for=""
-                                                                                class="col-form-label text-uppercase">Nombres</label>
-                                                                            <input id="user_name" type="text"
+                                                                                class="col-form-label text-uppercase">Descripción</label>
+                                                                            <input id="description" type="text"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                                class="col-form-label text-uppercase">Dirección
+                                                                                ip</label>
+                                                                            <input id="ip_address" type="text"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                                class="col-form-label text-uppercase">Dirección
+                                                                                Mac</label>
+                                                                            <input id="mac_address" type="text"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                                class="col-form-label text-uppercase">Memoria
+                                                                                ram</label>
+                                                                            <input id="ram" type="text"
+                                                                                class="form-control" />
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                                class="col-form-label text-uppercase">Procesador</label>
+                                                                            <input id="procesador" type="text"
                                                                                 placeholder="Nombres"
                                                                                 class="form-control" />
                                                                         </div>
-
-
                                                                         <div class="col-xl-6">
                                                                             <label for=""
-                                                                                class="col-form-label text-uppercase">Correo</label>
-                                                                            <input class="form-control" type="text"
-                                                                                id="email" placeholder="Correo">
+                                                                                class="col-form-label text-uppercase">Almacenamiento</label>
+                                                                            <input id="almacenamiento" type="text"
+                                                                                class="form-control" />
                                                                         </div>
+
                                                                         <div class="col-xl-6">
                                                                             <label for=""
-                                                                                class="col-form-label text-uppercase">Password</label>
-                                                                            <input class="form-control" type="text"
-                                                                                id="password" placeholder="Password">
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Rol</label>
+                                                                                class="col-form-label text-uppercase">Piso</label>
                                                                             <select class="form-control"
-                                                                                name="choices-button" id="rol_selected"
+                                                                                name="choices-button" id="piso"
                                                                                 placeholder="Departure">
-                                                                                <?php foreach ($roles as $r) { ?>
-                                                                                    <option value="<?php echo $r->id_rol ?>">
+                                                                                <?php foreach ($pisos as $r) { ?>
+                                                                                    <option value="<?php echo $r->id_piso ?>">
                                                                                         <?php echo $r->nombre ?>
                                                                                     </option>
                                                                                 <?php } ?>
@@ -241,7 +266,7 @@ $roles = $usuarios->allroles();
                                                                     </div>
 
                                                                     <button type="button" id="confirmButton"
-                                                                        onclick="saveUser()"
+                                                                        onclick="saveEquipo()"
                                                                         class="btn btn-round btn-lg w-100 mt-4 mb-0 text-uppercase"
                                                                         style="background: #5e72e4; color:white">guardar
                                                                     </button>
@@ -282,6 +307,9 @@ $roles = $usuarios->allroles();
                                         <th align="center"
                                             class="text-center text-uppercase text-black text-sm font-weight-bolder">
                                             Almacenamiento</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        </th>
                                         <th align="center"
                                             class="text-center text-uppercase text-black text-sm font-weight-bolder">
                                         </th>

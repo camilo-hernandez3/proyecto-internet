@@ -1,7 +1,7 @@
 selectedUser = null;
 users
 
- = [];
+    = [];
 
 
 getDispositivos();
@@ -31,27 +31,35 @@ function getDispositivos() {
 
 
 
-function guardarUsuario(nombres, email, password, selected_rol) {
+function guardarEquipos(description,
+    ip_address,
+    mac_address,
+    ram,
+    procesador,
+    almacenamiento,
+    piso) {
 
-    let newUser = {
-        nombres,
-        email,
-        password,
-        selected_rol
+    let newEquipo = {
+        description,
+        ip_address,
+        mac_address,
+        ram,
+        procesador,
+        almacenamiento,
+        piso
     }
 
     let datos = new FormData();
 
-    datos.append('new_user', JSON.stringify(newUser));
+    datos.append('new_equipo', JSON.stringify(newEquipo));
 
-    let rol = document.getElementById('rol_selected');
 
-    let selectedText = rol.options[rol.selectedIndex].text;
-    console.log(newUser);
-    
+
+
+
 
     $.ajax({
-        url: "ajax/usuarios.ajax.php",
+        url: "ajax/equipos.ajax.php",
         method: "POST",
         data: datos,
         cache: false,
@@ -59,15 +67,15 @@ function guardarUsuario(nombres, email, password, selected_rol) {
         processData: false,
         success: function (response) {
             Swal.fire({
-                title: "Generar Usuario",
-                text: "El usuario se guardó correctamente",
+                title: "Generar Equipo",
+                text: "El equipo se guardó correctamente",
                 icon: "success",
                 timer: 1500
             });
             let newUser = JSON.parse(response);
             users
-            
-            .push({ ...newUser, rol_id_rol: selectedText })
+
+                .push({ ...newUser })
 
             renderTable();
             $('#modal-form-users').modal('hide');
@@ -76,24 +84,28 @@ function guardarUsuario(nombres, email, password, selected_rol) {
 }
 
 
-function editProduct(id) {
+function editUser(id) {
     let datos = new FormData();
 
-    datos.append("id_articulo", id);
+    datos.append("id_equipo", id);
 
     $.ajax({
-        url: "ajax/productos.ajax.php",
+        url: "ajax/equipos.ajax.php",
         method: "POST",
         data: datos,
         cache: false,
         contentType: false,
         processData: false,
         success: function (response) {
+            console.log(response);
+
             renderData(response)
-            $('.modal-title').text('Editar producto');
+
         }
     });
 }
+
+
 
 
 function eliminarUsuario(dispositivos) {
@@ -134,81 +146,103 @@ function renderTable() {
         tabla.deleteRow(i);
     }
     users
-    
-    .forEach(pr => {
-        let nuevaFila = document.createElement("tr");
-        nuevaFila.classList.add('text-center', 'text-uppercase', 'text-black', 'text-xs', 'font-weight-bolder');
-        var precioVentaFormateado = parseFloat(pr.precio_venta).toLocaleString('es-CO');
-        // Define el contenido de cada celda
-        let contenidoCeldas = [
-            pr.descripcion,
-            pr.ip_address,
-            pr.mac_adress,
-            pr.piso_id_piso,
-            pr.ram,
-            pr.procesador,
-            pr.almacenamiento,
-            ` <a data-bs-toggle="tooltip" title="Borrar" class="text-danger font-weight-bold text-xs"   onclick="eliminarUsuario(${pr.id_equipo})"><i class="fas fa-trash" style='font-size:24px'></i></a>`
-        ];
-        // Itera sobre el contenido de las celdas y crea celdas <td>
-        contenidoCeldas.forEach(function (contenido) {
-            var celda = document.createElement("td");
-            var parrafo = document.createElement("p");
-            parrafo.innerHTML = contenido;
-            celda.appendChild(parrafo);
-            nuevaFila.appendChild(celda);
+
+        .forEach(pr => {
+            let nuevaFila = document.createElement("tr");
+            nuevaFila.classList.add('text-center', 'text-uppercase', 'text-black', 'text-xs', 'font-weight-bolder');
+            var precioVentaFormateado = parseFloat(pr.precio_venta).toLocaleString('es-CO');
+            // Define el contenido de cada celda
+            let contenidoCeldas = [
+                pr.descripcion,
+                pr.ip_address,
+                pr.mac_adress,
+                pr.piso_id_piso,
+                pr.ram,
+                pr.procesador,
+                pr.almacenamiento,
+                ` <a data-bs-toggle="tooltip" title="Borrar" class="text-danger font-weight-bold text-xs"   onclick="eliminarUsuario(${pr.id_equipo})"><i class="fas fa-trash" style='font-size:24px'></i></a>`,
+                ` <a data-bs-toggle="tooltip" title="Borrar" class="text-info font-weight-bold text-xs"   onclick="editUser(${pr.id_equipo})"><i class="fa fa-pencil" style='font-size:24px'></i></a>`
+            ];
+            // Itera sobre el contenido de las celdas y crea celdas <td>
+            contenidoCeldas.forEach(function (contenido) {
+                var celda = document.createElement("td");
+                var parrafo = document.createElement("p");
+                parrafo.innerHTML = contenido;
+                celda.appendChild(parrafo);
+                nuevaFila.appendChild(celda);
+            });
+            // Agrega la nueva fila a la tabla
+            tabla.querySelector("tbody").appendChild(nuevaFila);
         });
-        // Agrega la nueva fila a la tabla
-        tabla.querySelector("tbody").appendChild(nuevaFila);
-    });
 }
 
 function renderUsers(data) {
     users
-    
-     = JSON.parse(data);
+
+        = JSON.parse(data);
     renderTable();
 
 }
 
-function saveUser() {
-    let nombres = document.getElementById('user_name').value;
-    
-    let password = document.getElementById('password').value;
-    let email = document.getElementById('email').value;
+function saveEquipo() {
+    let description = document.getElementById('description').value;
+    let ip_address = document.getElementById('ip_address').value;
+    let mac_address = document.getElementById('mac_address').value;
+    let ram = document.getElementById('ram').value;
+    let procesador = document.getElementById('procesador').value;
+    let almacenamiento = document.getElementById('almacenamiento').value;
+    let piso = document.getElementById('piso').value;
 
-    let selected_rol = document.getElementById('rol_selected').value;
-
-   /*  if (selectedUser) {
-        saveEditProduct(nombre, cantidad, precio, stockMaximo, selectCategoria);
+    if (selectedUser) {
+        saveEditProduct(
+            description,
+            ip_address,
+            mac_address,
+            ram,
+            procesador,
+            almacenamiento,
+            piso
+        );
         return;
-    } */
-    guardarUsuario(nombres,
-        email,
-        password,
-        selected_rol);
+    }
+
+
+    guardarEquipos(description,
+        ip_address,
+        mac_address,
+        ram,
+        procesador,
+        almacenamiento,
+        piso);
 }
 
-function saveEditProduct(nombre, cantidad, precio, stockMaximo, selectCategoria) {
+function saveEditProduct(description,
+    ip_address,
+    mac_address,
+    ram,
+    procesador,
+    almacenamiento,
+    piso
+    ) {
 
-    let category = document.getElementById('categories_select');
 
-    var selectedText = category.options[category.selectedIndex].text;
 
     let datos = new FormData();
 
     let product_edit = {
-        nombre,
-        cantidad,
-        precio,
-        stockMaximo,
-        selectCategoria,
-        id_articulo: selectedUser.id_articulo
+        description,
+        ip_address,
+        mac_address,
+        ram,
+        procesador,
+        almacenamiento,
+        piso,
+        id_equipo: selectedUser.id_equipo
     }
 
-    datos.append("product_edit", JSON.stringify(product_edit));
+    datos.append("equipo_edit", JSON.stringify(product_edit));
     $.ajax({
-        url: "ajax/productos.ajax.php",
+        url: "ajax/equipos.ajax.php",
         method: "POST",
         data: datos,
         cache: false,
@@ -216,68 +250,81 @@ function saveEditProduct(nombre, cantidad, precio, stockMaximo, selectCategoria)
         processData: false,
         success: function (response) {
             Swal.fire({
-                title: "Productos",
-                text: "El producto fue editado de forma exitosa",
+                title: "Equipo",
+                text: "El equipo fue editado de forma exitosa",
                 icon: "success",
                 timer: 1500
             });
 
             users
-            
-             = users
-            
-            .map(ar => {
-                if (ar.id_articulo === selectedUser.id_articulo) {
-                    return {
-                        ...ar,
-                        nombre: nombre,
-                        precio_venta: precio,
-                        stock: cantidad,
-                        categoria_id_categoria: selectCategoria,
-                        stock_deseado: stockMaximo,
-                        categoria: selectedText
-                    }
 
-                }
-                return ar
-            })
+                = users
+
+                    .map(ar => {
+                        if (ar.id_equipo === selectedUser.id_equipo) {
+                            return {
+                                ...ar,
+                                descripcion:description,
+                                ip_address:ip_address,
+                                mac_address:mac_address,
+                                ram:ram,
+                                procesador:procesador,
+                                almacenamiento :almacenamiento,
+                               piso_id_piso :piso
+                            }
+
+                        }
+                        return ar
+                    })
 
             renderTable();
             selectedUser = null;
 
-            $('#modal-form-product').modal('hide');
+            $('#modal-form-users').modal('hide');
         }
     });
 }
 
+
+
 function renderData(data) {
     selectedUser = JSON.parse(data);
 
-    let nombre = document.getElementById('product_name');
-    let cantidad = document.getElementById('product_stock');
-    let precio = document.getElementById('product_price');
-    let stockMaximo = document.getElementById('stock_maximo');
-    let selectCategoria = document.getElementById('categories_select');
+    $('#modal-form-users').modal('show');
 
-    nombre.value = selectedUser.nombre;
-    cantidad.value = selectedUser.stock;
-    precio.value = selectedUser.precio_venta;
-    stockMaximo.value = selectedUser.stock_deseado;
-    selectCategoria.value = selectedUser.categoria_id_categoria;
+    let description = document.getElementById('description');
+    let ip_address = document.getElementById('ip_address');
+    let mac_address = document.getElementById('mac_address');
+    let ram = document.getElementById('ram');
+    let procesador = document.getElementById('procesador');
+    let almacenamiento = document.getElementById('almacenamiento');
+    let piso = document.getElementById('piso');
 
 
-    $('#modal-form-product').modal('show');
+
+
+    description.value = selectedUser.descripcion;
+    ip_address.value = selectedUser.ip_address;
+    mac_address.value = selectedUser.mac_adress;
+    ram.value = selectedUser.ram;
+    procesador.value = selectedUser.procesador;
+    almacenamiento.value = selectedUser.almacenamiento;
+    piso.value = selectedUser.piso_id_piso;
+
+
+
+
 
 }
 
-function printDispositivosPDF(divName){
+function printDispositivosPDF(divName) {
 
     let printContents;
     let popupWin;
     let title = "<h1>Reporte de Equipos</h1>";
     printContents = document.getElementById(divName).innerHTML;
     printContents = title + printContents;
-    
+
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
     popupWin.document.open();
     popupWin.document.write(`

@@ -7,6 +7,26 @@ $var_session = $_SESSION['id_usuario'];
 $rol = $_SESSION['rol'];
 
 
+if(isset($_POST["id_equipo"])){
+
+	$user = new Equipo();
+	$id_usuario= $_POST["id_equipo"];
+	echo json_encode($user -> show($id_usuario));
+
+}
+
+
+if(isset($_POST["equipo_edit"])){
+
+	$user = new Equipo();
+	$user_edit= $_POST["equipo_edit"];
+    
+	echo json_encode($user -> EditEquipo($user_edit));
+
+}
+
+
+
 if(isset($_POST["all"])){
 
 	$equipo = new Equipo();
@@ -35,10 +55,10 @@ if(isset($_POST["id_eliminar"])){
 
 }
 
-if(isset($_POST["new_user"])){
+if(isset($_POST["new_equipo"])){
 
-	$user = new Usuario();
-	$newUser= $_POST["new_user"];
+	$user = new Equipo();
+	$newUser= $_POST["new_equipo"];
 	echo json_encode($user -> store($newUser));
 
 }

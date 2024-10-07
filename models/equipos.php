@@ -6,6 +6,12 @@ class Equipo extends Database
 {
 
 
+    public function pisos(){
+        $query = $this->pdo->query('SELECT * FROM piso');
+		return $query->fetchAll();
+    }
+
+
     public function masUsed()
     {
 
@@ -245,7 +251,7 @@ class Equipo extends Database
 
     public function show($id_equipo)
     {
-        $query = $this->pdo->query('SELECT * FROM equipo where id_equipo =' . $id_equipo);
+        $query = $this->pdo->query('SELECT * FROM equipos where id_equipo =' . $id_equipo);
         return $query->fetch();
     }
     public function historial($id_equipo)
@@ -259,18 +265,43 @@ class Equipo extends Database
 
         $usuario = json_decode($usuario);
 
-        $query = $this->pdo->prepare('INSERT INTO equipos (descripcion, ip_address,mac_address,piso_id_piso) VALUES (:descripcion, :ip_address, :mac_address, :piso_id_piso)');
+        $query = $this->pdo->prepare('INSERT INTO equipos (descripcion, ip_address,mac_adress,piso_id_piso, ram, procesador, almacenamiento) VALUES (:descripcion, :ip_address, :mac_address, :piso_id_piso, :ram, :procesador, :almacenamiento)');
 
 
-        $query->bindParam(':descripcion', $usuario->nombres);
+        $query->bindParam(':descripcion', $usuario->description);
 
-        $query->bindParam(':ip_address', $usuario->email);
-        $query->bindParam(':mac_address', $usuario->password);
-        $query->bindParam(':piso_id_piso', $usuario->selected_rol);
+        $query->bindParam(':ip_address', $usuario->ip_address);
+        $query->bindParam(':mac_address', $usuario->mac_address);
+        $query->bindParam(':piso_id_piso', $usuario->piso);
+        $query->bindParam(':ram', $usuario->ram);
+        $query->bindParam(':procesador', $usuario->procesador);
+        $query->bindParam(':almacenamiento', $usuario->almacenamiento);
 
         $query->execute();
         $lastInsertId = $this->pdo->lastInsertId();
         return $this->show($lastInsertId);
+    }
+
+    public function EditEquipo($equipo){
+        $editProduct = json_decode($equipo);
+		$updateQuery = $this->pdo->prepare('UPDATE equipos SET descripcion = :descripcion, ip_address = :ip_address, mac_adress = :mac_adress, piso_id_piso = :piso_id_piso, ram = :ram, procesador = :procesador, almacenamiento = :almacenamiento  WHERE id_equipo = :id');
+
+	
+		$updateQuery->bindParam(':descripcion', $editProduct->description);
+		$updateQuery->bindParam(':ip_address', $editProduct->ip_address);
+
+		$updateQuery->bindParam(':mac_adress', $editProduct->mac_address);
+		+
+		$updateQuery->bindParam(':piso_id_piso', $editProduct->piso);
+		$updateQuery->bindParam(':ram', $editProduct->ram);
+		$updateQuery->bindParam(':procesador', $editProduct->procesador); 
+		$updateQuery->bindParam(':almacenamiento', $editProduct->almacenamiento); 
+		
+
+		$updateQuery->bindParam(':id', $editProduct->id_equipo);
+
+		
+		$updateQuery->execute();
     }
 
 }

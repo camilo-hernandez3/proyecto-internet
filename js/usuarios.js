@@ -96,7 +96,7 @@ function editUser(id) {
             console.log(response);
 
             renderData(response)
-            $('.modal-title').text('Editar Usuario');
+           
         }
     });
 }
