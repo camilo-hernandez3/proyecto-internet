@@ -8,6 +8,8 @@ class Usuario extends Database
 
 	public function index()
 	{
+		
+
 		$query = $this->pdo->query('SELECT * FROM usuarios WHERE status_ = 1');
 		return $query->fetchAll();
 	}

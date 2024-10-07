@@ -8,29 +8,66 @@ class Equipo extends Database
 
     public function masUsed()
     {
-        $query = $this->pdo->query('SELECT e.descripcion, e.piso_id_piso, 
-            SUM(TIMESTAMPDIFF(SECOND, ue.fecha_inicio, ue.fecha_final))/60 AS tiempo_usado
+
+
+        $usuario = $_SESSION['id_usuario'];
+
+        $q = $this->pdo->prepare('SELECT piso_id_piso FROM usuarios_has_piso WHERE usuarios_id_usuario = :usuario');
+        $q->execute(['usuario' => $usuario]);
+        $pisoIds = $q->fetchAll(PDO::FETCH_COLUMN);
+
+        if (!empty($pisoIds)) {
+            $pisoIdsString = implode(',', $pisoIds);
+
+
+
+            $query = $this->pdo->query('SELECT e.descripcion, e.piso_id_piso, 
+            SUM(TIMESTAMPDIFF(SECOND, ue.fecha_inicio, ue.fecha_final)) AS tiempo_usado
             FROM usuario_equipo ue
             JOIN equipos e ON ue.equipos_id_equipo = e.id_equipo
+            WHERE e.piso_id_piso IN (' . $pisoIdsString . ')
             GROUP BY e.id_equipo
             ORDER BY tiempo_usado DESC
             LIMIT 1;');
-        return $query->fetch();
+            return $query->fetch();
 
+        } else {
+            return null;
+        }
 
     }
 
 
     public function sinUso()
     {
-        $query = $this->pdo->query('SELECT COUNT(*) AS equipos_sin_uso
+
+        $usuario = $_SESSION['id_usuario'];
+
+        $q = $this->pdo->prepare('SELECT piso_id_piso FROM usuarios_has_piso WHERE usuarios_id_usuario = :usuario');
+        $q->execute(['usuario' => $usuario]);
+        $pisoIds = $q->fetchAll(PDO::FETCH_COLUMN);
+
+
+        if (!empty($pisoIds)) {
+            $pisoIdsString = implode(',', $pisoIds);
+
+            $query = $this->pdo->query('SELECT COUNT(*) AS equipos_sin_uso
             FROM equipos e
-            WHERE NOT EXISTS (
+            WHERE  NOT EXISTS (
                 SELECT 1
                 FROM usuario_equipo ue
                 WHERE ue.equipos_id_equipo = e.id_equipo
-            );');
+            ) AND piso_id_piso IN (' . $pisoIdsString . ');');
+
         return $query->fetch();
+
+        }else{
+
+            return null;
+        }
+
+
+       
 
 
     }
@@ -186,8 +223,23 @@ class Equipo extends Database
 
     public function ListadoEquipos()
     {
-        $query = $this->pdo->query('SELECT * from equipos where status_ = 1');
-        return $query->fetchAll();
+        $usuario = $_SESSION['id_usuario'];
+
+        $q = $this->pdo->prepare('SELECT piso_id_piso FROM usuarios_has_piso WHERE usuarios_id_usuario = :usuario');
+        $q->execute(['usuario' => $usuario]);
+        $pisoIds = $q->fetchAll(PDO::FETCH_COLUMN);
+
+        if (!empty($pisoIds)) {
+            $pisoIdsString = implode(',', $pisoIds);
+            $query = $this->pdo->query('SELECT * from equipos where status_ = 1 AND piso_id_piso IN (' . $pisoIdsString . ')');
+            return $query->fetchAll();
+
+        } else {
+            return [];
+        }
+
+
+
     }
 
 

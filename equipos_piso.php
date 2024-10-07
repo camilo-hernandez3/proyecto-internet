@@ -16,6 +16,19 @@ $rol = intval($_SESSION['rol']);
 $equipos = new Equipo();
 
 $masUsado = $equipos->masUsed();
+
+$horas = 0;
+$minutos = 0;
+$segundos = 0;
+
+if ($masUsado) {
+    $horas = floor($masUsado->tiempo_usado / 3600);
+    $minutos = floor(($masUsado->tiempo_usado % 3600) / 60);
+    $segundos = $masUsado->tiempo_usado % 60;
+
+}
+
+
 $menosUsado = $equipos->sinUso();
 
 
@@ -173,17 +186,17 @@ $menosUsado = $equipos->sinUso();
                 </li>
 
                 <?php if ($rol === 1) { ?>
-                <li class="nav-item">
-                    <a class="nav-link active" href="equipos.php">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="equipos.php">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
+                        </a>
+                    </li>
 
-                <?php }?>
+                <?php } ?>
 
 
             </ul>
@@ -234,7 +247,11 @@ $menosUsado = $equipos->sinUso();
                         <h4 class="font-weight-bolder">Equipo mas usado</h4>
                     </div>
                     <div class="card-body pb-4">
-                        <h4 class="font-weight-bolder"><?php echo $masUsado->descripcion?></h4>
+                        <?php if ($masUsado): ?>
+                            <h4 class="font-weight-bolder"><?php echo $masUsado->descripcion; ?></h4>
+                        <?php else: ?>
+                            <h4 class="font-weight-bolder">No hay estadistica</h4>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -244,7 +261,15 @@ $menosUsado = $equipos->sinUso();
                         <h4 class="font-weight-bolder">Duración</h4>
                     </div>
                     <div class="card-body pb-4">
-                        <h4 class="font-weight-bolder"><?php echo $masUsado->tiempo_usado ?> Minutos</h4>
+
+                        <?php if ($masUsado): ?>
+                            <h4 class="font-weight-bolder"><?php echo $horas ?> : <?php echo $minutos ?>:
+                            <?php echo $segundos ?></h4>
+                        <?php else: ?>
+                            <h4 class="font-weight-bolder">No hay estadistica</h4>
+                        <?php endif; ?>
+
+                      
                     </div>
                 </div>
             </div>
@@ -258,7 +283,7 @@ $menosUsado = $equipos->sinUso();
                     </div>
                 </div>
             </div>
-           
+
         </div>
 
         <div class="container-fluid py-4">
