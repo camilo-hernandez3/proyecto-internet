@@ -50,14 +50,34 @@ class Usuario extends Database
 
 		$usuario = json_decode($usuario);
 
+
+		$rolId = null;
+
+		if(isset($usuario->new_rol) && !empty($usuario->new_rol)){
+
+			$q = $this->pdo->prepare('INSERT INTO rol (nombre) VALUES (:nombre)');
+			$q->bindParam(':nombre', $usuario->new_rol);
+			$q->execute();
+			$lastInsertId = $this->pdo->lastInsertId();
+			$rolId = $lastInsertId;
+		
+
+		}else{
+			$rolId = $usuario->selected_rol;
+		}	
+
+		
+
+		
 		$query = $this->pdo->prepare('INSERT INTO usuarios (nombre, email,user_password,rol_id_rol) VALUES (:nombre, :email, :user_password, :rol_id_rol)');
 
+		$query->bindParam(':rol_id_rol', $rolId);
 
 		$query->bindParam(':nombre', $usuario->nombres);
 
 		$query->bindParam(':email', $usuario->email);
 		$query->bindParam(':user_password', $usuario->password);
-		$query->bindParam(':rol_id_rol', $usuario->selected_rol);
+		
 
 		$query->execute();
 		$lastInsertId = $this->pdo->lastInsertId();

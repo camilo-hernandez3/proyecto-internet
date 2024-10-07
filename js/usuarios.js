@@ -31,14 +31,15 @@ function getUsers() {
 
 
 
-function guardarUsuario(nombres, email, password, selected_rol, piso_selected) {
+function guardarUsuario(nombres, email, password, selected_rol, piso_selected, new_rol) {
 
     let newUser = {
         nombres,
         email,
         password,
         selected_rol,
-        piso_selected
+        piso_selected,
+        new_rol
     }
 
     let datos = new FormData();
@@ -187,6 +188,7 @@ function saveUser() {
 
     let selected_rol = document.getElementById('rol_selected').value;
     let piso_selected = document.getElementById('piso_selected');
+    let new_rol = document.getElementById('new_rol').value;
 
     const selectedOptions = Array.from(piso_selected.selectedOptions);
 
@@ -209,7 +211,8 @@ function saveUser() {
         email,
         password,
         selected_rol,
-        selectedValues);
+        selectedValues,
+        new_rol);
 }
 
 function saveEditProduct(nombres,
