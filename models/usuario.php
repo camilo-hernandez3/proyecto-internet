@@ -161,7 +161,7 @@ class Usuario extends Database
 
 		try {
 
-			$query = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND user_password = :pass");
+			$query = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND user_password = :pass AND rol_id_rol IN(1,3)");
 
 			$query->bindParam(':email', $credentials->user);
 			$query->bindParam(':pass', $credentials->password);

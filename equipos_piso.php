@@ -171,6 +171,8 @@ $menosUsado = $equipos->sinUso();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
                     </a>
                 </li>
+
+                <?php if ($rol === 1) { ?>
                 <li class="nav-item">
                     <a class="nav-link active" href="equipos.php">
                         <div
@@ -181,7 +183,7 @@ $menosUsado = $equipos->sinUso();
                     </a>
                 </li>
 
-
+                <?php }?>
 
 
             </ul>

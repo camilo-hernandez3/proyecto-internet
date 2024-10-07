@@ -101,6 +101,7 @@ $pisos = $usuarios->allPisos();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
                     </a>
                 </li>
+               
                 <li class="nav-item">
                     <a class="nav-link active" href="equipos_piso.php">
                         <div
@@ -110,6 +111,7 @@ $pisos = $usuarios->allPisos();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
                     </a>
                 </li>
+                <?php if($rol === 1 ){ ?>
                 <li class="nav-item">
                     <a class="nav-link active" href="equipos.php">
                         <div
@@ -119,6 +121,8 @@ $pisos = $usuarios->allPisos();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
                     </a>
                 </li>
+
+                <?php } ?>
 
 
 

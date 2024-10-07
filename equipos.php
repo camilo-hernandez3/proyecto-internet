@@ -78,7 +78,7 @@ $roles = $usuarios->allroles();
             <i class="fas fa-times p-3 cursor-pointer text-black opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0 mr-4">
-             <!--    <img src="./img/logo2.png" class="navbar-brand-img h-100 mr-5" alt="main_logo"> -->
+                <!--    <img src="./img/logo2.png" class="navbar-brand-img h-100 mr-5" alt="main_logo"> -->
 
             </a>
         </div>
@@ -87,28 +87,29 @@ $roles = $usuarios->allroles();
             <ul class="navbar-nav">
 
 
+
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="users.php">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-user text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="equipos_piso.php">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="fa fa-building text-primary text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
+                    </a>
+                </li>
                 <?php if ($rol === 1) { ?>
-                    <li class="nav-item mt-3">
-                        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="users.php">
-                            <div
-                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fa fa-user text-primary text-sm opacity-10"></i>
-                            </div>
-                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="equipos_piso.php">
-                            <div
-                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="fa fa-building text-primary text-sm opacity-10"></i>
-                            </div>
-                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="equipos.php">
                             <div
@@ -176,9 +177,10 @@ $roles = $usuarios->allroles();
                                 <div class="col-xl-8 text-end">
                                     <div class="d-flex justify-content-end mb-2">
                                         <div>
-                                              <button type="button" onclick="printDispositivosPDF('data_table_equipos_export')"
+                                            <button type="button"
+                                                onclick="printDispositivosPDF('data_table_equipos_export')"
                                                 class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
-                                                    class="fas fa-file-pdf"></i> EXPORTAR A PDF</button> 
+                                                    class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
                                             <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
                                                 style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
                                                 <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear equipo</button>
