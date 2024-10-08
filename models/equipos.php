@@ -107,7 +107,7 @@ class Equipo extends Database
                     )
                     FROM usuario_equipo ue
                     JOIN usuarios u ON ue.usuarios_id_usuario = u.id_usuario
-                    WHERE ue.equipos_id_equipo = e.id_equipo AND ue.status_ = 1 AND ue.fecha_final IS NULL
+                    WHERE ue.equipos_id_equipo = e.id_equipo AND ue.status_ = 1 AND e.status_ = 1 AND ue.fecha_final IS NULL
                 )
             )
         ) AS equipos,
@@ -118,6 +118,7 @@ class Equipo extends Database
         piso p
     LEFT JOIN 
         equipos e ON p.id_piso = e.piso_id_piso
+    WHERE  e.status_ = 1
     GROUP BY 
         p.id_piso');
 
