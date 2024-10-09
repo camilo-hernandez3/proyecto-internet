@@ -32,7 +32,7 @@ if (isset($_POST['btningresar'])) {
 <html>
 
 <head>
-	<title>Tienda del soldado GSECO</title>
+	<title>Monitoreo callcenter</title>
 	<link rel="stylesheet" href="./css/estilo.css">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>

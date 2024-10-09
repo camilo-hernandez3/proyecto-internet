@@ -34,7 +34,7 @@ $pisos = $equipo->pisos();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="./img/logo.png">
     <link rel="icon" type="image/png" href="./img/logo.png">
-    <title>Proyecto unipiloto</title>
+    <title>Monitoreo callcenter</title>
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
