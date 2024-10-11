@@ -6,6 +6,7 @@ require('./models/articulo.php');
 require('./models/categoria.php');
 require('./models/gastos.php');
 require('./models/usuario.php');
+require('./models/equipos.php');
 
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: index.php");
@@ -18,7 +19,8 @@ $rol = intval($_SESSION['rol']);
 $usuarios = new Usuario();
 
 $roles = $usuarios->allroles();
-$pisos = $usuarios->allPisos();
+
+
 
 ?>
 <!DOCTYPE html>
@@ -44,19 +46,19 @@ $pisos = $usuarios->allPisos();
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
 
-    <!-- Fonts and icons -->
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <!-- Nucleo Icons -->
+
     <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
+
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Argon Dashboard CSS -->
+
     <link id="pagestyle" href="./assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
-    <!-- SweetAlert2 -->
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!-- DateRangePicker -->
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -71,7 +73,7 @@ $pisos = $usuarios->allPisos();
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;">></div>
-    <!-- sidebar -->
+
     <aside
         class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
         id="sidenav-main">
@@ -79,7 +81,7 @@ $pisos = $usuarios->allPisos();
             <i class="fas fa-times p-3 cursor-pointer text-black opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0 mr-4">
-                <!--      <img src="./img/logo2.png" class="navbar-brand-img h-100 mr-5" alt="main_logo"> -->
+
 
             </a>
         </div>
@@ -101,7 +103,6 @@ $pisos = $usuarios->allPisos();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link active" href="equipos_piso.php">
                         <div
@@ -121,9 +122,7 @@ $pisos = $usuarios->allPisos();
                             <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
                         </a>
                     </li>
-
                 <?php } ?>
-
 
                 <li class="nav-item">
                     <a class="nav-link active" href="permisos.php">
@@ -134,7 +133,6 @@ $pisos = $usuarios->allPisos();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Permisos</span>
                     </a>
                 </li>
-
 
 
 
@@ -180,110 +178,73 @@ $pisos = $usuarios->allPisos();
         </nav>
 
         <div class="container-fluid py-4">
+            <?php if ($rol === 1) { ?>
+                <div class="col-xl-12 mt-2 mb-2">
+                    <div class="card">
+                        <div class="card-header pb-4">
 
-            <div class="col-xl-12 mt-2 mb-2">
-                <div class="card">
-                    <div class="card-header pb-4">
-
-                        <div class="row pb-2 p-3">
-                            <div class="col-xl-4 d-flex align-items-center text-uppercase">
-                                <h4 class="font-weight-bolder">Usuarios</h4>
-                            </div>
-                            <div class="col-xl-8 text-end">
-                                <div class="d-flex justify-content-end mb-2">
-                                    <div>
-                                        <button type="button" onclick="printUsuariosPDF('data_table_users_export')"
-                                            class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
-                                                class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
-                                        <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
-                                            style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
-                                            <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear usuario</button>
-                                    </div>
+                            <div class="row pb-2 p-3">
+                                <div class="col-xl-4 d-flex align-items-center text-uppercase">
+                                    <h4 class="font-weight-bolder">Permisos</h4>
                                 </div>
-                                <div class="modal fade" id="modal-form-users" tabindex="999999" style="z-index: 9999999"
-                                    role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title text-uppercase font-weight-bold">Crear usuario
-                                                </h4>
-                                                <button type="button" class="btn bg-gradient-danger"
-                                                    data-bs-dismiss="modal">X</button>
+                                <div class="col-xl-8 text-end">
+                                    <div class="d-flex justify-content-end mb-2">
+                                        <div>
+                                            <button type="button"
+                                                onclick="printDispositivosPDF('data_table_equipos_export')"
+                                                class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
+                                                    class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
+                                            <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
+                                                style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
+                                                <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear equipo</button>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="modal-form-users" tabindex="999999" style="z-index: 9999999"
+                                        role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title text-uppercase font-weight-bold">Crear permiso
+                                                    </h4>
+                                                    <button type="button" class="btn bg-gradient-danger"
+                                                        data-bs-dismiss="modal">X</button>
 
-                                            </div>
-                                            <div class="modal-body p-0">
-                                                <div class="card card-plain">
-                                                    <div class="card-body text-start">
-                                                        <form role="form text-left">
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                    <div class="col-xl-6">
-                                                                        <label for=""
-                                                                            class="col-form-label text-uppercase">Nombres</label>
-                                                                        <input id="user_name" type="text"
-                                                                            placeholder="Nombres"
-                                                                            class="form-control" />
+                                                </div>
+                                                <div class="modal-body p-0">
+                                                    <div class="card card-plain">
+                                                        <div class="card-body text-start">
+                                                            <form role="form text-left">
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-12">
+                                                                            <label for=""
+                                                                                class="col-form-label text-uppercase">Rol</label>
+                                                                            <select class="form-control"
+                                                                                name="choices-button" id="rol_selected"
+                                                                                placeholder="Departure">
+                                                                                <?php foreach ($roles as $r) { ?>
+                                                                                    <option value="<?php echo $r->id_rol ?>">
+                                                                                        <?php echo $r->nombre ?>
+                                                                                    </option>
+                                                                                <?php } ?>
+                                                                            </select>
+
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                                class="col-form-label text-uppercase">Puede ver usuarios</label>
+                                                                                <input type="checkbox" id="could_view_users">
+
+                                                                        </div>
+
+                                                                        <button type="button" id="confirmButton"
+                                                                            onclick="saveEquipo()"
+                                                                            class="btn btn-round btn-lg w-100 mt-4 mb-0 text-uppercase"
+                                                                            style="background: #5e72e4; color:white">guardar
+                                                                        </button>
                                                                     </div>
-
-
-                                                                    <div class="col-xl-6">
-                                                                        <label for=""
-                                                                            class="col-form-label text-uppercase">Correo</label>
-                                                                        <input class="form-control" type="text"
-                                                                            id="email" placeholder="Correo">
-                                                                    </div>
-                                                                    <div class="col-xl-6">
-                                                                        <label for=""
-                                                                            class="col-form-label text-uppercase">Password</label>
-                                                                        <input class="form-control" type="text"
-                                                                            id="password" placeholder="Password">
-                                                                    </div>
-
-                                                                    <div class="col-xl-6">
-                                                                        <label for=""
-                                                                            class="col-form-label text-uppercase">Rol</label>
-                                                                        <select class="form-control"
-                                                                            name="choices-button" id="rol_selected"
-                                                                            placeholder="Departure">
-                                                                            <?php foreach ($roles as $r) { ?>
-                                                                                <option value="<?php echo $r->id_rol ?>">
-                                                                                    <?php echo $r->nombre ?>
-                                                                                </option>
-                                                                            <?php } ?>
-                                                                        </select>
-
-                                                                    </div>
-                                                                    <div class="col-xl-6">
-                                                                        <label for=""
-                                                                            class="col-form-label text-uppercase">Pisos</label>
-                                                                        <select class="form-control"
-                                                                            name="choices-button[]" id="piso_selected"
-                                                                            placeholder="Departure" multiple>
-                                                                            <?php foreach ($pisos as $r) { ?>
-                                                                                <option value="<?php echo $r->id_piso ?>">
-                                                                                    <?php echo $r->nombre ?>
-                                                                                </option>
-                                                                            <?php } ?>
-                                                                        </select>
-
-                                                                    </div>
-                                                                    <div class="col-xl-6">
-                                                                        <label for=""
-                                                                            class="col-form-label text-uppercase">Nuevo
-                                                                            Rol</label>
-                                                                        <input class="form-control" type="text"
-                                                                            id="new_rol" placeholder="Rol">
-
-                                                                    </div>
-                                                                </div>
-
-                                                                <button type="button" id="confirmButton"
-                                                                    onclick="saveUser()"
-                                                                    class="btn btn-round btn-lg w-100 mt-4 mb-0 text-uppercase"
-                                                                    style="background: #5e72e4; color:white">guardar
-                                                                </button>
-                                                            </div>
-                                                        </form>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -292,34 +253,58 @@ $pisos = $usuarios->allPisos();
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="data_table_users_export" class="table-responsive">
-                        <table class="table align-items-center mb-0" id="data_table_users">
-                            <thead>
-                                <tr>
-                                    <th align="center"
-                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                        Nombres</th>
+                        <div id="data_table_equipos_export" class="table-responsive">
+                            <table class="table align-items-center mb-0" id="data_table_dispositivos">
+                                <thead>
+                                    <tr>
 
-                                    <th align="center"
-                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                        Email</th>
-                                    <th align="center"
-                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                    </th>
-                                    <th align="center"
-                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Rol</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Puede ver usuarios</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Puede editar usuarios</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Puede exportar usuarios</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Puede Visualizar equipos</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Puede exportar equipos</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Puede crear equipos</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Puede editar equipos</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Puede visualizar equipos de piso</th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                            Puede visualizar historial de equipos</th>
 
-                            </tbody>
-                        </table>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        </th>
+                                        <th align="center"
+                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            <?php } ?>
 
         </div>
         </div>
@@ -349,7 +334,7 @@ $pisos = $usuarios->allPisos();
 
 
     <script src="js/login.js"></script>
-    <script src="js/usuarios.js"></script>
+    <script src="js/permisos.js"></script>
 
 
     <script src="assets/js/core/popper.min.js"></script>
