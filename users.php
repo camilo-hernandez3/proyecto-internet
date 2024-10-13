@@ -195,8 +195,8 @@ $pisos = $usuarios->allPisos();
                                         <button type="button" onclick="printUsuariosPDF('data_table_users_export')"
                                             class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
                                                 class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
-                                        <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
-                                            style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
+                                        <button class="btn mb-0 text-uppercase" 
+                                            style="background: #5e72e4; color:white" onclick="crearUsuario()">
                                             <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear usuario</button>
                                     </div>
                                 </div>

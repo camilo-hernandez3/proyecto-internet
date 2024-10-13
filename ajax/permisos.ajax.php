@@ -14,4 +14,12 @@ if(isset($_POST["list_permisos"])){
 
 }
 
+if(isset($_POST["new_equipo"])){
+
+	$user = new Permisos();
+	$newUser= $_POST["new_equipo"];
+	echo json_encode($user -> store($newUser));
+
+}
+
 

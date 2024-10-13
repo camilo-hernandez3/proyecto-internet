@@ -2,7 +2,7 @@
 require_once('db.php');
 date_default_timezone_set('America/Bogota');
 
-class permisos extends Database
+class Permisos extends Database
 {
 
 
@@ -12,6 +12,13 @@ class permisos extends Database
 
 
         return $query->fetchAll();
+    }
+
+
+    public function show($id_equipo)
+    {
+        $query = $this->pdo->query('SELECT up.*, r.nombre FROM user_permission AS up JOIN rol AS r ON up.id_rol = r.id_rol WHERE id_user_permission =' . $id_equipo);
+        return $query->fetch();
     }
 
 
@@ -37,21 +44,43 @@ class permisos extends Database
     {
 
         $usuario = json_decode($usuario);
-
-        $query = $this->pdo->prepare('INSERT INTO equipos (descripcion, ip_address,mac_adress,piso_id_piso, ram, procesador, almacenamiento) VALUES (:descripcion, :ip_address, :mac_address, :piso_id_piso, :ram, :procesador, :almacenamiento)');
-
-
-       /*  $query->bindParam(':descripcion', $usuario->description);
-
-        $query->bindParam(':ip_address', $usuario->ip_address);
-        $query->bindParam(':mac_address', $usuario->mac_address);
-        $query->bindParam(':piso_id_piso', $usuario->piso);
-        $query->bindParam(':ram', $usuario->ram);
-        $query->bindParam(':procesador', $usuario->procesador);
-        $query->bindParam(':almacenamiento', $usuario->almacenamiento); */
-
+        $query = $this->pdo->prepare('INSERT INTO user_permissions (
+            rol_selected, 
+            could_view_users,
+            could_edit_users,
+            could_export_users,
+            could_view_pc,
+            could_export_pc,
+            could_create_pc,
+            could_edit_pc,
+            could_view_users_pc,
+            could_view_history_users_pc) VALUES ( 
+            :rol_selected,
+            :could_view_users,
+            :could_edit_users,
+            :could_export_users,
+            :could_view_pc,
+            :could_export_pc,
+            :could_create_pc,
+            :could_edit_pc,
+            :could_view_users_pc,
+            :could_view_history_users_pc)');
+        
+        $query->bindParam(':rol_selected', $usuario->rol_selected);
+        $query->bindParam(':could_view_users', $usuario->could_view_users);
+        $query->bindParam(':could_edit_users', $usuario->could_edit_users);
+        $query->bindParam(':could_export_users', $usuario->could_export_users);
+        $query->bindParam(':could_view_pc', $usuario->could_view_pc);
+        $query->bindParam(':could_export_pc', $usuario->could_export_pc);
+        $query->bindParam(':could_create_pc', $usuario->could_create_pc);
+        $query->bindParam(':could_edit_pc', $usuario->could_edit_pc);
+        $query->bindParam(':could_view_users_pc', $usuario->could_view_users_pc);
+        $query->bindParam(':could_view_history_users_pc', $usuario->could_view_history_users_pc);
+        
         $query->execute();
+        
         $lastInsertId = $this->pdo->lastInsertId();
+        return $this->show($lastInsertId);
 
     }
 

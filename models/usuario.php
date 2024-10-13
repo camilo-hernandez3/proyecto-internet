@@ -43,7 +43,7 @@ class Usuario extends Database
 
 	public function userById($id_usuario)
 	{
-		$query = $this->pdo->query('SELECT * FROM usuarios AS u  JOIN usuarios_has_piso AS up ON u.id_usuario = up.usuarios_id_usuario WHERE u.id_usuario =' . $id_usuario);
+		$query = $this->pdo->query('SELECT * FROM usuarios AS u LEFT JOIN usuarios_has_piso AS up ON u.id_usuario = up.usuarios_id_usuario WHERE u.id_usuario =' . $id_usuario);
 		return $query->fetchAll();
 	}
 

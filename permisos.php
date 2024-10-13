@@ -20,6 +20,11 @@ $usuarios = new Usuario();
 
 $roles = $usuarios->allroles();
 
+$permisos = [
+    (object) ['value' => 0, 'label' => 'No'],
+    (object) ['value' => 1, 'label' => 'Si'],
+]
+
 
 
 ?>
@@ -196,7 +201,7 @@ $roles = $usuarios->allroles();
                                                     class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
                                             <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
                                                 style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
-                                                <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear equipo</button>
+                                                <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear Permiso</button>
                                         </div>
                                     </div>
                                     <div class="modal fade" id="modal-form-users" tabindex="999999" style="z-index: 9999999"
@@ -228,14 +233,141 @@ $roles = $usuarios->allroles();
                                                                                     </option>
                                                                                 <?php } ?>
                                                                             </select>
-
+                                                                            
                                                                         </div>
                                                                         <div class="col-xl-6">
                                                                             <label for=""
-                                                                                class="col-form-label text-uppercase">Puede ver usuarios</label>
-                                                                                <input type="checkbox" id="could_view_users">
-
+                                                                            class="col-form-label text-uppercase">Puede ver usuarios</label>
+                                                                            <select class="form-control"
+                                                                                name="choices-button" id="could_view_users"
+                                                                                placeholder="Departure">
+                                                                                <?php foreach ($permisos as $r) { ?>
+                                                                                    <option value="<?php echo $r->value ?>">
+                                                                                        <?php echo $r->label ?>
+                                                                                    </option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                              
                                                                         </div>
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                            class="col-form-label text-uppercase">Puede editar usuarios</label>
+                                                                            <select class="form-control"
+                                                                                name="choices-button" id="could_edit_users"
+                                                                                placeholder="Departure">
+                                                                                <?php foreach ($permisos as $r) { ?>
+                                                                                    <option value="<?php echo $r->value ?>">
+                                                                                        <?php echo $r->label ?>
+                                                                                    </option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                              
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                            class="col-form-label text-uppercase">Puede exportar usuarios</label>
+                                                                            <select class="form-control"
+                                                                                name="choices-button" id="could_export_users"
+                                                                                placeholder="Departure">
+                                                                                <?php foreach ($permisos as $r) { ?>
+                                                                                    <option value="<?php echo $r->value ?>">
+                                                                                        <?php echo $r->label ?>
+                                                                                    </option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                              
+                                                                        </div>
+
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                            class="col-form-label text-uppercase">Puede visualizar equipos</label>
+                                                                            <select class="form-control"
+                                                                                name="choices-button" id="could_view_pc"
+                                                                                placeholder="Departure">
+                                                                                <?php foreach ($permisos as $r) { ?>
+                                                                                    <option value="<?php echo $r->value ?>">
+                                                                                        <?php echo $r->label ?>
+                                                                                    </option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                              
+                                                                        </div>
+
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                            class="col-form-label text-uppercase">Puede exportar equipos</label>
+                                                                            <select class="form-control"
+                                                                                name="choices-button" id="could_export_pc"
+                                                                                placeholder="Departure">
+                                                                                <?php foreach ($permisos as $r) { ?>
+                                                                                    <option value="<?php echo $r->value ?>">
+                                                                                        <?php echo $r->label ?>
+                                                                                    </option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                              
+                                                                        </div>
+
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                            class="col-form-label text-uppercase">Puede crear equipos</label>
+                                                                            <select class="form-control"
+                                                                                name="choices-button" id="could_create_pc"
+                                                                                placeholder="Departure">
+                                                                                <?php foreach ($permisos as $r) { ?>
+                                                                                    <option value="<?php echo $r->value ?>">
+                                                                                        <?php echo $r->label ?>
+                                                                                    </option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                              
+                                                                        </div>
+
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                            class="col-form-label text-uppercase">Puede editar equipos</label>
+                                                                            <select class="form-control"
+                                                                                name="choices-button" id="could_edit_pc"
+                                                                                placeholder="Departure">
+                                                                                <?php foreach ($permisos as $r) { ?>
+                                                                                    <option value="<?php echo $r->value ?>">
+                                                                                        <?php echo $r->label ?>
+                                                                                    </option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                              
+                                                                        </div>
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                            class="col-form-label text-uppercase">Puede visualizar equipos de usuario</label>
+                                                                            <select class="form-control"
+                                                                                name="choices-button" id="could_view_users_pc"
+                                                                                placeholder="Departure">
+                                                                                <?php foreach ($permisos as $r) { ?>
+                                                                                    <option value="<?php echo $r->value ?>">
+                                                                                        <?php echo $r->label ?>
+                                                                                    </option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                       
+                                                                        </div>
+
+                                                                        <div class="col-xl-6">
+                                                                            <label for=""
+                                                                            class="col-form-label text-uppercase">Puede ver historial de equipos</label>
+                                                                            <select class="form-control"
+                                                                                name="choices-button" id="could_view_history_users_pc"
+                                                                                placeholder="Departure">
+                                                                                <?php foreach ($permisos as $r) { ?>
+                                                                                    <option value="<?php echo $r->value ?>">
+                                                                                        <?php echo $r->label ?>
+                                                                                    </option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                              
+                                                                        </div>
+
+
 
                                                                         <button type="button" id="confirmButton"
                                                                             onclick="saveEquipo()"
@@ -263,7 +395,8 @@ $roles = $usuarios->allroles();
                                             Rol</th>
                                         <th align="center"
                                             class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Puede ver usuarios</th>
+                                            Puede ver usuarios
+                                        </th>
                                         <th align="center"
                                             class="text-center text-uppercase text-black text-sm font-weight-bolder">
                                             Puede editar usuarios</th>

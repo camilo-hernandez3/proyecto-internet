@@ -31,22 +31,31 @@ function getDispositivos() {
 
 
 
-function guardarEquipos(description,
-    ip_address,
-    mac_address,
-    ram,
-    procesador,
-    almacenamiento,
-    piso) {
+function guardarEquipos(
+    rol_selected,
+    could_view_users,
+    could_edit_users,
+    could_export_users,
+    could_view_pc,
+    could_export_pc,
+    could_create_pc,
+    could_edit_pc,
+    could_view_users_pc,
+    could_view_history_users_pc,
+    
+) {
 
     let newEquipo = {
-        description,
-        ip_address,
-        mac_address,
-        ram,
-        procesador,
-        almacenamiento,
-        piso
+        rol_selected,
+        could_view_users,
+        could_edit_users,
+        could_export_users,
+        could_view_pc,
+        could_export_pc,
+        could_create_pc,
+        could_edit_pc,
+        could_view_users_pc,
+        could_view_history_users_pc,
     }
 
     let datos = new FormData();
@@ -59,7 +68,7 @@ function guardarEquipos(description,
 
 
     $.ajax({
-        url: "ajax/equipos.ajax.php",
+        url: "ajax/permisos.ajax.php",
         method: "POST",
         data: datos,
         cache: false,
@@ -90,7 +99,7 @@ function editUser(id) {
     datos.append("id_equipo", id);
 
     $.ajax({
-        url: "ajax/equipos.ajax.php",
+        url: "ajax/permisos.ajax.php",
         method: "POST",
         data: datos,
         cache: false,
@@ -120,7 +129,7 @@ function eliminarUsuario(dispositivos) {
 
         if (result.isConfirmed) {
             $.ajax({
-                url: "ajax/equipos.ajax.php",
+                url: "ajax/permisos.ajax.php",
                 method: "POST",
                 data: datos,
                 cache: false,
@@ -189,44 +198,59 @@ function renderUsers(data) {
 }
 
 function saveEquipo() {
-    let description = document.getElementById('description').value;
-    let ip_address = document.getElementById('ip_address').value;
-    let mac_address = document.getElementById('mac_address').value;
-    let ram = document.getElementById('ram').value;
-    let procesador = document.getElementById('procesador').value;
-    let almacenamiento = document.getElementById('almacenamiento').value;
-    let piso = document.getElementById('piso').value;
+    let rol_selected = document.getElementById('rol_selected').value;
+    let could_view_users = document.getElementById('could_view_users').value;
+    let could_edit_users = document.getElementById('could_edit_users').value;
+    let could_export_users = document.getElementById('could_export_users').value;
+    let could_view_pc = document.getElementById('could_view_pc').value;
+    let could_export_pc = document.getElementById('could_export_pc').value;
+    let could_create_pc = document.getElementById('could_create_pc').value;
+    let could_edit_pc = document.getElementById('could_edit_pc').value;
+    let could_view_users_pc = document.getElementById('could_view_users_pc').value;
+    let could_view_history_users_pc = document.getElementById('could_view_history_users_pc').value;
 
     if (selectedUser) {
         saveEditProduct(
-            description,
-            ip_address,
-            mac_address,
-            ram,
-            procesador,
-            almacenamiento,
-            piso
+            rol_selected,
+            could_view_users,
+            could_edit_users,
+            could_export_users,
+            could_view_pc,
+            could_export_pc,
+            could_create_pc,
+            could_edit_pc,
+            could_view_users_pc,
+            could_view_history_users_pc,
         );
         return;
     }
 
 
-    guardarEquipos(description,
-        ip_address,
-        mac_address,
-        ram,
-        procesador,
-        almacenamiento,
-        piso);
+    guardarEquipos(
+        rol_selected,
+        could_view_users,
+        could_edit_users,
+        could_export_users,
+        could_view_pc,
+        could_export_pc,
+        could_create_pc,
+        could_edit_pc,
+        could_view_users_pc,
+        could_view_history_users_pc,
+    );
 }
 
-function saveEditProduct(description,
-    ip_address,
-    mac_address,
-    ram,
-    procesador,
-    almacenamiento,
-    piso
+function saveEditProduct(
+    rol_selected,
+    could_view_users,
+    could_edit_users,
+    could_export_users,
+    could_view_pc,
+    could_export_pc,
+    could_create_pc,
+    could_edit_pc,
+    could_view_users_pc,
+    could_view_history_users_pc,
     ) {
 
 
@@ -234,19 +258,22 @@ function saveEditProduct(description,
     let datos = new FormData();
 
     let product_edit = {
-        description,
-        ip_address,
-        mac_address,
-        ram,
-        procesador,
-        almacenamiento,
-        piso,
-        id_equipo: selectedUser.id_equipo
+        rol_selected,
+        could_view_users,
+        could_edit_users,
+        could_export_users,
+        could_view_pc,
+        could_export_pc,
+        could_create_pc,
+        could_edit_pc,
+        could_view_users_pc,
+        could_view_history_users_pc,
+        id_equipo: selectedUser.id_rol
     }
 
     datos.append("equipo_edit", JSON.stringify(product_edit));
     $.ajax({
-        url: "ajax/equipos.ajax.php",
+        url: "ajax/permisos.ajax.php",
         method: "POST",
         data: datos,
         cache: false,

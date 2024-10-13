@@ -114,7 +114,7 @@ $pisos = $equipo->pisos();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
                     </a>
                 </li>
-                <?php if ($rol === 1) { ?>
+     
                     <li class="nav-item">
                         <a class="nav-link active" href="equipos.php">
                             <div
@@ -124,9 +124,8 @@ $pisos = $equipo->pisos();
                             <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
                         </a>
                     </li>
-                <?php } ?>
-
-
+               
+                    
                 <li class="nav-item">
                     <a class="nav-link active" href="permisos.php">
                         <div
@@ -136,7 +135,6 @@ $pisos = $equipo->pisos();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Permisos</span>
                     </a>
                 </li>
-
 
 
             </ul>

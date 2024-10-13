@@ -31,6 +31,8 @@ function getUsers() {
 
 
 
+
+
 function guardarUsuario(nombres, email, password, selected_rol, piso_selected, new_rol) {
 
     let newUser = {
@@ -277,6 +279,17 @@ function saveEditProduct(nombres,
             $('#modal-form-users').modal('hide');
         }
     });
+}
+
+
+function crearUsuario(){
+
+    document.getElementById('user_name').value = null;
+    document.getElementById('email').value = null;
+    document.getElementById('password').value = null;
+    document.getElementById('rol_selected').value = null;
+    document.getElementById('piso_selected').value = null
+    $('#modal-form-users').modal('show');
 }
 
 function renderData(data) {
