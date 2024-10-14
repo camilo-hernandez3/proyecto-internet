@@ -76,8 +76,8 @@ function guardarEquipos(
         processData: false,
         success: function (response) {
             Swal.fire({
-                title: "Generar Equipo",
-                text: "El equipo se guardó correctamente",
+                title: "Generar permiso",
+                text: "El permiso se guardó correctamente",
                 icon: "success",
                 timer: 1500
             });
@@ -121,7 +121,7 @@ function eliminarUsuario(dispositivos) {
     let datos = new FormData();
     datos.append("id_eliminar", dispositivos);
     Swal.fire({
-        title: `¿Quieres borrar el equipo?`,
+        title: `¿Quieres borrar el permiso?`,
 
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -136,7 +136,7 @@ function eliminarUsuario(dispositivos) {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    users = users.filter(p => p.id_equipo !== dispositivos)
+                    users = users.filter(p => p.id_user_permission_id !== dispositivos)
                     renderTable();
                 }
             });
@@ -268,7 +268,7 @@ function saveEditProduct(
         could_edit_pc,
         could_view_users_pc,
         could_view_history_users_pc,
-        id_equipo: selectedUser.id_rol
+        id_equipo: selectedUser.id_user_permission_id
     }
 
     datos.append("equipo_edit", JSON.stringify(product_edit));
@@ -281,27 +281,36 @@ function saveEditProduct(
         processData: false,
         success: function (response) {
             Swal.fire({
-                title: "Equipo",
-                text: "El equipo fue editado de forma exitosa",
+                title: "Permisos",
+                text: "El permiso fue editado de forma exitosa",
                 icon: "success",
                 timer: 1500
             });
+
+            console.log(users);
+            console.log(selectedUser);
+            console.log(product_edit);
+            
+            
 
             users
 
                 = users
 
                     .map(ar => {
-                        if (ar.id_equipo === selectedUser.id_equipo) {
+                        if (ar.id_user_permission_id === selectedUser.id_user_permission_id) {
                             return {
                                 ...ar,
-                                descripcion:description,
-                                ip_address:ip_address,
-                                mac_address:mac_address,
-                                ram:ram,
-                                procesador:procesador,
-                                almacenamiento :almacenamiento,
-                               piso_id_piso :piso
+                                id_rol:+rol_selected,
+                                could_view_users:+could_view_users,
+                                could_edit_users:+could_edit_users,
+                                could_export_users:+could_export_users,
+                                could_view_pc:+could_view_pc,
+                                could_export_pc:+could_export_pc,
+                                could_create_pc:+could_create_pc,
+                                could_edit_pc:+could_edit_pc,
+                                could_view_users_pc:+could_view_users_pc,
+                                could_view_history_users_pc:+could_view_history_users_pc,
                             }
 
                         }
@@ -323,24 +332,30 @@ function renderData(data) {
 
     $('#modal-form-users').modal('show');
 
-    let description = document.getElementById('description');
-    let ip_address = document.getElementById('ip_address');
-    let mac_address = document.getElementById('mac_address');
-    let ram = document.getElementById('ram');
-    let procesador = document.getElementById('procesador');
-    let almacenamiento = document.getElementById('almacenamiento');
-    let piso = document.getElementById('piso');
+    let rol_selected  = document.getElementById('rol_selected');
+    let could_view_users  = document.getElementById('could_view_users');
+    let could_edit_users  = document.getElementById('could_edit_users');
+    let could_export_users  = document.getElementById('could_export_users');
+    let could_view_pc  = document.getElementById('could_view_pc');
+    let could_export_pc  = document.getElementById('could_export_pc');
+    let could_create_pc  = document.getElementById('could_create_pc');
+    let could_edit_pc  = document.getElementById('could_edit_pc');
+    let could_view_users_pc  = document.getElementById('could_view_users_pc');
+    let could_view_history_users_pc  = document.getElementById('could_view_history_users_pc');
 
 
 
 
-    description.value = selectedUser.descripcion;
-    ip_address.value = selectedUser.ip_address;
-    mac_address.value = selectedUser.mac_adress;
-    ram.value = selectedUser.ram;
-    procesador.value = selectedUser.procesador;
-    almacenamiento.value = selectedUser.almacenamiento;
-    piso.value = selectedUser.piso_id_piso;
+    rol_selected.value = selectedUser.id_rol;
+    could_view_users.value = selectedUser.could_view_users;
+    could_edit_users.value = selectedUser.could_edit_users;
+    could_export_users.value = selectedUser.could_export_users;
+    could_view_pc.value = selectedUser.could_view_pc;
+    could_export_pc.value = selectedUser.could_export_pc;
+    could_create_pc.value = selectedUser.could_create_pc;
+    could_edit_pc.value = selectedUser.could_edit_pc;
+    could_view_users_pc.value = selectedUser.could_view_users_pc;
+    could_view_history_users_pc.value = selectedUser.could_view_history_users_pc;
 
 
 

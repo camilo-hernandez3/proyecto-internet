@@ -17,7 +17,7 @@ class Permisos extends Database
 
     public function show($id_equipo)
     {
-        $query = $this->pdo->query('SELECT up.*, r.nombre FROM user_permission AS up JOIN rol AS r ON up.id_rol = r.id_rol WHERE id_user_permission =' . $id_equipo);
+        $query = $this->pdo->query('SELECT up.*, r.nombre FROM user_permission AS up JOIN rol AS r ON up.id_rol = r.id_rol WHERE id_user_permission_id =' . $id_equipo);
         return $query->fetch();
     }
 
@@ -44,8 +44,8 @@ class Permisos extends Database
     {
 
         $usuario = json_decode($usuario);
-        $query = $this->pdo->prepare('INSERT INTO user_permissions (
-            rol_selected, 
+        $query = $this->pdo->prepare('INSERT INTO user_permission (
+            id_rol, 
             could_view_users,
             could_edit_users,
             could_export_users,
@@ -78,7 +78,7 @@ class Permisos extends Database
         $query->bindParam(':could_view_history_users_pc', $usuario->could_view_history_users_pc);
         
         $query->execute();
-        
+
         $lastInsertId = $this->pdo->lastInsertId();
         return $this->show($lastInsertId);
 
@@ -87,23 +87,31 @@ class Permisos extends Database
     public function EditEquipo($equipo)
     {
         $editProduct = json_decode($equipo);
-        $updateQuery = $this->pdo->prepare('UPDATE equipos SET descripcion = :descripcion, ip_address = :ip_address, mac_adress = :mac_adress, piso_id_piso = :piso_id_piso, ram = :ram, procesador = :procesador, almacenamiento = :almacenamiento  WHERE id_equipo = :id');
+        $updateQuery = $this->pdo->prepare('UPDATE user_permission SET 
+            id_rol = :rol_selected, 
+            could_view_users = :could_view_users,
+            could_edit_users = :could_edit_users,
+            could_export_users = :could_export_users,
+            could_view_pc = :could_view_pc,
+            could_export_pc = :could_export_pc,
+            could_create_pc = :could_create_pc,
+            could_edit_pc = :could_edit_pc,
+            could_view_users_pc = :could_view_users_pc,
+            could_view_history_users_pc = :could_view_history_users_pc
+          WHERE id_user_permission_id = '.$editProduct->id_equipo);
 
 
-        $updateQuery->bindParam(':descripcion', $editProduct->description);
-        $updateQuery->bindParam(':ip_address', $editProduct->ip_address);
-
-        $updateQuery->bindParam(':mac_adress', $editProduct->mac_address);
-        +
-            $updateQuery->bindParam(':piso_id_piso', $editProduct->piso);
-        $updateQuery->bindParam(':ram', $editProduct->ram);
-        $updateQuery->bindParam(':procesador', $editProduct->procesador);
-        $updateQuery->bindParam(':almacenamiento', $editProduct->almacenamiento);
-
-
-        $updateQuery->bindParam(':id', $editProduct->id_equipo);
-
-
+        $updateQuery->bindParam(':rol_selected', $editProduct->rol_selected);
+        $updateQuery->bindParam(':could_view_users', $editProduct->could_view_users);
+        $updateQuery->bindParam(':could_edit_users', $editProduct->could_edit_users);
+        $updateQuery->bindParam(':could_export_users', $editProduct->could_export_users);
+        $updateQuery->bindParam(':could_view_pc', $editProduct->could_view_pc);
+        $updateQuery->bindParam(':could_export_pc', $editProduct->could_export_pc);
+        $updateQuery->bindParam(':could_create_pc', $editProduct->could_create_pc);
+        $updateQuery->bindParam(':could_edit_pc', $editProduct->could_edit_pc);
+        $updateQuery->bindParam(':could_view_users_pc', $editProduct->could_view_users_pc);
+        $updateQuery->bindParam(':could_view_history_users_pc', $editProduct->could_view_history_users_pc);
+        
         $updateQuery->execute();
     }
 
