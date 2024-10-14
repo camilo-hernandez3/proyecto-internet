@@ -147,6 +147,13 @@ class Usuario extends Database
 
 	}
 
+	public function permissions(){
+		$rol = $_SESSION['rol'];
+
+		$query = $this->pdo->query('SELECT * FROM user_permission WHERE id_rol = '. $rol);
+		return $query->fetch();
+	}
+
 	public function logout()
 	{
 		session_start();

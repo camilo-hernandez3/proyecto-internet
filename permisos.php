@@ -17,6 +17,7 @@ if (!isset($_SESSION['id_usuario'])) {
 $rol = intval($_SESSION['rol']);
 
 $usuarios = new Usuario();
+$permissions = $usuarios->permissions();
 
 $roles = $usuarios->allroles();
 
@@ -99,15 +100,20 @@ $permisos = [
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="users.php">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-user text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
-                    </a>
-                </li>
+
+                <?php if($permissions->could_view_users === 1){?>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="users.php">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-user text-primary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
+                        </a>
+                    </li>
+                <?php } ?>
+
+
                 <li class="nav-item">
                     <a class="nav-link active" href="equipos_piso.php">
                         <div
@@ -117,7 +123,7 @@ $permisos = [
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
                     </a>
                 </li>
-                <?php if ($rol === 1) { ?>
+                
                     <li class="nav-item">
                         <a class="nav-link active" href="equipos.php">
                             <div
@@ -127,8 +133,7 @@ $permisos = [
                             <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
                         </a>
                     </li>
-                <?php } ?>
-
+              
                 <li class="nav-item">
                     <a class="nav-link active" href="permisos.php">
                         <div

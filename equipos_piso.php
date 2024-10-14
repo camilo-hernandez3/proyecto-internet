@@ -17,6 +17,9 @@ $equipos = new Equipo();
 
 $masUsado = $equipos->masUsed();
 
+$usuarios = new Usuario()
+$permissions = $usuarios->permissions();
+
 $horas = 0;
 $minutos = 0;
 $segundos = 0;
@@ -166,6 +169,8 @@ $menosUsado = $equipos->sinUso();
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
                 </li>
+
+                <?php if($permissions->could_view_users === 1){?>
                 <li class="nav-item">
                     <a class="nav-link active" href="users.php">
                         <div
@@ -175,6 +180,10 @@ $menosUsado = $equipos->sinUso();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
                     </a>
                 </li>
+
+                <?php } ?>
+
+
                 <li class="nav-item">
                     <a class="nav-link active" href="equipos_piso.php">
                         <div

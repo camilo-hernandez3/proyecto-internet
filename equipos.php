@@ -17,6 +17,7 @@ if (!isset($_SESSION['id_usuario'])) {
 $rol = intval($_SESSION['rol']);
 
 $usuarios = new Usuario();
+$permissions = $usuarios->permissions();
 
 $equipo = new Equipo();
 
@@ -96,6 +97,7 @@ $pisos = $equipo->pisos();
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
                 </li>
+                <?php if($permissions->could_view_users === 1){?>
                 <li class="nav-item">
                     <a class="nav-link active" href="users.php">
                         <div
@@ -105,6 +107,9 @@ $pisos = $equipo->pisos();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
                     </a>
                 </li>
+
+                <?php } ?>
+
                 <li class="nav-item">
                     <a class="nav-link active" href="equipos_piso.php">
                         <div
