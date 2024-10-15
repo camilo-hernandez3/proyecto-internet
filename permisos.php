@@ -188,7 +188,7 @@ $permisos = [
         </nav>
 
         <div class="container-fluid py-4">
-            <?php if ($rol === 1) { ?>
+ 
                 <div class="col-xl-12 mt-2 mb-2">
                     <div class="card">
                         <div class="card-header pb-4">
@@ -442,7 +442,7 @@ $permisos = [
                         </div>
                     </div>
                 </div>
-            <?php } ?>
+        
 
         </div>
         </div>
