@@ -3,7 +3,7 @@ session_start();
 if (isset($_POST['btningresar'])) {
 	$dbhost = "localhost";
 	$dbuser = "root";
-	$dbpass = "";
+	$dbpass = "root";
 	$dbname = "proyecto";
 	$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 	$Usuario = $_POST['txtusuario'];

@@ -97,16 +97,16 @@ $permissions = $usuarios->permissions();
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
                 </li>
 
-                <?php if($permissions->could_view_users === 1){?>
-                <li class="nav-item">
-                    <a class="nav-link active" href="users.php">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-user text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
-                    </a>
-                </li>
+                <?php if ($permissions->could_view_users === 1) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="users.php">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-user text-primary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
+                        </a>
+                    </li>
 
                 <?php } ?>
 
@@ -119,7 +119,8 @@ $permissions = $usuarios->permissions();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
                     </a>
                 </li>
-              
+
+                <?php if ($permissions->could_view_pc === 1) { ?>
                     <li class="nav-item">
                         <a class="nav-link active" href="equipos.php">
                             <div
@@ -130,7 +131,9 @@ $permissions = $usuarios->permissions();
                         </a>
                     </li>
 
-              
+                <?php } ?>
+
+
 
 
                 <li class="nav-item">
@@ -203,8 +206,8 @@ $permissions = $usuarios->permissions();
                                         <button type="button" onclick="printUsuariosPDF('data_table_users_export')"
                                             class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
                                                 class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
-                                        <button class="btn mb-0 text-uppercase" 
-                                            style="background: #5e72e4; color:white" onclick="crearUsuario()">
+                                        <button class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"
+                                            onclick="crearUsuario()">
                                             <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear usuario</button>
                                     </div>
                                 </div>

@@ -17,7 +17,7 @@ $equipos = new Equipo();
 
 $masUsado = $equipos->masUsed();
 
-$usuarios = new Usuario()
+$usuarios = new Usuario();
 $permissions = $usuarios->permissions();
 
 $horas = 0;
@@ -170,16 +170,16 @@ $menosUsado = $equipos->sinUso();
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
                 </li>
 
-                <?php if($permissions->could_view_users === 1){?>
-                <li class="nav-item">
-                    <a class="nav-link active" href="users.php">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-user text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
-                    </a>
-                </li>
+                <?php if ($permissions->could_view_users === 1) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="users.php">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-user text-primary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
+                        </a>
+                    </li>
 
                 <?php } ?>
 
@@ -194,7 +194,9 @@ $menosUsado = $equipos->sinUso();
                     </a>
                 </li>
 
-               
+
+                <?php if ($permissions->could_view_pc === 1) { ?>
+
                     <li class="nav-item">
                         <a class="nav-link active" href="equipos.php">
                             <div
@@ -205,9 +207,10 @@ $menosUsado = $equipos->sinUso();
                         </a>
                     </li>
 
-                
-                
-                    <li class="nav-item">
+                <?php } ?>
+
+
+                <li class="nav-item">
                     <a class="nav-link active" href="permisos.php">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -284,12 +287,13 @@ $menosUsado = $equipos->sinUso();
 
                         <?php if ($masUsado): ?>
                             <h4 class="font-weight-bolder"><?php echo $horas ?> : <?php echo $minutos ?>:
-                            <?php echo $segundos ?></h4>
+                                <?php echo $segundos ?>
+                            </h4>
                         <?php else: ?>
                             <h4 class="font-weight-bolder">No hay estadistica</h4>
                         <?php endif; ?>
 
-                      
+
                     </div>
                 </div>
             </div>
