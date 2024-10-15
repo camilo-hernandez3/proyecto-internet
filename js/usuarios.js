@@ -1,10 +1,43 @@
 selectedUser = null;
+
+permisos = null;
 users
 
     = [];
 
 
-getUsers();
+
+
+getPermisos();
+
+
+
+function getPermisos() {
+    let datos = new FormData();
+
+    datos.append('permisos', 'permisos');
+
+    $.ajax({
+        url: "ajax/usuarios.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            console.log(response);
+
+            permisos = JSON.parse(response);
+            console.log(permisos);
+            
+            getUsers();
+
+
+
+        }
+    });
+
+}
 
 
 function getUsers() {
@@ -27,6 +60,9 @@ function getUsers() {
     });
 
 }
+
+
+
 
 
 
@@ -98,7 +134,7 @@ function editUser(id) {
             console.log(response);
 
             renderData(response)
-           
+
         }
     });
 }
@@ -151,13 +187,18 @@ function renderTable() {
             nuevaFila.classList.add('text-center', 'text-uppercase', 'text-black', 'text-xs', 'font-weight-bolder');
             var precioVentaFormateado = parseFloat(pr.precio_venta).toLocaleString('es-CO');
 
+            const isDisabled = permisos.could_edit_users === 0;
+           
+
 
             let contenidoCeldas = [
                 pr.nombre,
                 pr.email,
                 ` <a data-bs-toggle="tooltip" title="Borrar" class="text-danger font-weight-bold text-xs"   onclick="eliminarUsuario(${pr.id_usuario})"><i class="fas fa-trash" style='font-size:24px'></i></a>`,
-                ` <a data-bs-toggle="tooltip" title="Borrar" class="text-info font-weight-bold text-xs"   onclick="editUser(${pr.id_usuario})"><i class="fa fa-pencil" style='font-size:24px'></i></a>`
-
+                `<a data-bs-toggle="tooltip" title="Editar" class="text-info font-weight-bold text-xs ${isDisabled ? 'disabled-button' : ''}" 
+            onclick="${isDisabled ? 'event.preventDefault();' : `editUser(${pr.id_usuario})`}">
+            <i class="fa fa-pencil" style='font-size:24px'></i>
+        </a>`
             ];
 
 
@@ -232,7 +273,7 @@ function saveEditProduct(nombres,
         email,
         password,
         selected_rol,
-        piso_selected:selectedValues,
+        piso_selected: selectedValues,
         id_usuario: selectedUser[0].id_usuario
     }
 
@@ -282,7 +323,7 @@ function saveEditProduct(nombres,
 }
 
 
-function crearUsuario(){
+function crearUsuario() {
 
     document.getElementById('user_name').value = null;
     document.getElementById('email').value = null;
@@ -323,7 +364,7 @@ function renderData(data) {
 
 
 
-   
+
 
 }
 
@@ -335,7 +376,7 @@ function printUsuariosPDF(divName) {
     let title = "<h1>Reporte de usuarios</h1>";
 
     printContents = document.getElementById(divName).innerHTML;
-    printContents = title  +  printContents;
+    printContents = title + printContents;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
     popupWin.document.open();
     popupWin.document.write(`

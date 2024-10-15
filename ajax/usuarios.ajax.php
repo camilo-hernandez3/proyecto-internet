@@ -1,6 +1,8 @@
 <?php
 require_once "../models/usuario.php";
 
+require_once "../models/permisos.php";
+
 
 if(isset($_POST["id_usuario"])){
 
@@ -10,6 +12,12 @@ if(isset($_POST["id_usuario"])){
 
 }
 
+if(isset($_POST["permisos"])){
+
+	$user = new Permisos();
+	echo json_encode($user -> byRol(1));
+
+}
 if(isset($_POST["all"])){
 
 	$user = new Usuario();
@@ -33,6 +41,8 @@ if(isset($_POST["new_user"])){
 	echo json_encode($user -> store($newUser));
 
 }
+
+
 
 if(isset($_POST["user_edit"])){
 

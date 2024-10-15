@@ -97,7 +97,7 @@ $pisos = $equipo->pisos();
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
                 </li>
-                <?php if ($permissions->could_view_users === 1) { ?>
+                <?php if ($permissions->could_view_users = 1) { ?>
                     <li class="nav-item">
                         <a class="nav-link active" href="users.php">
                             <div
@@ -110,27 +110,31 @@ $pisos = $equipo->pisos();
 
                 <?php } ?>
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="equipos_piso.php">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-building text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
-                    </a>
-                </li>
 
-                <?php if($permissions->could_view_pc === 1){?>
+                <?php if ($permissions->could_view_users_pc = 1) { ?>
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="equipos.php">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="equipos_piso.php">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-building text-primary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
+                        </a>
+                    </li>
+                <?php } ?>
+
+                <?php if ($permissions->could_view_pc = 1) { ?>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="equipos.php">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos</span>
+                        </a>
+                    </li>
 
                 <?php } ?>
 
@@ -188,7 +192,7 @@ $pisos = $equipo->pisos();
         </nav>
 
         <div class="container-fluid py-4">
-            <?php if ($rol === 1) { ?>
+          
                 <div class="col-xl-12 mt-2 mb-2">
                     <div class="card">
                         <div class="card-header pb-4">
@@ -202,9 +206,14 @@ $pisos = $equipo->pisos();
                                         <div>
                                             <button type="button"
                                                 onclick="printDispositivosPDF('data_table_equipos_export')"
+                                                <?php echo ($permissions->could_export_pc == 0) ? 'disabled' : ''; ?>
                                                 class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
                                                     class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
+
+
                                             <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
+                                            <?php echo ($permissions->could_create_pc == 0) ? 'disabled' : ''; ?>
+                                              
                                                 style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
                                                 <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear equipo</button>
                                         </div>
@@ -340,7 +349,7 @@ $pisos = $equipo->pisos();
                         </div>
                     </div>
                 </div>
-            <?php } ?>
+       
 
         </div>
         </div>

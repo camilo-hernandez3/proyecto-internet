@@ -5,7 +5,38 @@ users
 
 
 setInterval(getEquipos, 10000);
-getEquipos();
+
+permisos
+getPermisos();
+
+
+
+function getPermisos() {
+    let datos = new FormData();
+
+    datos.append('permisos', 'permisos');
+
+    $.ajax({
+        url: "ajax/usuarios.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            console.log(response);
+
+            permisos = JSON.parse(response);
+            console.log(permisos);
+            
+            getEquipos();
+
+
+
+        }
+    });
+
+}
 
 
 function getEquipos() {

@@ -25,11 +25,12 @@ class Permisos extends Database
 
     public function byRol($usuario)
     {
+        session_start();
 
         $rol = $_SESSION['rol'];
 
         $query = $this->pdo->query('SELECT * FROM user_permission WHERE id_rol = ' . $rol);
-        return $query->fetchAll();
+        return $query->fetch();
 
     }
 

@@ -4,7 +4,40 @@ users
     = [];
 
 
-getDispositivos();
+permisos
+
+
+getPermisos();
+
+
+
+function getPermisos() {
+    let datos = new FormData();
+
+    datos.append('permisos', 'permisos');
+
+    $.ajax({
+        url: "ajax/usuarios.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            console.log(response);
+
+            permisos = JSON.parse(response);
+            console.log(permisos);
+            
+            getDispositivos();
+
+
+
+        }
+    });
+
+}
+
 
 
 function getDispositivos() {
@@ -151,6 +184,8 @@ function renderTable() {
             let nuevaFila = document.createElement("tr");
             nuevaFila.classList.add('text-center', 'text-uppercase', 'text-black', 'text-xs', 'font-weight-bolder');
             var precioVentaFormateado = parseFloat(pr.precio_venta).toLocaleString('es-CO');
+
+            const isDisabled = permisos.could_edit_pc === 0;
             // Define el contenido de cada celda
             let contenidoCeldas = [
                 pr.descripcion,
@@ -161,7 +196,10 @@ function renderTable() {
                 pr.procesador,
                 pr.almacenamiento,
                 ` <a data-bs-toggle="tooltip" title="Borrar" class="text-danger font-weight-bold text-xs"   onclick="eliminarUsuario(${pr.id_equipo})"><i class="fas fa-trash" style='font-size:24px'></i></a>`,
-                ` <a data-bs-toggle="tooltip" title="Borrar" class="text-info font-weight-bold text-xs"   onclick="editUser(${pr.id_equipo})"><i class="fa fa-pencil" style='font-size:24px'></i></a>`
+                `<a data-bs-toggle="tooltip" title="Editar" class="text-info font-weight-bold text-xs ${isDisabled ? 'disabled-button' : ''}" 
+                onclick="${isDisabled ? 'event.preventDefault();' : `editUser(${pr.id_equipo})`}">
+                <i class="fa fa-pencil" style='font-size:24px'></i>
+            </a>`
             ];
             // Itera sobre el contenido de las celdas y crea celdas <td>
             contenidoCeldas.forEach(function (contenido) {
