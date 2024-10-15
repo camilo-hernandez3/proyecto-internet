@@ -16,11 +16,7 @@ if (isset($_POST['btningresar'])) {
 				$_SESSION['nombredelusuario'] = $Usuario;
 				$_SESSION['id_usuario'] = $row['id_usuario'];
 				$_SESSION['rol'] = $row['rol_id_rol'];
-				if (intval($row['rol_id_rol']) == 1) {
-					header("location:users.php");
-				} else {
-					header("location:users.php");
-				}
+				header("location:welcome.php");
 			}
 		}
 	} else {

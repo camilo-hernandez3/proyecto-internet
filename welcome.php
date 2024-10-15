@@ -6,7 +6,6 @@ require('./models/articulo.php');
 require('./models/categoria.php');
 require('./models/gastos.php');
 require('./models/usuario.php');
-require('./models/equipos.php');
 
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: index.php");
@@ -17,13 +16,13 @@ if (!isset($_SESSION['id_usuario'])) {
 $rol = intval($_SESSION['rol']);
 
 $usuarios = new Usuario();
+
+$roles = $usuarios->allroles();
+$pisos = $usuarios->allPisos();
+
 $permissions = $usuarios->permissions();
 
-$equipo = new Equipo();
 
-
-
-$pisos = $equipo->pisos();
 
 ?>
 <!DOCTYPE html>
@@ -69,6 +68,34 @@ $pisos = $equipo->pisos();
         integrity="sha512-dy5PEnU+g4HRQnD6uPXU5d8VU9V9WvSj+G8xRQNgi9l4ebwnzmtv+pW2faa5zjrI9qMGl5VpBaDKk9G1t0Bi9zg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <style>
+        
+
+        #h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+
+        #p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            color: white;
+        }
+
+      
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 10px;
+        }
+    </style>
+
 </head>
 
 <body class="g-sidenav-show" style="background-color: #009ad5;">
@@ -84,7 +111,7 @@ $pisos = $equipo->pisos();
             <i class="fas fa-times p-3 cursor-pointer text-black opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0 mr-4">
-                <!--    <img src="./img/logo2.png" class="navbar-brand-img h-100 mr-5" alt="main_logo"> -->
+                <!--      <img src="./img/logo2.png" class="navbar-brand-img h-100 mr-5" alt="main_logo"> -->
 
             </a>
         </div>
@@ -97,6 +124,7 @@ $pisos = $equipo->pisos();
                 <li class="nav-item mt-3">
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
                 </li>
+
                 <?php if ($permissions->could_view_users == 1) { ?>
                     <li class="nav-item">
                         <a class="nav-link active" href="users.php">
@@ -110,7 +138,6 @@ $pisos = $equipo->pisos();
 
                 <?php } ?>
 
-
                 <?php if ($permissions->could_view_users_pc == 1) { ?>
 
                     <li class="nav-item">
@@ -122,10 +149,10 @@ $pisos = $equipo->pisos();
                             <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Equipos piso</span>
                         </a>
                     </li>
+
                 <?php } ?>
 
                 <?php if ($permissions->could_view_pc == 1) { ?>
-
                     <li class="nav-item">
                         <a class="nav-link active" href="equipos.php">
                             <div
@@ -139,6 +166,8 @@ $pisos = $equipo->pisos();
                 <?php } ?>
 
 
+
+
                 <li class="nav-item">
                     <a class="nav-link active" href="permisos.php">
                         <div
@@ -148,6 +177,8 @@ $pisos = $equipo->pisos();
                         <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Permisos</span>
                     </a>
                 </li>
+
+
 
 
             </ul>
@@ -192,164 +223,14 @@ $pisos = $equipo->pisos();
         </nav>
 
         <div class="container-fluid py-4">
-          
-                <div class="col-xl-12 mt-2 mb-2">
-                    <div class="card">
-                        <div class="card-header pb-4">
-
-                            <div class="row pb-2 p-3">
-                                <div class="col-xl-4 d-flex align-items-center text-uppercase">
-                                    <h4 class="font-weight-bolder">Equipos</h4>
-                                </div>
-                                <div class="col-xl-8 text-end">
-                                    <div class="d-flex justify-content-end mb-2">
-                                        <div>
-                                            <button type="button"
-                                                onclick="printDispositivosPDF('data_table_equipos_export')"
-                                                <?php echo ($permissions->could_export_pc == 0) ? 'disabled' : ''; ?>
-                                                class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
-                                                    class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
 
 
-                                            <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
-                                            <?php echo ($permissions->could_create_pc == 0) ? 'disabled' : ''; ?>
-                                              
-                                                style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
-                                                <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear equipo</button>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade" id="modal-form-users" tabindex="999999" style="z-index: 9999999"
-                                        role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title text-uppercase font-weight-bold">Crear equipo
-                                                    </h4>
-                                                    <button type="button" class="btn bg-gradient-danger"
-                                                        data-bs-dismiss="modal">X</button>
+            <div class="container">
+                <h1 id="h1">¡Bienvenido a Nuestro Sitio!</h1>
+              <!--   <p id="p">Estamos encantados de tenerte aquí. Explora nuestro contenido y disfruta de tu visita.</p>
+                -->
+            </div>
 
-                                                </div>
-                                                <div class="modal-body p-0">
-                                                    <div class="card card-plain">
-                                                        <div class="card-body text-start">
-                                                            <form role="form text-left">
-                                                                <div class="form-group">
-                                                                    <div class="row">
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Descripción</label>
-                                                                            <input id="description" type="text"
-                                                                                class="form-control" />
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Dirección
-                                                                                ip</label>
-                                                                            <input id="ip_address" type="text"
-                                                                                class="form-control" />
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Dirección
-                                                                                Mac</label>
-                                                                            <input id="mac_address" type="text"
-                                                                                class="form-control" />
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Memoria
-                                                                                ram</label>
-                                                                            <input id="ram" type="text"
-                                                                                class="form-control" />
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Procesador</label>
-                                                                            <input id="procesador" type="text"
-                                                                                placeholder="Nombres"
-                                                                                class="form-control" />
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Almacenamiento</label>
-                                                                            <input id="almacenamiento" type="text"
-                                                                                class="form-control" />
-                                                                        </div>
-
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Piso</label>
-                                                                            <select class="form-control"
-                                                                                name="choices-button" id="piso"
-                                                                                placeholder="Departure">
-                                                                                <?php foreach ($pisos as $r) { ?>
-                                                                                    <option value="<?php echo $r->id_piso ?>">
-                                                                                        <?php echo $r->nombre ?>
-                                                                                    </option>
-                                                                                <?php } ?>
-                                                                            </select>
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <button type="button" id="confirmButton"
-                                                                        onclick="saveEquipo()"
-                                                                        class="btn btn-round btn-lg w-100 mt-4 mb-0 text-uppercase"
-                                                                        style="background: #5e72e4; color:white">guardar
-                                                                    </button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="data_table_equipos_export" class="table-responsive">
-                            <table class="table align-items-center mb-0" id="data_table_dispositivos">
-                                <thead>
-                                    <tr>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Descripción</th>
-
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Dirección Ip</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Dirección Mac</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Piso</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Memoria ram</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Procesador</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Almacenamiento</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                        </th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-       
 
         </div>
         </div>
@@ -379,7 +260,7 @@ $pisos = $equipo->pisos();
 
 
     <script src="js/login.js"></script>
-    <script src="js/dispositivos.js"></script>
+    <script src="js/usuarios.js"></script>
 
 
     <script src="assets/js/core/popper.min.js"></script>

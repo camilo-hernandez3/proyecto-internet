@@ -4,7 +4,7 @@ users
     = [];
 
 
-permisos
+permisos = null
 
 
 getPermisos();

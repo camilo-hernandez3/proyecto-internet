@@ -170,7 +170,7 @@ $menosUsado = $equipos->sinUso();
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
                 </li>
 
-                <?php if ($permissions->could_view_users = 1) { ?>
+                <?php if ($permissions->could_view_users == 1) { ?>
                     <li class="nav-item">
                         <a class="nav-link active" href="users.php">
                             <div
@@ -184,7 +184,7 @@ $menosUsado = $equipos->sinUso();
                 <?php } ?>
 
 
-                <?php if ($permissions->could_view_users_pc = 1) { ?>
+                <?php if ($permissions->could_view_users_pc == 1) { ?>
 
                     <li class="nav-item">
                         <a class="nav-link active" href="equipos_piso.php">
@@ -199,7 +199,7 @@ $menosUsado = $equipos->sinUso();
                 <?php } ?>
 
 
-                <?php if ($permissions->could_view_pc = 1) { ?>
+                <?php if ($permissions->could_view_pc == 1) { ?>
 
                     <li class="nav-item">
                         <a class="nav-link active" href="equipos.php">

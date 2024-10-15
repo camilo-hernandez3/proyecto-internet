@@ -32,10 +32,10 @@ function autenthicated(){
                 });
                 break;
             case 1:
-                window.location.href = './users.php';
+                window.location.href = './welcome.php';
                 break;
             case 2:
-                window.location.href = './users.php';
+                window.location.href = './welcome.php';
                 break;
             default:
                 Swal.fire({
