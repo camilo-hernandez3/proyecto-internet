@@ -32,10 +32,18 @@ function autenthicated(){
                 });
                 break;
             case 1:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
                 window.location.href = './welcome.php';
                 break;
             case 2:
-                window.location.href = './welcome.php';
+                Swal.fire({
+                    icon: "error",
+                    title: "Login",
+                    text: "Credenciales invalidas",
+                });
                 break;
             default:
                 Swal.fire({
