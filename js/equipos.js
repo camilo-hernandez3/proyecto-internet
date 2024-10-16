@@ -309,11 +309,11 @@ function renderTable(data) {
                     usuariosList.appendChild(usuarioItem);
 
                     const imagen = document.createElement('img');
-                    imagen.src = './img/equipo.png'; // Cambia esto a la ruta de tu imagen
-                    imagen.alt = 'Imagen del usuario'; // Texto alternativo para la imagen
-                    imagen.style.width = '50px'; // Ajusta el tamaño de la imagen según tus necesidades
-                    imagen.style.height = '50px'; // Ajusta el tamaño de la imagen según tus necesidades
-                    imagen.style.display = 'block'; // Asegura que la imagen esté en su propia línea
+                    imagen.src = './img/equipo.png'; 
+                    imagen.alt = 'Imagen del usuario'; 
+                    imagen.style.width = '50px';
+                    imagen.style.height = '50px'; 
+                    imagen.style.display = 'block'; 
 
                     usuarioItem.appendChild(imagen);
                 });
@@ -337,7 +337,7 @@ function generatePDF(data) {
     let datos = new FormData();
 
     datos.append('historial', 'historial');
-    datos.append('id_equipo', data.id_equipo);
+    datos.append('id_dispositivo', data.id_equipo);
 
     $.ajax({
         url: "ajax/equipos.ajax.php",
@@ -358,6 +358,8 @@ function generatePDF(data) {
 }
 
 function renderDataPDF(response) {
+    console.log(response);
+
     let data = JSON.parse(response);
 
     console.log(response);

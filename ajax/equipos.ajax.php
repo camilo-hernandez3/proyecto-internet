@@ -66,7 +66,7 @@ if(isset($_POST["new_equipo"])){
 if(isset($_POST["historial"])){
 
 	$equipo = new Equipo();
-	$id_equipo= $_POST["id_equipo"];
+	$id_equipo= $_POST["id_dispositivo"];
 	echo json_encode($equipo -> historial($id_equipo));
 
 }
