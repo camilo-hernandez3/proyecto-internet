@@ -55,7 +55,11 @@ class Permisos extends Database
             could_create_pc,
             could_edit_pc,
             could_view_users_pc,
-            could_view_history_users_pc) VALUES ( 
+            could_view_history_users_pc,
+            could_view_permission,
+            could_edit_permission,
+            could_export_permission,
+            could_create_permission) VALUES ( 
             :rol_selected,
             :could_view_users,
             :could_edit_users,
@@ -65,7 +69,11 @@ class Permisos extends Database
             :could_create_pc,
             :could_edit_pc,
             :could_view_users_pc,
-            :could_view_history_users_pc)');
+            :could_view_history_users_pc,
+            :could_view_permission,
+            :could_edit_permission,
+            :could_export_permission,
+            :could_create_permission)');
         
         $query->bindParam(':rol_selected', $usuario->rol_selected);
         $query->bindParam(':could_view_users', $usuario->could_view_users);
@@ -77,6 +85,10 @@ class Permisos extends Database
         $query->bindParam(':could_edit_pc', $usuario->could_edit_pc);
         $query->bindParam(':could_view_users_pc', $usuario->could_view_users_pc);
         $query->bindParam(':could_view_history_users_pc', $usuario->could_view_history_users_pc);
+        $query->bindParam(':could_view_permission', $usuario->could_view_permission);
+        $query->bindParam(':could_edit_permission', $usuario->could_edit_permission);
+        $query->bindParam(':could_export_permission', $usuario->could_export_permission);
+        $query->bindParam(':could_create_permission', $usuario->could_create_permission);
         
         $query->execute();
 
@@ -98,7 +110,11 @@ class Permisos extends Database
             could_create_pc = :could_create_pc,
             could_edit_pc = :could_edit_pc,
             could_view_users_pc = :could_view_users_pc,
-            could_view_history_users_pc = :could_view_history_users_pc
+            could_view_history_users_pc = :could_view_history_users_pc,
+            could_view_permission = :could_view_permission,
+            could_edit_permission = :could_edit_permission,
+            could_export_permission = :could_export_permission,
+            could_create_permission = :could_create_permission
           WHERE id_user_permission_id = '.$editProduct->id_equipo);
 
 
@@ -112,6 +128,10 @@ class Permisos extends Database
         $updateQuery->bindParam(':could_edit_pc', $editProduct->could_edit_pc);
         $updateQuery->bindParam(':could_view_users_pc', $editProduct->could_view_users_pc);
         $updateQuery->bindParam(':could_view_history_users_pc', $editProduct->could_view_history_users_pc);
+        $updateQuery->bindParam(':could_view_permission', $editProduct->could_view_permission);
+        $updateQuery->bindParam(':could_edit_permission', $editProduct->could_edit_permission);
+        $updateQuery->bindParam(':could_export_permission', $editProduct->could_export_permission);
+        $updateQuery->bindParam(':could_create_permission', $editProduct->could_create_permission);
         
         $updateQuery->execute();
     }

@@ -142,17 +142,19 @@ $permisos = [
 
                 <?php } ?>
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="permisos.php">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Permisos</span>
-                    </a>
-                </li>
+                <?php if ($permissions->could_view_permission == 1) { ?>
 
+                    <li class="nav-item">
+                        <a class="nav-link active" href="permisos.php">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Permisos</span>
+                        </a>
+                    </li>
 
+                <?php } ?>
 
             </ul>
         </div>
@@ -210,9 +212,11 @@ $permisos = [
                                     <div>
                                         <button type="button"
                                             onclick="printDispositivosPDF('data_table_equipos_export')"
+                                            <?php echo ($permissions->could_export_permission == 0) ? 'disabled' : ''; ?>
                                             class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
                                                 class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
                                         <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
+                                            <?php echo ($permissions->could_create_permission == 0) ? 'disabled' : ''; ?>
                                             style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
                                             <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear Permiso</button>
                                     </div>
@@ -391,6 +395,70 @@ $permisos = [
                                                                         </select>
 
                                                                     </div>
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Puede
+                                                                            ver permisos</label>
+                                                                        <select class="form-control"
+                                                                            name="choices-button"
+                                                                            id="could_view_permission"
+                                                                            placeholder="Departure">
+                                                                            <?php foreach ($permisos as $r) { ?>
+                                                                                <option value="<?php echo $r->value ?>">
+                                                                                    <?php echo $r->label ?>
+                                                                                </option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Puede
+                                                                            editar permisos</label>
+                                                                        <select class="form-control"
+                                                                            name="choices-button"
+                                                                            id="could_edit_permission"
+                                                                            placeholder="Departure">
+                                                                            <?php foreach ($permisos as $r) { ?>
+                                                                                <option value="<?php echo $r->value ?>">
+                                                                                    <?php echo $r->label ?>
+                                                                                </option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                    </div>
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Puede
+                                                                            exportar permisos</label>
+                                                                        <select class="form-control"
+                                                                            name="choices-button"
+                                                                            id="could_export_permission"
+                                                                            placeholder="Departure">
+                                                                            <?php foreach ($permisos as $r) { ?>
+                                                                                <option value="<?php echo $r->value ?>">
+                                                                                    <?php echo $r->label ?>
+                                                                                </option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                    </div>
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Puede
+                                                                            crear permisos</label>
+                                                                        <select class="form-control"
+                                                                            name="choices-button"
+                                                                            id="could_create_permission"
+                                                                            placeholder="Departure">
+                                                                            <?php foreach ($permisos as $r) { ?>
+                                                                                <option value="<?php echo $r->value ?>">
+                                                                                    <?php echo $r->label ?>
+                                                                                </option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                    </div>
 
 
 
@@ -446,6 +514,18 @@ $permisos = [
                                     <th align="center"
                                         class="text-center text-uppercase text-black text-sm font-weight-bolder">
                                         Puede visualizar historial de equipos</th>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        Puede visualizar permisos</th>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        Puede editar permisos</th>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        Puede exportar permisos</th>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        Puede crear permisos</th>
 
                                     <th align="center"
                                         class="text-center text-uppercase text-black text-sm font-weight-bolder">

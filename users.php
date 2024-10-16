@@ -139,18 +139,20 @@ $permissions = $usuarios->permissions();
 
 
 
+                <?php if ($permissions->could_view_permission == 1) { ?>
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="permisos.php">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Permisos</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="permisos.php">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Permisos</span>
+                        </a>
+                    </li>
 
 
+                <?php } ?>
 
 
             </ul>
@@ -207,16 +209,13 @@ $permissions = $usuarios->permissions();
                             <div class="col-xl-8 text-end">
                                 <div class="d-flex justify-content-end mb-2">
                                     <div>
-                                        <button 
-                                            type="button" 
-                                            onclick="printUsuariosPDF('data_table_users_export')"
+                                        <button type="button" onclick="printUsuariosPDF('data_table_users_export')"
                                             <?php echo ($permissions->could_export_users == 0) ? 'disabled' : ''; ?>
                                             class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
                                                 class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
 
 
                                         <button class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"
-                                        
                                             onclick="crearUsuario()">
                                             <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear usuario</button>
                                     </div>

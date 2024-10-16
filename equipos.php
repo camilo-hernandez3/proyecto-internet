@@ -139,6 +139,8 @@ $pisos = $equipo->pisos();
                 <?php } ?>
 
 
+                <?php if ($permissions->could_view_permission == 1) { ?>
+
                 <li class="nav-item">
                     <a class="nav-link active" href="permisos.php">
                         <div
@@ -149,6 +151,7 @@ $pisos = $equipo->pisos();
                     </a>
                 </li>
 
+                <?php } ?>
 
             </ul>
         </div>

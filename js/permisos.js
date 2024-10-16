@@ -4,7 +4,35 @@ users
     = [];
 
 
-getDispositivos();
+
+permisos = null;
+getPermisos();
+
+
+
+function getPermisos() {
+    let datos = new FormData();
+
+    datos.append('permisos', 'permisos');
+
+    $.ajax({
+        url: "ajax/usuarios.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+            permisos = JSON.parse(response);
+            getDispositivos();
+
+        }
+    });
+
+}
+
+
 
 
 function getDispositivos() {
@@ -42,7 +70,11 @@ function guardarEquipos(
     could_edit_pc,
     could_view_users_pc,
     could_view_history_users_pc,
-    
+    could_view_permission,
+    could_edit_permission,
+    could_export_permission,
+    could_create_permission,
+
 ) {
 
     let newEquipo = {
@@ -56,6 +88,10 @@ function guardarEquipos(
         could_edit_pc,
         could_view_users_pc,
         could_view_history_users_pc,
+        could_view_permission,
+        could_edit_permission,
+        could_export_permission,
+        could_create_permission,
     }
 
     let datos = new FormData();
@@ -159,20 +195,29 @@ function renderTable() {
         .forEach(pr => {
             let nuevaFila = document.createElement("tr");
             nuevaFila.classList.add('text-center', 'text-uppercase', 'text-black', 'text-xs', 'font-weight-bolder');
-      
+
+            const isDisabled = permisos.could_edit_permission === 0;
+
             let contenidoCeldas = [
-                pr.nombre,  
-                pr.could_view_users === 1 ? 'SI': 'NO',
-                pr.could_edit_users  === 1 ? 'SI': 'NO',
-                pr.could_export_users  === 1 ? 'SI': 'NO',
-                pr.could_view_pc  === 1 ? 'SI': 'NO',
-                pr.could_export_pc  === 1 ? 'SI': 'NO',
-                pr.could_create_pc  === 1 ? 'SI': 'NO',
-                pr.could_edit_pc  === 1 ? 'SI': 'NO',
-                pr.could_view_users_pc  === 1 ? 'SI': 'NO',
-                pr.could_view_history_users_pc  === 1 ? 'SI': 'NO',
+                pr.nombre,
+                pr.could_view_users === 1 ? 'SI' : 'NO',
+                pr.could_edit_users === 1 ? 'SI' : 'NO',
+                pr.could_export_users === 1 ? 'SI' : 'NO',
+                pr.could_view_pc === 1 ? 'SI' : 'NO',
+                pr.could_export_pc === 1 ? 'SI' : 'NO',
+                pr.could_create_pc === 1 ? 'SI' : 'NO',
+                pr.could_edit_pc === 1 ? 'SI' : 'NO',
+                pr.could_view_users_pc === 1 ? 'SI' : 'NO',
+                pr.could_view_history_users_pc === 1 ? 'SI' : 'NO',
+                pr.could_view_permission === 1 ? 'SI' : 'NO',
+                pr.could_edit_permission === 1 ? 'SI' : 'NO',
+                pr.could_export_permission === 1 ? 'SI' : 'NO',
+                pr.could_create_permission === 1 ? 'SI' : 'NO',
                 ` <a data-bs-toggle="tooltip" title="Borrar" class="text-danger font-weight-bold text-xs"   onclick="eliminarUsuario(${pr.id_user_permission_id})"><i class="fas fa-trash" style='font-size:24px'></i></a>`,
-                ` <a data-bs-toggle="tooltip" title="Borrar" class="text-info font-weight-bold text-xs"   onclick="editUser(${pr.id_user_permission_id})"><i class="fa fa-pencil" style='font-size:24px'></i></a>`
+                `<a data-bs-toggle="tooltip" title="Editar" class="text-info font-weight-bold text-xs ${isDisabled ? 'disabled-button' : ''}" 
+                onclick="${isDisabled ? 'event.preventDefault();' : `editUser(${pr.id_user_permission_id})`}">
+                <i class="fa fa-pencil" style='font-size:24px'></i>
+            </a>`
             ];
             // Itera sobre el contenido de las celdas y crea celdas <td>
             contenidoCeldas.forEach(function (contenido) {
@@ -189,7 +234,7 @@ function renderTable() {
 
 function renderUsers(data) {
     console.log(data);
-    
+
     users
 
         = JSON.parse(data);
@@ -208,6 +253,10 @@ function saveEquipo() {
     let could_edit_pc = document.getElementById('could_edit_pc').value;
     let could_view_users_pc = document.getElementById('could_view_users_pc').value;
     let could_view_history_users_pc = document.getElementById('could_view_history_users_pc').value;
+    let could_view_permission = document.getElementById('could_view_permission').value;
+    let could_edit_permission = document.getElementById('could_edit_permission').value;
+    let could_export_permission = document.getElementById('could_export_permission').value;
+    let could_create_permission = document.getElementById('could_create_permission').value;
 
     if (selectedUser) {
         saveEditProduct(
@@ -221,6 +270,10 @@ function saveEquipo() {
             could_edit_pc,
             could_view_users_pc,
             could_view_history_users_pc,
+            could_view_permission,
+            could_edit_permission,
+            could_export_permission,
+            could_create_permission
         );
         return;
     }
@@ -237,6 +290,10 @@ function saveEquipo() {
         could_edit_pc,
         could_view_users_pc,
         could_view_history_users_pc,
+        could_view_permission,
+        could_edit_permission,
+        could_export_permission,
+        could_create_permission
     );
 }
 
@@ -251,7 +308,11 @@ function saveEditProduct(
     could_edit_pc,
     could_view_users_pc,
     could_view_history_users_pc,
-    ) {
+    could_view_permission,
+    could_edit_permission,
+    could_export_permission,
+    could_create_permission
+) {
 
 
 
@@ -268,6 +329,10 @@ function saveEditProduct(
         could_edit_pc,
         could_view_users_pc,
         could_view_history_users_pc,
+        could_view_permission,
+        could_edit_permission,
+        could_export_permission,
+        could_create_permission,
         id_equipo: selectedUser.id_user_permission_id
     }
 
@@ -290,8 +355,8 @@ function saveEditProduct(
             console.log(users);
             console.log(selectedUser);
             console.log(product_edit);
-            
-            
+
+
 
             users
 
@@ -301,16 +366,20 @@ function saveEditProduct(
                         if (ar.id_user_permission_id === selectedUser.id_user_permission_id) {
                             return {
                                 ...ar,
-                                id_rol:+rol_selected,
-                                could_view_users:+could_view_users,
-                                could_edit_users:+could_edit_users,
-                                could_export_users:+could_export_users,
-                                could_view_pc:+could_view_pc,
-                                could_export_pc:+could_export_pc,
-                                could_create_pc:+could_create_pc,
-                                could_edit_pc:+could_edit_pc,
-                                could_view_users_pc:+could_view_users_pc,
-                                could_view_history_users_pc:+could_view_history_users_pc,
+                                id_rol: +rol_selected,
+                                could_view_users: +could_view_users,
+                                could_edit_users: +could_edit_users,
+                                could_export_users: +could_export_users,
+                                could_view_pc: +could_view_pc,
+                                could_export_pc: +could_export_pc,
+                                could_create_pc: +could_create_pc,
+                                could_edit_pc: +could_edit_pc,
+                                could_view_users_pc: +could_view_users_pc,
+                                could_view_history_users_pc: +could_view_history_users_pc,
+                                could_view_permission: +could_view_permission,
+                                could_edit_permission: +could_edit_permission,
+                                could_export_permission: +could_export_permission,
+                                could_create_permission: +could_create_permission
                             }
 
                         }
@@ -332,16 +401,20 @@ function renderData(data) {
 
     $('#modal-form-users').modal('show');
 
-    let rol_selected  = document.getElementById('rol_selected');
-    let could_view_users  = document.getElementById('could_view_users');
-    let could_edit_users  = document.getElementById('could_edit_users');
-    let could_export_users  = document.getElementById('could_export_users');
-    let could_view_pc  = document.getElementById('could_view_pc');
-    let could_export_pc  = document.getElementById('could_export_pc');
-    let could_create_pc  = document.getElementById('could_create_pc');
-    let could_edit_pc  = document.getElementById('could_edit_pc');
-    let could_view_users_pc  = document.getElementById('could_view_users_pc');
-    let could_view_history_users_pc  = document.getElementById('could_view_history_users_pc');
+    let rol_selected = document.getElementById('rol_selected');
+    let could_view_users = document.getElementById('could_view_users');
+    let could_edit_users = document.getElementById('could_edit_users');
+    let could_export_users = document.getElementById('could_export_users');
+    let could_view_pc = document.getElementById('could_view_pc');
+    let could_export_pc = document.getElementById('could_export_pc');
+    let could_create_pc = document.getElementById('could_create_pc');
+    let could_edit_pc = document.getElementById('could_edit_pc');
+    let could_view_users_pc = document.getElementById('could_view_users_pc');
+    let could_view_history_users_pc = document.getElementById('could_view_history_users_pc');
+    let could_view_permission = document.getElementById('could_view_permission');
+    let could_edit_permission = document.getElementById('could_edit_permission');
+    let could_export_permission = document.getElementById('could_export_permission');
+    let could_create_permission = document.getElementById('could_create_permission');
 
 
 
@@ -356,6 +429,10 @@ function renderData(data) {
     could_edit_pc.value = selectedUser.could_edit_pc;
     could_view_users_pc.value = selectedUser.could_view_users_pc;
     could_view_history_users_pc.value = selectedUser.could_view_history_users_pc;
+    could_view_permission.value = selectedUser.could_view_permission;
+    could_edit_permission.value = selectedUser.could_edit_permission;
+    could_export_permission.value = selectedUser.could_export_permission;
+    could_create_permission.value = selectedUser.could_create_permission;
 
 
 

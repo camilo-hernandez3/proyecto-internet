@@ -6,7 +6,7 @@ users
 
 setInterval(getEquipos, 10000);
 
-permisos
+permisos = null;
 getPermisos();
 
 
@@ -252,11 +252,13 @@ function renderTable(data) {
                 span1.className = 'fw-bold text-primary-emphasis';
                 span1.textContent = 'Historial';
 
+                const isDisabled = permisos.could_view_history_users_pc === 0;
 
                 const button = document.createElement('button');
                 button.type = 'button';
                 button.className = 'btn btn-danger';
                 button.textContent = 'Historial';
+                button.disabled = isDisabled;
 
                 button.addEventListener('click', function () {
                     generatePDF(equipo)
