@@ -24,10 +24,9 @@ function getPermisos() {
         contentType: false,
         processData: false,
         success: function (response) {
-            console.log(response);
+         
 
             permisos = JSON.parse(response);
-            console.log(permisos);
             
             getEquipos();
 
@@ -53,7 +52,7 @@ function getEquipos() {
         contentType: false,
         processData: false,
         success: function (response) {
-            console.log(response);
+            
             let info = JSON.parse(response);
             renderTable(info)
 
@@ -84,8 +83,7 @@ function guardarUsuario(nombres, email, password, selected_rol) {
     let rol = document.getElementById('rol_selected');
 
     let selectedText = rol.options[rol.selectedIndex].text;
-    console.log(newUser);
-
+   
 
     $.ajax({
         url: "ajax/usuarios.ajax.php",
@@ -168,8 +166,6 @@ function renderTable(data) {
     let container = document.getElementById("container_equipos");
     container.innerHTML = '';
 
-    console.log(data);
-    
 
     data = data.data.map(el => {
         return {
@@ -178,7 +174,7 @@ function renderTable(data) {
         }
     }).filter(pi => pi.equipos[0].id_equipo !== null && pi.supervisa > 0);
 
-    console.log(data);
+
     
 
     data.forEach(piso => {
@@ -221,7 +217,6 @@ function renderTable(data) {
 
             equipoDiv.addEventListener('click', function () {
 
-                console.log(equipo);
 
                 let modalContentBody = document.getElementById('modal_content_body');
 
@@ -232,7 +227,7 @@ function renderTable(data) {
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Memoria ram:', equipo.ram, false));
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Procesador:', equipo.procesador, false));
                 modalContentBody.appendChild(crearElemento('d-flex justify-content-between mb-2', 'Almacenamiento:', equipo.almacenamiento, false));
-                console.log(equipo);
+             
                 
 
                 if (equipo.usuario_equipos) {
@@ -358,12 +353,8 @@ function generatePDF(data) {
 }
 
 function renderDataPDF(response) {
-    console.log(response);
 
     let data = JSON.parse(response);
-
-    console.log(response);
-
 
 
     const table = document.createElement('table');
@@ -440,9 +431,6 @@ function renderDataPDF(response) {
     let popupWin;
 
 
-    console.log(divCont);
-
-
 
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
     popupWin.document.open();
@@ -489,6 +477,7 @@ function renderDataPDF(response) {
       </html>`);
     popupWin.document.close();
 
+    divCont.remove();
 
 
 
