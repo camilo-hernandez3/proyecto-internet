@@ -36,6 +36,9 @@ if (isset($_POST['btningresar'])) {
 
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		
+	</style>
 </head>
 
 <body>

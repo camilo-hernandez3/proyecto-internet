@@ -69,8 +69,6 @@ $permissions = $usuarios->permissions();
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        
-
         #h1 {
             font-size: 48px;
             margin-bottom: 20px;
@@ -85,7 +83,7 @@ $permissions = $usuarios->permissions();
             color: white;
         }
 
-      
+
 
         .container {
             max-width: 800px;
@@ -166,18 +164,19 @@ $permissions = $usuarios->permissions();
                 <?php } ?>
 
 
+                <?php if ($permissions->could_view_permission == 1) { ?>
 
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="permisos.php">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Permisos</span>
-                    </a>
-                </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link active" href="permisos.php">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Permisos</span>
+                        </a>
+                    </li>
+                <?php } ?>
 
 
 
@@ -227,7 +226,7 @@ $permissions = $usuarios->permissions();
 
             <div class="container">
                 <h1 id="h1">¡Bienvenido a Nuestro Sitio!</h1>
-              <!--   <p id="p">Estamos encantados de tenerte aquí. Explora nuestro contenido y disfruta de tu visita.</p>
+                <!--   <p id="p">Estamos encantados de tenerte aquí. Explora nuestro contenido y disfruta de tu visita.</p>
                 -->
             </div>
 
