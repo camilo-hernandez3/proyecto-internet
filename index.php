@@ -28,13 +28,15 @@ if (isset($_POST['btningresar'])) {
 <html>
 
 <head>
-	<title>Monitoreo callcenter</title>
+	<title>monitoreo konekti</title>
+	<link rel="apple-touch-icon" sizes="76x76" href="https://www.konekti.com.co/wp-content/uploads/2019/05/cropped-Logo_Web-1-192x192.png">
+    <link rel="icon" type="image/png" href="https://www.konekti.com.co/wp-content/uploads/2019/05/cropped-Logo_Web-1-192x192.png">
 	<link rel="stylesheet" href="./css/estilo.css">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>x
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
 		
@@ -45,10 +47,14 @@ if (isset($_POST['btningresar'])) {
 	<div class="container">
 		<div class="login-content">
 			<form method="POST">
-				<div class="title-container">
-					<!-- <img src="./img/logo.png" alt="Icono" class="icon"> -->
+				<div class="text-center" style="margin-top:15px">
+					<img src="./img/logo.png" alt="Icono" class="icon" style="width: 200px;">
+					<!-- <img src="https://www.konekti.com.co/wp-content/uploads/2019/05/cropped-Logo_Web-1-150x150.png" alt=""> -->
 					<h2 class="title">BIENVENIDO</h2>
+					
 				</div>
+
+				
 				<div class="input-div one">
 					<div class="i">
 						<i class="fas fa-user"></i>

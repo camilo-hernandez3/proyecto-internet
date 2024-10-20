@@ -33,9 +33,9 @@ $pisos = $equipo->pisos();
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="./img/logo.png">
-    <link rel="icon" type="image/png" href="./img/logo.png">
-    <title>Monitoreo callcenter</title>
+    <link rel="apple-touch-icon" sizes="76x76" href="https://www.konekti.com.co/wp-content/uploads/2019/05/cropped-Logo_Web-1-192x192.png">
+    <link rel="icon" type="image/png" href="https://www.konekti.com.co/wp-content/uploads/2019/05/cropped-Logo_Web-1-192x192.png">
+    <title>monitoreo konekti</title>
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
@@ -85,7 +85,7 @@ $pisos = $equipo->pisos();
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0 mr-4 text-center">
                 <!--    <img src="./img/logo2.png" class="navbar-brand-img h-100 mr-5" alt="main_logo"> -->
-                <img src="./img/pc.webp" class="navbar-brand-img h-100 mr-5" alt="main_logo">
+                <img src="./img/logo.png" class="navbar-brand-img h-100 mr-5" alt="main_logo">
 
             </a>
         </div>

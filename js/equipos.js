@@ -378,11 +378,11 @@ function renderDataPDF(response) {
         const tr = document.createElement('tr');
 
         const tdNombre = document.createElement('td');
-        tdNombre.textContent = dato.id_usuario_equipo;
+        tdNombre.textContent = dato.nombre;
         tr.appendChild(tdNombre);
 
         const tdEdad = document.createElement('td');
-        tdEdad.textContent = dato.equipos_id_equipo;
+        tdEdad.textContent = dato.descripcion;
         tr.appendChild(tdEdad);
 
         const tdCiudad = document.createElement('td');

@@ -6,9 +6,10 @@ class Equipo extends Database
 {
 
 
-    public function pisos(){
+    public function pisos()
+    {
         $query = $this->pdo->query('SELECT * FROM piso');
-		return $query->fetchAll();
+        return $query->fetchAll();
     }
 
 
@@ -65,15 +66,15 @@ class Equipo extends Database
                 WHERE ue.equipos_id_equipo = e.id_equipo
             ) AND piso_id_piso IN (' . $pisoIdsString . ');');
 
-        return $query->fetch();
+            return $query->fetch();
 
-        }else{
+        } else {
 
             return null;
         }
 
 
-       
+
 
 
     }
@@ -257,7 +258,10 @@ class Equipo extends Database
     }
     public function historial($id_equipo)
     {
-        $query = $this->pdo->query('SELECT * FROM usuario_equipo where equipos_id_equipo =' . $id_equipo);
+        $query = $this->pdo->query('SELECT  usuario_equipo.*, usuarios.nombre, equipos.descripcion  FROM usuario_equipo JOIN usuarios  ON usuario_equipo.usuarios_id_usuario = usuarios.id_usuario
+          JOIN equipos ON usuario_equipo.equipos_id_equipo = equipos.id_equipo
+
+          where equipos_id_equipo =' . $id_equipo);
         return $query->fetchAll();
     }
 
@@ -283,26 +287,27 @@ class Equipo extends Database
         return $this->show($lastInsertId);
     }
 
-    public function EditEquipo($equipo){
+    public function EditEquipo($equipo)
+    {
         $editProduct = json_decode($equipo);
-		$updateQuery = $this->pdo->prepare('UPDATE equipos SET descripcion = :descripcion, ip_address = :ip_address, mac_adress = :mac_adress, piso_id_piso = :piso_id_piso, ram = :ram, procesador = :procesador, almacenamiento = :almacenamiento  WHERE id_equipo = :id');
+        $updateQuery = $this->pdo->prepare('UPDATE equipos SET descripcion = :descripcion, ip_address = :ip_address, mac_adress = :mac_adress, piso_id_piso = :piso_id_piso, ram = :ram, procesador = :procesador, almacenamiento = :almacenamiento  WHERE id_equipo = :id');
 
-	
-		$updateQuery->bindParam(':descripcion', $editProduct->description);
-		$updateQuery->bindParam(':ip_address', $editProduct->ip_address);
 
-		$updateQuery->bindParam(':mac_adress', $editProduct->mac_address);
-		+
-		$updateQuery->bindParam(':piso_id_piso', $editProduct->piso);
-		$updateQuery->bindParam(':ram', $editProduct->ram);
-		$updateQuery->bindParam(':procesador', $editProduct->procesador); 
-		$updateQuery->bindParam(':almacenamiento', $editProduct->almacenamiento); 
-		
+        $updateQuery->bindParam(':descripcion', $editProduct->description);
+        $updateQuery->bindParam(':ip_address', $editProduct->ip_address);
 
-		$updateQuery->bindParam(':id', $editProduct->id_equipo);
+        $updateQuery->bindParam(':mac_adress', $editProduct->mac_address);
+        +
+            $updateQuery->bindParam(':piso_id_piso', $editProduct->piso);
+        $updateQuery->bindParam(':ram', $editProduct->ram);
+        $updateQuery->bindParam(':procesador', $editProduct->procesador);
+        $updateQuery->bindParam(':almacenamiento', $editProduct->almacenamiento);
 
-		
-		$updateQuery->execute();
+
+        $updateQuery->bindParam(':id', $editProduct->id_equipo);
+
+
+        $updateQuery->execute();
     }
 
 }
