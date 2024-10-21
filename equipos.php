@@ -85,7 +85,7 @@ $pisos = $equipo->pisos();
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0 mr-4 text-center">
                 <!--    <img src="./img/logo2.png" class="navbar-brand-img h-100 mr-5" alt="main_logo"> -->
-                <img src="./img/logo.png" class="navbar-brand-img h-100 mr-5" alt="main_logo">
+                <img src="./img/logo.png" class="h-100 mr-5" alt="main_logo" style="width: 150px !important;">
 
             </a>
         </div>
@@ -96,7 +96,7 @@ $pisos = $equipo->pisos();
 
 
                 <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
+                <span style="font-size: 15px !important;" class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</span>
                 </li>
                 <?php if ($permissions->could_view_users == 1) { ?>
                     <li class="nav-item">

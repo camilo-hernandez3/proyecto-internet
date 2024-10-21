@@ -32,10 +32,6 @@ function autenthicated(){
                 });
                 break;
             case 1:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
                 window.location.href = './welcome.php';
                 break;
             case 2:

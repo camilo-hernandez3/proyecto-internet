@@ -32,8 +32,10 @@ $permissions = $usuarios->permissions();
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="https://www.konekti.com.co/wp-content/uploads/2019/05/cropped-Logo_Web-1-192x192.png">
-    <link rel="icon" type="image/png" href="https://www.konekti.com.co/wp-content/uploads/2019/05/cropped-Logo_Web-1-192x192.png">
+    <link rel="apple-touch-icon" sizes="76x76"
+        href="https://www.konekti.com.co/wp-content/uploads/2019/05/cropped-Logo_Web-1-192x192.png">
+    <link rel="icon" type="image/png"
+        href="https://www.konekti.com.co/wp-content/uploads/2019/05/cropped-Logo_Web-1-192x192.png">
     <title>monitoreo konekti</title>
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -83,7 +85,7 @@ $permissions = $usuarios->permissions();
             <i class="fas fa-times p-3 cursor-pointer text-black opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0 mr-4 text-center">
-                     <img src="./img/logo.png" class="navbar-brand-img h-100 mr-5" alt="main_logo">
+                <img src="./img/logo.png" class="h-100 mr-5" alt="main_logo" style="width: 150px !important;">
 
             </a>
         </div>
@@ -94,7 +96,8 @@ $permissions = $usuarios->permissions();
 
 
                 <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</h6>
+                    <span style="font-size: 15px !important;"
+                        class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</span>
                 </li>
 
                 <?php if ($permissions->could_view_users == 1) { ?>

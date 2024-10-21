@@ -2,12 +2,12 @@
 
 class Database
 {
-	private $servidor = "localhost";
-	private $db = "proyecto";
+	private $servidor = "monitoreokonekti.online";
+	private $db = "u311227962_proyecto";
 	private $port = 3306;
 	private $charset = "utf8";
-	private $usuario = "root";
-	private $contrasena = "root";
+	private $usuario = "u311227962_root";
+	private $contrasena = "Luna-2080";
 	public $pdo = null;
 	private $opciones = [PDO::ATTR_CASE => PDO::CASE_LOWER, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_ORACLE_NULLS => PDO::NULL_EMPTY_STRING, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ];
 	function __construct()

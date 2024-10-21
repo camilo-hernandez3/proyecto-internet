@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (isset($_POST['btningresar'])) {
-	$dbhost = "localhost";
-	$dbuser = "root";
-	$dbpass = "root";
-	$dbname = "proyecto";
+	$dbhost = "monitoreokonekti.online";
+	$dbuser = "u311227962_root";
+	$dbpass = "Luna-2080";
+	$dbname = "u311227962_proyecto";
 	$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 	$Usuario = $_POST['txtusuario'];
 	$Contraseña = $_POST['txtpassword'];

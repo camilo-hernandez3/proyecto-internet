@@ -170,7 +170,7 @@ class Usuario extends Database
 
 		try {
 
-			$query = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND user_password = :pass AND rol_id_rol IN(1,3)");
+			$query = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND user_password = :pass)");
 
 			$query->bindParam(':email', $credentials->user);
 			$query->bindParam(':pass', $credentials->password);
@@ -187,12 +187,12 @@ class Usuario extends Database
 				$_SESSION['nombredelusuario'] = $credentials->user;
 				$_SESSION['id_usuario'] = $user['id_usuario'];
 				$_SESSION['rol'] = $user['rol_id_rol'];
-				if (intval($user['rol_id_rol']) == 1) {
+				if (intval($user['rol_id_rol']) == 2) {
 					/* header("location: ../stats.php"); */
-					return 1;
+					return 2;
 				} else {
 					/* header("location: ../sales.php"); */
-					return 2;
+					return 1;
 				}
 			} else {
 				return 0;
