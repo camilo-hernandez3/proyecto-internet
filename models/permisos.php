@@ -59,7 +59,11 @@ class Permisos extends Database
             could_view_permission,
             could_edit_permission,
             could_export_permission,
-            could_create_permission) VALUES ( 
+            could_create_permission,  
+            could_view_rol,
+            could_edit_rol,
+            could_export_rol,
+            could_create_rol) VALUES ( 
             :rol_selected,
             :could_view_users,
             :could_edit_users,
@@ -73,8 +77,13 @@ class Permisos extends Database
             :could_view_permission,
             :could_edit_permission,
             :could_export_permission,
-            :could_create_permission)');
-        
+            :could_create_permission,
+            :could_view_rol,
+            :could_edit_rol,
+            :could_export_rol,
+            :could_create_rol
+            )');
+
         $query->bindParam(':rol_selected', $usuario->rol_selected);
         $query->bindParam(':could_view_users', $usuario->could_view_users);
         $query->bindParam(':could_edit_users', $usuario->could_edit_users);
@@ -89,7 +98,11 @@ class Permisos extends Database
         $query->bindParam(':could_edit_permission', $usuario->could_edit_permission);
         $query->bindParam(':could_export_permission', $usuario->could_export_permission);
         $query->bindParam(':could_create_permission', $usuario->could_create_permission);
-        
+        $query->bindParam(':could_view_rol', $usuario->could_view_rol);
+        $query->bindParam(':could_edit_rol', $usuario->could_edit_rol);
+        $query->bindParam(':could_export_rol', $usuario->could_export_rol);
+        $query->bindParam(':could_create_rol', $usuario->could_create_rol);
+
         $query->execute();
 
         $lastInsertId = $this->pdo->lastInsertId();
@@ -114,8 +127,13 @@ class Permisos extends Database
             could_view_permission = :could_view_permission,
             could_edit_permission = :could_edit_permission,
             could_export_permission = :could_export_permission,
-            could_create_permission = :could_create_permission
-          WHERE id_user_permission_id = '.$editProduct->id_equipo);
+            could_create_permission = :could_create_permission,
+             could_view_rol = :could_view_rol,
+             could_edit_rol = :could_edit_rol,
+             could_export_rol = :could_export_rol,
+             could_create_rol = :could_create_rol
+
+          WHERE id_user_permission_id = ' . $editProduct->id_equipo);
 
 
         $updateQuery->bindParam(':rol_selected', $editProduct->rol_selected);
@@ -132,7 +150,11 @@ class Permisos extends Database
         $updateQuery->bindParam(':could_edit_permission', $editProduct->could_edit_permission);
         $updateQuery->bindParam(':could_export_permission', $editProduct->could_export_permission);
         $updateQuery->bindParam(':could_create_permission', $editProduct->could_create_permission);
-        
+        $updateQuery->bindParam(':could_view_rol', $editProduct->could_view_rol);
+        $updateQuery->bindParam(':could_edit_rol', $editProduct->could_edit_rol);
+        $updateQuery->bindParam(':could_export_rol', $editProduct->could_export_rol);
+        $updateQuery->bindParam(':could_create_rol', $editProduct->could_create_rol);
+
         $updateQuery->execute();
     }
 

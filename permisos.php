@@ -459,6 +459,70 @@ $permisos = [
                                                                         </select>
 
                                                                     </div>
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Puede
+                                                                            ver roles</label>
+                                                                        <select class="form-control"
+                                                                            name="choices-button"
+                                                                            id="could_view_rol"
+                                                                            placeholder="Departure">
+                                                                            <?php foreach ($permisos as $r) { ?>
+                                                                                <option value="<?php echo $r->value ?>">
+                                                                                    <?php echo $r->label ?>
+                                                                                </option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                    </div>
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Puede
+                                                                            editar roles</label>
+                                                                        <select class="form-control"
+                                                                            name="choices-button"
+                                                                            id="could_edit_rol"
+                                                                            placeholder="Departure">
+                                                                            <?php foreach ($permisos as $r) { ?>
+                                                                                <option value="<?php echo $r->value ?>">
+                                                                                    <?php echo $r->label ?>
+                                                                                </option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                    </div>
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Puede
+                                                                            exportar roles</label>
+                                                                        <select class="form-control"
+                                                                            name="choices-button"
+                                                                            id="could_export_rol"
+                                                                            placeholder="Departure">
+                                                                            <?php foreach ($permisos as $r) { ?>
+                                                                                <option value="<?php echo $r->value ?>">
+                                                                                    <?php echo $r->label ?>
+                                                                                </option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                    </div>
+                                                                    <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Puede
+                                                                            crear roles</label>
+                                                                        <select class="form-control"
+                                                                            name="choices-button"
+                                                                            id="could_create_rol"
+                                                                            placeholder="Departure">
+                                                                            <?php foreach ($permisos as $r) { ?>
+                                                                                <option value="<?php echo $r->value ?>">
+                                                                                    <?php echo $r->label ?>
+                                                                                </option>
+                                                                            <?php } ?>
+                                                                        </select>
+
+                                                                    </div>
 
 
 
@@ -526,6 +590,18 @@ $permisos = [
                                     <th align="center"
                                         class="text-center text-uppercase text-black text-sm font-weight-bolder">
                                         Puede crear permisos</th>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        Puede ver roles</th>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        Puede editar roles</th>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        Puede exportar roles</th>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        Puede crear roles</th>
 
                                     <th align="center"
                                         class="text-center text-uppercase text-black text-sm font-weight-bolder">

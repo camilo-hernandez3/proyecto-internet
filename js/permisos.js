@@ -74,6 +74,10 @@ function guardarEquipos(
     could_edit_permission,
     could_export_permission,
     could_create_permission,
+    could_view_rol,
+    could_edit_rol,
+    could_export_rol,
+    could_create_rol
 
 ) {
 
@@ -92,6 +96,10 @@ function guardarEquipos(
         could_edit_permission,
         could_export_permission,
         could_create_permission,
+        could_view_rol,
+        could_edit_rol,
+        could_export_rol,
+        could_create_rol
     }
 
     let datos = new FormData();
@@ -213,6 +221,11 @@ function renderTable() {
                 pr.could_edit_permission === 1 ? 'SI' : 'NO',
                 pr.could_export_permission === 1 ? 'SI' : 'NO',
                 pr.could_create_permission === 1 ? 'SI' : 'NO',
+                pr.could_view_rol === 1 ? 'SI' : 'NO',
+                pr.could_edit_rol === 1 ? 'SI' : 'NO',
+                pr.could_export_rol === 1 ? 'SI' : 'NO',
+                pr.could_create_rol === 1 ? 'SI' : 'NO',
+
                 ` <a data-bs-toggle="tooltip" title="Borrar" class="text-danger font-weight-bold text-xs"   onclick="eliminarUsuario(${pr.id_user_permission_id})"><i class="fas fa-trash" style='font-size:24px'></i></a>`,
                 `<a data-bs-toggle="tooltip" title="Editar" class="text-info font-weight-bold text-xs ${isDisabled ? 'disabled-button' : ''}" 
                 onclick="${isDisabled ? 'event.preventDefault();' : `editUser(${pr.id_user_permission_id})`}">
@@ -257,6 +270,10 @@ function saveEquipo() {
     let could_edit_permission = document.getElementById('could_edit_permission').value;
     let could_export_permission = document.getElementById('could_export_permission').value;
     let could_create_permission = document.getElementById('could_create_permission').value;
+    let could_view_rol = document.getElementById('could_view_rol').value;
+    let could_edit_rol = document.getElementById('could_edit_rol').value;
+    let could_export_rol = document.getElementById('could_export_rol').value;
+    let could_create_rol = document.getElementById('could_create_rol').value;
 
     if (selectedUser) {
         saveEditProduct(
@@ -273,7 +290,11 @@ function saveEquipo() {
             could_view_permission,
             could_edit_permission,
             could_export_permission,
-            could_create_permission
+            could_create_permission,
+            could_view_rol,
+            could_edit_rol,
+            could_export_rol,
+            could_create_rol
         );
         return;
     }
@@ -293,7 +314,11 @@ function saveEquipo() {
         could_view_permission,
         could_edit_permission,
         could_export_permission,
-        could_create_permission
+        could_create_permission,
+        could_view_rol,
+        could_edit_rol,
+        could_export_rol,
+        could_create_rol
     );
 }
 
@@ -311,7 +336,11 @@ function saveEditProduct(
     could_view_permission,
     could_edit_permission,
     could_export_permission,
-    could_create_permission
+    could_create_permission,
+    could_view_rol,
+    could_edit_rol,
+    could_export_rol,
+    could_create_rol,
 ) {
 
 
@@ -333,6 +362,10 @@ function saveEditProduct(
         could_edit_permission,
         could_export_permission,
         could_create_permission,
+        could_view_rol,
+        could_edit_rol,
+        could_export_rol,
+        could_create_rol,
         id_equipo: selectedUser.id_user_permission_id
     }
 
@@ -379,7 +412,12 @@ function saveEditProduct(
                                 could_view_permission: +could_view_permission,
                                 could_edit_permission: +could_edit_permission,
                                 could_export_permission: +could_export_permission,
-                                could_create_permission: +could_create_permission
+                                could_create_permission: +could_create_permission,
+                                could_view_rol: +could_view_rol,
+                                could_edit_rol: +could_edit_rol,
+                                could_export_rol: +could_export_rol,
+                                could_create_rol: +could_create_rol,
+
                             }
 
                         }
@@ -415,6 +453,10 @@ function renderData(data) {
     let could_edit_permission = document.getElementById('could_edit_permission');
     let could_export_permission = document.getElementById('could_export_permission');
     let could_create_permission = document.getElementById('could_create_permission');
+    let could_view_rol = document.getElementById('could_view_rol');
+    let could_edit_rol = document.getElementById('could_edit_rol');
+    let could_export_rol = document.getElementById('could_export_rol');
+    let could_create_rol = document.getElementById('could_create_rol');
 
 
 
@@ -433,6 +475,10 @@ function renderData(data) {
     could_edit_permission.value = selectedUser.could_edit_permission;
     could_export_permission.value = selectedUser.could_export_permission;
     could_create_permission.value = selectedUser.could_create_permission;
+    could_view_rol.value = selectedUser.could_view_rol;
+    could_edit_rol.value = selectedUser.could_edit_rol;
+    could_export_rol.value = selectedUser.could_export_rol;
+    could_create_rol.value = selectedUser.could_create_rol;
 
 
 
