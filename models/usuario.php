@@ -187,6 +187,7 @@ class Usuario extends Database
 				$_SESSION['nombredelusuario'] = $credentials->user;
 				$_SESSION['id_usuario'] = $user['id_usuario'];
 				$_SESSION['rol'] = $user['rol_id_rol'];
+				$_SESSION['nombre'] = $user['nombre'];
 				if (intval($user['rol_id_rol']) == 2) {
 					
 					return 2;

@@ -15,6 +15,8 @@ if (!isset($_SESSION['id_usuario'])) {
 
 $rol = intval($_SESSION['rol']);
 
+$nombre = $_SESSION['nombre'];
+
 $usuarios = new Usuario();
 
 $roles = $usuarios->allroles();
@@ -240,7 +242,8 @@ $permissions = $usuarios->permissions();
 
 
             <div class="container text-center">
-                <h1 id="h1">¡Bienvenido a Nuestro Sitio!</h1>
+                <h1 id="h1">¡Bienvenido a Nuestro Sitio <?php echo $nombreUsuario; ?></h1>
+               
                 <!--   <p id="p">Estamos encantados de tenerte aquí. Explora nuestro contenido y disfruta de tu visita.</p>
                 -->
                 <img src="./img/pc2.webp" class="navbar-brand-img  mr-5" style="height: 300px;" alt="main_logo">
