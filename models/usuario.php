@@ -25,7 +25,7 @@ class Usuario extends Database
 
 	public function allroles()
 	{
-		$query = $this->pdo->query('SELECT * FROM rol');
+		$query = $this->pdo->query('SELECT * FROM rol where status_ = 1');
 		return $query->fetchAll();
 	}
 
@@ -170,7 +170,7 @@ class Usuario extends Database
 
 		try {
 
-			$query = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND user_password = :pass)");
+			$query = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND user_password = :pass");
 
 			$query->bindParam(':email', $credentials->user);
 			$query->bindParam(':pass', $credentials->password);
@@ -188,16 +188,17 @@ class Usuario extends Database
 				$_SESSION['id_usuario'] = $user['id_usuario'];
 				$_SESSION['rol'] = $user['rol_id_rol'];
 				if (intval($user['rol_id_rol']) == 2) {
-					/* header("location: ../stats.php"); */
+					
 					return 2;
 				} else {
-					/* header("location: ../sales.php"); */
+					
 					return 1;
 				}
 			} else {
 				return 0;
 			}
 		} catch (PDOException $e) {
+			
 			return 0;
 			echo 'Error: ' . $e->getMessage();
 		}

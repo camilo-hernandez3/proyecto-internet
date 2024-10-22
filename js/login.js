@@ -23,6 +23,8 @@ function autenthicated(){
         success: function (response) {
             /* window.location.href = './stats.php'; */
            rol = JSON.parse(response);
+           console.log(rol)
+           
            switch (rol) {
             case 0:
                 Swal.fire({

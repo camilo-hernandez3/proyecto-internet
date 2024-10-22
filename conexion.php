@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("monitoreokonekti.online","u311227962_root","Luna-2080","u311227962_proyecto");
+$conn = new mysqli("localhost","root","root","proyecto");
 	
 	if($conn->connect_errno)
 	{

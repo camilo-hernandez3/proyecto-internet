@@ -19,13 +19,11 @@ $rol = intval($_SESSION['rol']);
 $usuarios = new Usuario();
 $permissions = $usuarios->permissions();
 
-$equipo = new Equipo();
 
 
 
-$pisos = $equipo->pisos();
 
-?>
+    ?>
 <!DOCTYPE html>
 <html lang="es">
 <!-- librerías -->
@@ -49,19 +47,19 @@ $pisos = $equipo->pisos();
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
 
-    <!-- Fonts and icons -->
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <!-- Nucleo Icons -->
+
     <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
+
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Argon Dashboard CSS -->
+
     <link id="pagestyle" href="./assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
-    <!-- SweetAlert2 -->
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!-- DateRangePicker -->
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -76,7 +74,7 @@ $pisos = $equipo->pisos();
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;">></div>
-    <!-- sidebar -->
+
     <aside
         class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
         id="sidenav-main">
@@ -84,8 +82,7 @@ $pisos = $equipo->pisos();
             <i class="fas fa-times p-3 cursor-pointer text-black opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0 mr-4 text-center">
-                <!--    <img src="./img/logo2.png" class="navbar-brand-img h-100 mr-5" alt="main_logo"> -->
-                <img src="./img/logo.png" class="h-100 mr-5" alt="main_logo" style="width: 150px !important;">
+            <img src="./img/logo.png" class="h-100 mr-5" alt="main_logo" style="width: 150px !important;">
 
             </a>
         </div>
@@ -98,6 +95,7 @@ $pisos = $equipo->pisos();
                 <li class="nav-item mt-3">
                 <span style="font-size: 15px !important;" class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Gestión de usuarios</span>
                 </li>
+
                 <?php if ($permissions->could_view_users == 1) { ?>
                     <li class="nav-item">
                         <a class="nav-link active" href="users.php">
@@ -108,11 +106,10 @@ $pisos = $equipo->pisos();
                             <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Usuarios</span>
                         </a>
                     </li>
-
                 <?php } ?>
 
-
                 <?php if ($permissions->could_view_users_pc == 1) { ?>
+
 
                     <li class="nav-item">
                         <a class="nav-link active" href="equipos_piso.php">
@@ -124,6 +121,7 @@ $pisos = $equipo->pisos();
                         </a>
                     </li>
                 <?php } ?>
+
 
                 <?php if ($permissions->could_view_pc == 1) { ?>
 
@@ -139,33 +137,32 @@ $pisos = $equipo->pisos();
 
                 <?php } ?>
 
-
                 <?php if ($permissions->could_view_permission == 1) { ?>
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="permisos.php">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Permisos</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="permisos.php">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Permisos</span>
+                        </a>
+                    </li>
 
                 <?php } ?>
 
                 <?php if ($permissions->could_view_rol == 1) { ?>
 
 
-                <li class="nav-item">
-                    <a class="nav-link active" href="permisos.php">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Roles</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="permisos.php">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1 text-uppercase font-weight-bolder">Roles</span>
+                        </a>
+                    </li>
                 <?php } ?>
 
             </ul>
@@ -210,105 +207,58 @@ $pisos = $equipo->pisos();
         </nav>
 
         <div class="container-fluid py-4">
-          
-                <div class="col-xl-12 mt-2 mb-2">
-                    <div class="card">
-                        <div class="card-header pb-4">
 
-                            <div class="row pb-2 p-3">
-                                <div class="col-xl-4 d-flex align-items-center text-uppercase">
-                                    <h4 class="font-weight-bolder">Equipos</h4>
-                                </div>
-                                <div class="col-xl-8 text-end">
-                                    <div class="d-flex justify-content-end mb-2">
-                                        <div>
-                                            <button type="button"
-                                                onclick="printDispositivosPDF('data_table_equipos_export')"
-                                                <?php echo ($permissions->could_export_pc == 0) ? 'disabled' : ''; ?>
-                                                class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
-                                                    class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
+            <div class="col-xl-12 mt-2 mb-2">
+                <div class="card">
+                    <div class="card-header pb-4">
 
-
-                                            <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
-                                            <?php echo ($permissions->could_create_pc == 0) ? 'disabled' : ''; ?>
-                                              
-                                                style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
-                                                <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear equipo</button>
-                                        </div>
+                        <div class="row pb-2 p-3">
+                            <div class="col-xl-4 d-flex align-items-center text-uppercase">
+                                <h4 class="font-weight-bolder">Roles</h4>
+                            </div>
+                            <div class="col-xl-8 text-end">
+                                <div class="d-flex justify-content-end mb-2">
+                                    <div>
+                                        <button type="button"
+                                            onclick="printDispositivosPDF('data_table_equipos_export')"
+                                            <?php echo ($permissions->could_export_rol == 0) ? 'disabled' : ''; ?>
+                                            class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
+                                                class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
+                                        <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
+                                        <?php echo ($permissions->could_create_rol == 0) ? 'disabled' : ''; ?>
+                                            style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
+                                            <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear Rol</button>
                                     </div>
-                                    <div class="modal fade" id="modal-form-users" tabindex="999999" style="z-index: 9999999"
-                                        role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title text-uppercase font-weight-bold">Crear equipo
-                                                    </h4>
-                                                    <button type="button" class="btn bg-gradient-danger"
-                                                        data-bs-dismiss="modal">X</button>
+                                </div>
+                                <div class="modal fade" id="modal-form-users" tabindex="999999" style="z-index: 9999999"
+                                    role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title text-uppercase font-weight-bold">Crear rol
+                                                </h4>
+                                                <button type="button" class="btn bg-gradient-danger"
+                                                    data-bs-dismiss="modal">X</button>
 
-                                                </div>
-                                                <div class="modal-body p-0">
-                                                    <div class="card card-plain">
-                                                        <div class="card-body text-start">
-                                                            <form role="form text-left">
-                                                                <div class="form-group">
-                                                                    <div class="row">
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Descripción</label>
-                                                                            <input id="description" type="text"
-                                                                                class="form-control" />
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Dirección
-                                                                                ip</label>
-                                                                            <input id="ip_address" type="text"
-                                                                                class="form-control" />
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Dirección
-                                                                                Mac</label>
-                                                                            <input id="mac_address" type="text"
-                                                                                class="form-control" />
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Memoria
-                                                                                ram</label>
-                                                                            <input id="ram" type="text"
-                                                                                class="form-control" />
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Procesador</label>
-                                                                            <input id="procesador" type="text"
-                                                                                placeholder="Nombres"
-                                                                                class="form-control" />
-                                                                        </div>
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Almacenamiento</label>
-                                                                            <input id="almacenamiento" type="text"
-                                                                                class="form-control" />
-                                                                        </div>
-
-                                                                        <div class="col-xl-6">
-                                                                            <label for=""
-                                                                                class="col-form-label text-uppercase">Piso</label>
-                                                                            <select class="form-control"
-                                                                                name="choices-button" id="piso"
-                                                                                placeholder="Departure">
-                                                                                <?php foreach ($pisos as $r) { ?>
-                                                                                    <option value="<?php echo $r->id_piso ?>">
-                                                                                        <?php echo $r->nombre ?>
-                                                                                    </option>
-                                                                                <?php } ?>
-                                                                            </select>
-
-                                                                        </div>
+                                            </div>
+                                            <div class="modal-body p-0">
+                                                <div class="card card-plain">
+                                                    <div class="card-body text-start">
+                                                        <form role="form text-left">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                         
+                                                               
+                                                                <div class="col-xl-6">
+                                                                        <label for=""
+                                                                            class="col-form-label text-uppercase">Nombre</label>
+                                                                        <input id="rol" type="text"
+                                                                            placeholder="Nombres"
+                                                                            class="form-control" />
                                                                     </div>
+
+                                                                   
+
 
                                                                     <button type="button" id="confirmButton"
                                                                         onclick="saveEquipo()"
@@ -316,8 +266,7 @@ $pisos = $equipo->pisos();
                                                                         style="background: #5e72e4; color:white">guardar
                                                                     </button>
                                                                 </div>
-                                                            </form>
-                                                        </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -326,48 +275,29 @@ $pisos = $equipo->pisos();
                                 </div>
                             </div>
                         </div>
-                        <div id="data_table_equipos_export" class="table-responsive">
-                            <table class="table align-items-center mb-0" id="data_table_dispositivos">
-                                <thead>
-                                    <tr>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Descripción</th>
+                    </div>
+                    <div id="data_table_equipos_export" class="table-responsive">
+                        <table class="table align-items-center mb-0" id="data_table_dispositivos">
+                            <thead>
+                                <tr>
 
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Dirección Ip</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Dirección Mac</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Piso</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Memoria ram</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Procesador</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                            Almacenamiento</th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                        </th>
-                                        <th align="center"
-                                            class="text-center text-uppercase text-black text-sm font-weight-bolder">
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                    <th align="center"
+                                        class="text-center text-uppercase text-black text-sm font-weight-bolder">
+                                        Rol</th>
 
-                                </tbody>
-                            </table>
-                        </div>
+                                        <th></th>
+                                        <th></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-       
+            </div>
+
 
         </div>
         </div>
@@ -397,7 +327,7 @@ $pisos = $equipo->pisos();
 
 
     <script src="js/login.js"></script>
-    <script src="js/dispositivos.js"></script>
+    <script src="js/roles.js"></script>
 
 
     <script src="assets/js/core/popper.min.js"></script>
