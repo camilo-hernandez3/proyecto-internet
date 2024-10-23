@@ -22,6 +22,13 @@ if(isset($_POST["list_permisos"])){
 	echo json_encode($user -> index());
 
 }
+if(isset($_POST["id_eliminar"])){
+
+	$user = new Permisos();
+	$id_eliminar= $_POST["id_eliminar"];
+	echo json_encode($user -> destroy($id_eliminar));
+
+}
 
 if(isset($_POST["new_equipo"])){
 

@@ -16,7 +16,7 @@ class Usuario extends Database
 
 	public function destroy($id)
 	{
-		$query = $this->pdo->prepare('UPDATE usuarios set status_ = 0 where id_usuario =' . $id);
+		$query = $this->pdo->prepare('UPDATE usuarios set status_ = 0, email = CONCAT(email, "_BANNED") where id_usuario =' . $id);
 		$query->execute();
 
 		$query2 = $this->pdo->prepare('DELETE from usuarios_has_piso WHERE usuarios_id_usuario =' . $id);
