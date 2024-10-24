@@ -229,10 +229,10 @@ $pisos = $equipo->pisos();
                                                     class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
 
 
-                                            <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
+                                            <button class="btn mb-0 text-uppercase"  onclick="crear()"
                                             <?php echo ($permissions->could_create_pc == 0) ? 'disabled' : ''; ?>
                                               
-                                                style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
+                                                style="background: #5e72e4; color:white">
                                                 <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear equipo</button>
                                         </div>
                                     </div>
@@ -241,7 +241,7 @@ $pisos = $equipo->pisos();
                                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title text-uppercase font-weight-bold">Crear equipo
+                                                    <h4 class="modal-title text-uppercase font-weight-bold" id="title_modal">Crear equipo
                                                     </h4>
                                                     <button type="button" class="btn bg-gradient-danger"
                                                         data-bs-dismiss="modal">X</button>

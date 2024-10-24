@@ -155,7 +155,7 @@ $permissions = $usuarios->permissions();
 
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="permisos.php">
+                        <a class="nav-link active" href="roles.php">
                             <div
                                 class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="fa fa-laptop text-primary text-sm opacity-10"></i>
@@ -224,9 +224,9 @@ $permissions = $usuarios->permissions();
                                             <?php echo ($permissions->could_export_rol == 0) ? 'disabled' : ''; ?>
                                             class="btn mb-0 text-uppercase" style="background: #5e72e4; color:white"><i
                                                 class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
-                                        <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
+                                        <button class="btn mb-0 text-uppercase"
                                         <?php echo ($permissions->could_create_rol == 0) ? 'disabled' : ''; ?>
-                                            style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
+                                            style="background: #5e72e4; color:white" onclick="crearUsuario()">
                                             <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear Rol</button>
                                     </div>
                                 </div>
@@ -235,7 +235,7 @@ $permissions = $usuarios->permissions();
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title text-uppercase font-weight-bold">Crear rol
+                                                <h4 class="modal-title text-uppercase font-weight-bold" id="title_modal">Crear rol
                                                 </h4>
                                                 <button type="button" class="btn bg-gradient-danger"
                                                     data-bs-dismiss="modal">X</button>

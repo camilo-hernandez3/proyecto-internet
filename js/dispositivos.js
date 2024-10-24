@@ -28,7 +28,7 @@ function getPermisos() {
 
             permisos = JSON.parse(response);
             console.log(permisos);
-            
+
             getDispositivos();
 
 
@@ -172,6 +172,8 @@ function eliminarUsuario(dispositivos) {
 
 }
 
+
+
 function renderTable() {
     let tabla = document.getElementById("data_table_dispositivos");
     let filas = tabla.getElementsByTagName("tr");
@@ -261,7 +263,7 @@ function saveEditProduct(description,
     procesador,
     almacenamiento,
     piso
-    ) {
+) {
 
 
 
@@ -302,13 +304,13 @@ function saveEditProduct(description,
                         if (ar.id_equipo === selectedUser.id_equipo) {
                             return {
                                 ...ar,
-                                descripcion:description,
-                                ip_address:ip_address,
-                                mac_address:mac_address,
-                                ram:ram,
-                                procesador:procesador,
-                                almacenamiento :almacenamiento,
-                               piso_id_piso :piso
+                                descripcion: description,
+                                ip_address: ip_address,
+                                mac_address: mac_address,
+                                ram: ram,
+                                procesador: procesador,
+                                almacenamiento: almacenamiento,
+                                piso_id_piso: piso
                             }
 
                         }
@@ -325,10 +327,25 @@ function saveEditProduct(description,
 
 
 
+function crear() {
+
+
+
+
+
+    document.getElementById('title_modal').textContent = "CREAR EQUIPO";
+
+    $('#modal-form-users').modal('show');
+}
+
+
+
+
 function renderData(data) {
     selectedUser = JSON.parse(data);
 
     $('#modal-form-users').modal('show');
+    document.getElementById('title_modal').textContent = "EDITAR EQUIPO";
 
     let description = document.getElementById('description');
     let ip_address = document.getElementById('ip_address');

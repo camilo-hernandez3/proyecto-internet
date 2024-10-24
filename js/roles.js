@@ -203,6 +203,14 @@ function renderUsers(data) {
         = JSON.parse(data);
     renderTable();
 
+    
+}
+
+
+function crearUsuario(){
+    
+    $('#modal-form-users').modal('show');
+    document.getElementById('title_modal').textContent = 'CREAR ROL'
 }
 
 function saveEquipo() {
@@ -290,6 +298,8 @@ function renderData(data) {
     selectedUser = JSON.parse(data);
 
     $('#modal-form-users').modal('show');
+
+    document.getElementById('title_modal').textContent = 'EDITAR ROL'
 
     let rol_selected = document.getElementById('rol');
    
