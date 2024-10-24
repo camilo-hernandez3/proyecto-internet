@@ -481,9 +481,24 @@ function renderData(data) {
     could_create_rol.value = selectedUser.could_create_rol;
 
 
+    rol_selected.disabled = true;
+
+    document.getElementById('title_modal').textContent = "EDITAR PERMISOS";
 
 
 
+}
+
+
+
+function crearUsuario() {
+
+  
+
+    document.getElementById('rol_selected').disabled = false;
+    document.getElementById('title_modal').textContent = "CREAR PERMISOS";
+    
+    $('#modal-form-users').modal('show');
 }
 
 function printDispositivosPDF(divName) {

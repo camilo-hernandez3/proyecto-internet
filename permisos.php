@@ -231,7 +231,7 @@ $permisos = [
                                                 class="fas fa-file-pdf"></i> EXPORTAR A PDF</button>
                                         <button class="btn mb-0 text-uppercase" data-bs-toggle="modal"
                                             <?php echo ($permissions->could_create_permission == 0) ? 'disabled' : ''; ?>
-                                            style="background: #5e72e4; color:white" data-bs-target="#modal-form-users">
+                                            style="background: #5e72e4; color:white"  onclick="crearUsuario()">
                                             <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Crear Permiso</button>
                                     </div>
                                 </div>
@@ -240,7 +240,7 @@ $permisos = [
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title text-uppercase font-weight-bold">Crear permiso
+                                                <h4 class="modal-title text-uppercase font-weight-bold" id="title_modal">Crear permiso
                                                 </h4>
                                                 <button type="button" class="btn bg-gradient-danger"
                                                     data-bs-dismiss="modal">X</button>
