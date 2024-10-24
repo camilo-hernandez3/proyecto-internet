@@ -317,6 +317,8 @@ function saveEditProduct(nombres,
             renderTable();
             selectedUser = null;
 
+         
+
             $('#modal-form-users').modal('hide');
         }
     });
@@ -330,6 +332,13 @@ function crearUsuario() {
     document.getElementById('password').value = null;
     document.getElementById('rol_selected').value = null;
     document.getElementById('piso_selected').value = null
+
+
+    let password = document.getElementById('password');
+    password.disabled = false
+
+    document.getElementById('title_modal').textContent = 'CREAR USUARIO'
+    
     $('#modal-form-users').modal('show');
 }
 
@@ -341,6 +350,8 @@ function renderData(data) {
     let nombre = document.getElementById('user_name');
     let email = document.getElementById('email');
     let password = document.getElementById('password');
+    password.disabled = true;
+      document.getElementById('title_modal').textContent = 'EDITAR USUARIO';
     let rol = document.getElementById('rol_selected');
 
 

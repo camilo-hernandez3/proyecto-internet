@@ -242,7 +242,7 @@ $permissions = $usuarios->permissions();
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title text-uppercase font-weight-bold">Crear usuario
+                                                <h4 class="modal-title text-uppercase font-weight-bold"  id="title_modal">Crear usuario
                                                 </h4>
                                                 <button type="button" class="btn bg-gradient-danger"
                                                     data-bs-dismiss="modal">X</button>
