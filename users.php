@@ -304,14 +304,14 @@ $permissions = $usuarios->permissions();
                                                                         </select>
 
                                                                     </div>
-                                                                    <div class="col-xl-6">
+                                                                   <!--  <div class="col-xl-6">
                                                                         <label for=""
                                                                             class="col-form-label text-uppercase">Nuevo
                                                                             Rol</label>
                                                                         <input class="form-control" type="text"
                                                                             id="new_rol" placeholder="Rol">
 
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
 
                                                                 <button type="button" id="confirmButton"
